@@ -1,0 +1,33 @@
+doctype html
+
+block config
+    - var pageTitle = "Page Title"
+
+html(lang='en')
+
+    head
+
+        include includes/head/meta
+        include includes/head/title
+        include includes/head/css
+        include includes/head/icons
+
+    body(class=bodyClass)
+
+        include ./includes/navigation/topnav
+
+        #layoutSidenav
+            
+            #layoutSidenav_nav
+
+                include ./includes/navigation/sidenav
+
+            #layoutSidenav_content
+                
+                main
+
+                    block content
+                    
+                include ./includes/footer
+
+        include ./includes/scripts
