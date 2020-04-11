@@ -1,10 +1,15 @@
 {
   "name": "fyp_web_4.0",
   "version": "1.0.0",
-  "description": "",
+  "engines": {
+    "node": "12.13.1"
+  },
+  "description": "Final Year Project",
   "main": "index.js",
+  "start": "node index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+    
   },
   "author": "",
   "license": "ISC",
