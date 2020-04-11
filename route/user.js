@@ -6,7 +6,7 @@ var login_permission  =   require('../middleware/login_permission.js');
 //Login Logic start
 
 
-router.post('/login/:id', function (req, res, next) {
+router.post('/login', function (req, res, next) {
   if (req.body.username && req.body.password)
   {
     User.authenticate(req.body.username, req.body.password, function (error, user)
