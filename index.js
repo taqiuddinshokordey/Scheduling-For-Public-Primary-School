@@ -3,13 +3,12 @@ var express=require('express');
 var bodyParser=require('body-parser');
 var mongoose=require('mongoose');
 var app=express();
-var http = require('http');
 var session=require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
 //Route to model and controller
-var User = require('./models/user');
-var user_route = require('./route/user');
+var user_route = require('./route/login');
+var register_user_route= require('./route/register_user');
 
 // Form Data
 app.use(bodyParser.json());
@@ -42,8 +41,6 @@ app.use('/', user_route);
 app.listen('3000',function(){
   console.log('Server is running at PORT '+3000);
 });
-
-
 
 // Show the Index Page
 app.get('/',function(req,res){
