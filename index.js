@@ -45,7 +45,7 @@ app.listen('26528',function(){
 
 // Show the Index Page
 app.get('/',function(req,res){
-    res.render('index',{title:"Sistem Penggantian Guru",'description':'This is Home page description.'});
+  res.redirect('/index');
 });
 
 // Set the view engine
