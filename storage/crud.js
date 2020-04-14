@@ -15,6 +15,7 @@ app.get('/crud',function(req,res){
 });
 // Read Data End
 
+
 app.get('/login',function(req,res){
     res.render('login');
 });
@@ -78,48 +79,5 @@ app.get('/crud/delete/:id',function(req,res){
 // Delete Task ##End
 
 
-app.post('/register', function(req, res) {
-    Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
-        if (err) {
-            return res.render('register', { account : account });
-        }
 
-        passport.authenticate('local')(req, res, function () {
-          res.redirect('/');
-        });
-    });
-  });
 
-  router.get('/register', function(req, res) {
-    res.render('register', { });
-});
- 
-
-router.post('/register', function (req, res, next) {
-    if (
-      req.body.username &&
-      req.body.password,
-      req.body.designation ) {
-  
-      var userData = {
-        username: req.body.username,
-        password: req.body.password,
-        designation: req.body.designation
-      }
-  
-      //use schema.create to insert data into the db
-      User.create(userData, function (err, user) {
-        if (err) {
-          return next(err)
-        } else {
-          return res.redirect('/login');
-        }
-      });
-  
-    } else {
-      var err = new Error('All fields have to be filled out');
-      err.status = 400;
-      return next(err);
-    }
-  
-  });

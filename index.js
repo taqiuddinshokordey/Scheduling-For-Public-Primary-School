@@ -36,6 +36,7 @@ app.use(session({
 
 //user model and controller
 app.use('/', user_route);
+app.use('/', register_user_route);
 
 // Run the Server
 app.listen('3000',function(){
@@ -53,4 +54,9 @@ app.set('view engine', 'jade');
 
 // Set Public Folder as static Path
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(function(error, req, res, next) {
+  res.status(401);
+res.render('401', {title:'No Access', error: error});
+});
 
