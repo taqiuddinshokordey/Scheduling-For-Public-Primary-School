@@ -39,8 +39,8 @@ app.use('/', user_route);
 app.use('/', register_user_route);
 
 // Run the Server
-app.listen('3000',function(){
-  console.log('Server is running at PORT '+3000);
+app.listen('26528',function(){
+  console.log('Server is running at PORT '+26528);
 });
 
 // Show the Index Page
