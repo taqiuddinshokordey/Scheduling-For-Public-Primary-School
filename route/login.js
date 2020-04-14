@@ -39,7 +39,7 @@ router.get('/login',function(req,res){
 
 //Login Logic ends
 
-router.get('/admin', mid, function(req, res) {
+router.get('/admin', mid, function(req, res) { 
   res.render('admin_dashboard', { });
 
 
