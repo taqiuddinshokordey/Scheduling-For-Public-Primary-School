@@ -39,13 +39,12 @@ app.use('/', user_route);
 app.use('/', register_user_route);
 
 // Run the Server
-app.listen('26528',function(){
-  console.log('Server is running at PORT '+26528);
-});
+var port = process.env.PORT || 3000
+app.listen(port)
 
 // Show the Index Page
 app.get('/',function(req,res){
-  res.redirect('/index');
+    res.render('index',{title:"Sistem Penggantian Guru",'description':'This is Home page description.'});
 });
 
 // Set the view engine
