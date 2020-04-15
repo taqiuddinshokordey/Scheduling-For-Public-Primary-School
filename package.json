@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
- },
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -22,7 +22,8 @@
     "jade": "^1.11.0",
     "logger": "0.0.1",
     "mongodb": "^3.5.5",
-    "mongoose": "^5.9.7"
+    "mongoose": "^5.9.7",
+    "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

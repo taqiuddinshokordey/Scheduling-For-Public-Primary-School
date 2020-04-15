@@ -21,7 +21,7 @@ router.post('/login',  function (req, res, next) {
       else
       {
         req.session.userId = user._id;
-        return res.redirect('/admin');
+        return res.redirect('/admin/:_id');
       }
     });
   }else
@@ -39,7 +39,18 @@ router.get('/login',function(req,res){
 
 //Login Logic ends
 
-router.get('/admin', mid, function(req, res) {
+var test = function(req,res,next) {
+  // do whatever logic is needed 
+  User.findById(req.params.id, function (err, user) {
+    if(err) { return handleError(res, err); }
+    if(!user) { return res.send(404); }
+    return res.json(user);
+  });
+  res.end('Displaying information for uid ' + req.params.id);
+} 
+
+
+router.get('/admin/:id', mid,test, function(req, res) {
   res.render('admin_dashboard', { })
 });
 
