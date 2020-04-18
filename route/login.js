@@ -4,6 +4,8 @@ var User = require('../models/user');
 var mid  = require('../middleware/requiresLogin.js');
 
 
+
+
 //Login Logic start
 
 
@@ -21,7 +23,16 @@ router.post('/login',  function (req, res, next) {
       else
       {
         req.session.userId = user._id;
-        return res.redirect('/admin');
+        if(user.roles=='admin')
+        {
+          console.log('admin login');
+          return res.redirect('/admin');
+        }else
+        {
+          console.log('teacher login');
+          return res.redirect('/register');
+        }
+        
       }
     });
   }else
@@ -48,9 +59,12 @@ router.get('/admin', mid, function(req, res) {
 
 
 
+
+
 // GET for logout logout
 router.get('/logout', function (req, res, next) {
   if (req.session) {
+    console.log('user logout');
     // delete session object
     req.session.destroy(function (err) {
       if (err) {

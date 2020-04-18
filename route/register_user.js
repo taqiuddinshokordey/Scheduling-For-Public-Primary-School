@@ -11,12 +11,12 @@ router.post('/register', function (req, res, next) {
     if (
       req.body.username &&
       req.body.password,
-      req.body.designation ) {
+      req.body.roles ) {
   
       var userData = {
         username: req.body.username,
         password: req.body.password,
-        designation: req.body.designation
+        roles: req.body.roles
       }
   
       //use schema.create to insert data into the db

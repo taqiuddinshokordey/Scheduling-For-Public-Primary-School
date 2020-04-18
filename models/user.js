@@ -14,7 +14,7 @@ var UserSchema = new mongoose.Schema({
     required: true,
   },
 
-  designation: {
+  roles: {
     type:String,
     required:true,
   }
