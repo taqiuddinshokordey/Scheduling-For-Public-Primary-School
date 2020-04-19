@@ -17,9 +17,18 @@ var UserSchema = new mongoose.Schema({
   roles: {
     type:String,
     required:true,
+  },
+
+  staff_id:
+  {
+    type:Number,
+    required:true,
+
   }
   
 });
+
+
 
 //authenticate input against database
 UserSchema.statics.authenticate = function (username, password, callback) {
