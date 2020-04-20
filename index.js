@@ -11,6 +11,7 @@ var favicon = require('serve-favicon')
 var user_route = require('./route/login');
 var register_user_route= require('./route/register_user');
 var error_handling_route=require('./route/error');
+var show_user_route= require('./route/show_user');
 
 // Form Data
 app.use(bodyParser.json());
@@ -44,6 +45,7 @@ app.use(session({
 app.use('/', user_route);
 app.use('/', register_user_route);
 app.use('/', error_handling_route);
+app.use('/', show_user_route);
 
 // Run the Server
 var port = process.env.PORT || 3000

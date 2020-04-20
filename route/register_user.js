@@ -1,25 +1,23 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var mid  = require('../middleware/requiresLogin.js');
 
-router.get('/admin_user', function(req, res) {
-    res.render('admin_content/admin_user', { });
-});
-
-router.get('/register', function(req, res) {
+router.get('/register',mid, function(req, res) {
   res.render('admin_content/register_user', { });
 });
  
-
 router.post('/register', function (req, res, next) {
     if (
       req.body.username &&
       req.body.password,
+      req.body.name,
       req.body.roles ) {
   
       var userData = {
         username: req.body.username,
         password: req.body.password,
+        name: req.body.name,
         roles: req.body.roles
       }
   
@@ -28,7 +26,8 @@ router.post('/register', function (req, res, next) {
         if (err) {
           return next(err)
         } else {
-          return res.redirect('/login');
+          console.log('User Registered');
+          return res.redirect('/admin_user');
         }
       });
   

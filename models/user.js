@@ -9,6 +9,7 @@ var UserSchema = new mongoose.Schema({
     required: true, 
     trim: true
   },
+  
   password: {
     type: String, 
     required: true,
@@ -19,12 +20,11 @@ var UserSchema = new mongoose.Schema({
     required:true,
   },
 
-  staff_id:
-  {
-    type:Number,
+  name: {
+    type:String,
     required:true,
+  },
 
-  }
   
 });
 
