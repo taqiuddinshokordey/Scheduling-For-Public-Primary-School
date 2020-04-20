@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 //connect to MongoDB
 mongoose.connect('mongodb+srv://taqiuddinshokordey:netvista277707@finalyearproject-kimkb.gcp.mongodb.net/Scheduling_system?retryWrites=true&w=majority'
+//mongoose.connect('mongodb://localhost:27017/admin'
 ,{ useNewUrlParser: true, 
   useUnifiedTopology: true,
   useCreateIndex: true, 
@@ -58,7 +59,7 @@ app.get('/',function(req,res){
 
 // Set the view engine
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 
 // Set Public Folder as static Path
 app.use(express.static(path.join(__dirname, 'public')));

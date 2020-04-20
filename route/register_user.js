@@ -2,8 +2,12 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 
+router.get('/admin_user', function(req, res) {
+    res.render('admin_content/admin_user', { });
+});
+
 router.get('/register', function(req, res) {
-    res.render('register', { });
+  res.render('admin_content/register_user', { });
 });
  
 

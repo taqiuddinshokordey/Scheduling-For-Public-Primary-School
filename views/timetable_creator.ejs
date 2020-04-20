@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('layout/head.ejs') %>.
+    <body class="sb-nav-fixed">
+        <%- include('layout/topbar.ejs') %>.
+        <div id="layoutSidenav">
+            <%- include('creator_content/sidenav_admin.ejs') %>.
+            <div id="layoutSidenav_content">
+                <%- include('creator_content/dashboard.ejs') %>.
+                <%- include('layout/footer.ejs') %>.
+            </div>
+        </div>
+                <%- include('layout/js.ejs') %>.
+    </body>
+</html>

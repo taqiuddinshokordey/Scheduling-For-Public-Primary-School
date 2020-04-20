@@ -20,17 +20,16 @@ router.post('/login',  function (req, res, next) {
       {
         req.session.userId = user._id;
         if(user.roles=='admin')
-        {
-          console.log('admin login');
-          return res.redirect('/admin');
+        {console.log('admin login');
+        return res.redirect('/admin');
         }else if(user.roles=='teacher')
         {
           console.log('teacher login');
           return res.redirect('/teacher');
         }else
         {
-          console.log(' login');
-          return res.redirect('/timetable');
+          console.log('Time Table Creator login');
+          return res.redirect('/creator');
         }
         
       }
@@ -52,11 +51,17 @@ router.get('/login',function(req,res){
 
 //Get page after login
 router.get('/admin', mid, function(req, res) {
+  
   res.render('admin_dashboard', { })
 });
 
 router.get('/teacher', mid, function(req, res) {
-  res.render('teacher_dashboard', { })
+  
+  res.render('teacher_dashboard', {ideas })
+});
+
+router.get('/creator', mid, function(req, res) {
+  res.render('timetable_creator', { })
 });
 
 // GET for logout logout
