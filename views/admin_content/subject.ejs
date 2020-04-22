@@ -9,40 +9,38 @@
                 <main>
                     <div class="container-fluid">
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">User Management</li>
+                            <li class="breadcrumb-item active">Subject Management</li>
                         </ol>
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Register New User</div>
+                                    <div class="card-body">Add New Subject</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="/register">Click Here</a>
+                                        <a class="small text-white stretched-link" href="/subject_add">Click Here</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i>List of Registered User</div>
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>List of Subject</div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Roles</th>
-                                                <th>Email</th>
+                                                <th>Subject</th>
+                                                <th>Darjah</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <% users.forEach(function (user) { %>
+                                            <% subject.forEach(function (subject) { %>
                                             <tr>
-                                                <td><%= user.name %></td>
-                                                <td><%= user.roles %></td>
-                                                <td><%= user.username %></td>
-                                                <td><a class="button" href="/admin_user/edit/:id <%= user._id %>"</a>Edit&nbsp;<a class="button" href="/admin_user/delete/:id <%= user._id %>"</a>Delete</a></td>
+                                                <td><%= subject.subject_name %></td>
+                                                <td><%= subject.subject_darjah %></td>
+                                                <td><a class="button" href="/admin_user/edit/:id <%= subject_id %>"</a>Edit&nbsp;<a class="button" href="/admin_user/delete/:id <%= subject._id %>"</a>Delete</a></td>
                                             </tr>
                                             <% }) %>
                                         </tbody>

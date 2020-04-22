@@ -3,9 +3,13 @@ var router = express.Router();
 var User = require('../models/user');
 var mid  = require('../middleware/requiresLogin.js');
 
+
+//get landing page
 router.get('/register',mid, function(req, res) {
   res.render('admin_content/register_user', { });
 });
+
+//add new user 
  
 router.post('/register', function (req, res, next) {
     if (
@@ -40,5 +44,32 @@ router.post('/register', function (req, res, next) {
   });
 
 //Register Logic End
+
+//show user list
+
+router.get('/admin_user',mid, function(req,res){
+  User.find({},function(err,users){
+    if (err) throw err;
+    res.render('admin_content/admin_user',{'users':users});
+  });
+});
+
+//user edit
+router.get('/admin_user/edit/:id',function(req,res){
+  User.findOne({_id:req.params.id},function(err,users){
+      res.render('admin_content/edit_user',{'users':users});
+  });
+});
+
+//user delete
+router.get('/admin_user/delete/:id',function(req,res){
+  // Delete Data
+  User.remove({_id:req.params.id},function(err){
+      if(!err){
+        console.log('User Deleted');
+          res.redirect('/admin_user');
+      }
+  });
+});
 
 module.exports = router;

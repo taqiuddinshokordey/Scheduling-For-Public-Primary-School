@@ -24,6 +24,7 @@
     "logger": "0.0.1",
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.7",
+    "mongoose-auto-increment": "^5.0.1",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {

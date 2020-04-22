@@ -9,21 +9,21 @@
                 <main>
                     <div class="container-fluid">
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">User Management</li>
+                            <li class="breadcrumb-item active">Classroom Management</li>
                         </ol>
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Register New User</div>
+                                    <div class="card-body">Add New Classroom</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="/register">Click Here</a>
+                                        <a class="small text-white stretched-link" href="/classroom_add">Click Here</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i>List of Registered User</div>
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>List of Classroom</div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     
@@ -31,18 +31,18 @@
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
-                                                <th>Roles</th>
-                                                <th>Email</th>
+                                                <th>Blok</th>
+                                                <th>Floor</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <% users.forEach(function (user) { %>
+                                            <% classroom.forEach(function (classroom) { %>
                                             <tr>
-                                                <td><%= user.name %></td>
-                                                <td><%= user.roles %></td>
-                                                <td><%= user.username %></td>
-                                                <td><a class="button" href="/admin_user/edit/:id <%= user._id %>"</a>Edit&nbsp;<a class="button" href="/admin_user/delete/:id <%= user._id %>"</a>Delete</a></td>
+                                                <td><%= classroom.classroom_name %></td>
+                                                <td><%= classroom.classroom_blok %></td>
+                                                <td><%= classroom.classroom_floor %></td>
+                                                <td><a class="button" href="/admin_user/edit/:id <%= classroom._id %>"</a>Edit&nbsp;<a class="button" href="/admin_user/delete/:id <%= classroom._id %>"</a>Delete</a></td>
                                             </tr>
                                             <% }) %>
                                         </tbody>
