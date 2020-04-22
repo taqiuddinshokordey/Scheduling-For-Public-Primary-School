@@ -12,6 +12,10 @@ router.get('/classroom',mid, function(req,res){
     });
 });
 
+router.get('/classroom_add',mid, function(req, res) {
+  res.render('admin_content/classroom_add', { });
+});
+
 //Add New Classroom
 
 router.post('/classroom_add', function (req, res, next) {

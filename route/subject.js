@@ -12,19 +12,24 @@ router.get('/subject',mid, function(req,res){
     });
 });
 
+router.get('/subject_add',mid, function(req, res) {
+  res.render('admin_content/subject_add', { });
+});
+
+
 //Add New Subject
 
 router.post('/subject_add', function (req, res, next) {
     if (
       req.body.subject_name &&
-      req.body.suubject_darjah
+      req.body.subject_darjah
       
         
       ) {
   
       var userData = {
         subject_name: req.body.subject_name,
-        subject_darjah: req.body.subject_name
+        subject_darjah: req.body.subject_darjah
         
       
       }
