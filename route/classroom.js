@@ -3,6 +3,7 @@ var router = express.Router();
 var Classroom = require('../models/classroom');
 var mid  = require('../middleware/requiresLogin.js');
 
+
 //view classroom list
 
 router.get('/classroom',mid, function(req,res){
@@ -50,6 +51,37 @@ router.post('/classroom_add', function (req, res, next) {
     }
   
   });
+
+//classroom edit
+
+router.get('/classroom/edit/:id',mid, function(req,res){
+  Classroom.findOne({classroom_id:req.params.id},function(err,users){
+      res.render('admin_content/edit_classroom',{'users':users});
+  });
+});
+
+router.post('/admin_user/edit/:id', function(req,res){
+  var updateData={
+
+      title:req.body.title,
+      description:req.body.description
+  }
+  Classroom.update({classroom_id:req.params.id},updateData,function(err,numrows){
+    if(!err){
+        res.redirect('/classroom'+req.params.id);
+    }
+});
+})
+
+//classroom delete
+
+router.get('/classroom/delete/:id',function(req,res){
+  Classroom.deleteOne({classroom_id:req.params.id},function(err){
+    if(!err){
+        res.redirect('/classroom');
+    }
+});
+});
 
 
 module.exports = router;

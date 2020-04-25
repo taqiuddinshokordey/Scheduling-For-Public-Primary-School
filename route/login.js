@@ -5,6 +5,8 @@ var mid  = require('../middleware/requiresLogin.js');
 
 //Login Logic start
 
+
+
 router.post('/login',  function (req, res, next) {
   if (req.body.username && req.body.password)
   {
@@ -20,8 +22,8 @@ router.post('/login',  function (req, res, next) {
       {
         req.session.userId = user._id;
         if(user.roles=='admin')
-        {console.log('admin login');
-        return res.redirect('/admin');
+        {
+          return res.redirect(`/admin/${req.body.username}`);
         }else if(user.roles=='teacher')
         {
           console.log('teacher login');
@@ -47,17 +49,20 @@ router.get('/login',function(req,res){
 });
 
 
+
 //Login Logic ends
 
 //Get page after login
-router.get('/admin', mid, function(req, res) {
+router.get('/admin/:id', function(req, res) {
   
-  res.render('admin_dashboard', { })
-});
+    res.render('admin_dashboard',{});
+
+}); 
+
 
 router.get('/teacher', mid, function(req, res) {
   
-  res.render('teacher_dashboard', {ideas })
+  res.render('teacher_dashboard', { })
 });
 
 router.get('/creator', mid, function(req, res) {

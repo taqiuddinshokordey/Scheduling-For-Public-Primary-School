@@ -52,5 +52,36 @@ router.post('/subject_add', function (req, res, next) {
   
   });
 
+//subject edit
+
+router.get('/subject/edit/:id',mid, function(req,res){
+  Subject.findOne({subject_id:req.params.id},function(err,users){
+      res.render('admin_content/edit_subject',{'users':users});
+  });
+});
+
+router.post('/subject/edit/:id', function(req,res){
+  var updateData={
+
+      title:req.body.title,
+      description:req.body.description
+  }
+  Subject.update({classroom_id:req.params.id},updateData,function(err,numrows){
+    if(!err){
+        res.redirect('/subject'+req.params.id);
+    }
+});
+})
+
+//classroom delete
+
+router.get('/subject/delete/:id',function(req,res){
+  Subject.deleteOne({classroom_id:req.params.id},function(err){
+    if(!err){
+        res.redirect('/subject');
+    }
+});
+});
+
 
 module.exports = router;

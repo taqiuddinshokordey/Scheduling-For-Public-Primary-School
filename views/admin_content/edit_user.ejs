@@ -11,11 +11,10 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Edit User</li>
                         </ol>
-                        <% users.(function (user) { %>
-                             <form action="/register" method="post">
-                                <div class="form-group"><label class="small mb-1">Full name</label><input class="form-control py-4" type="name" name="name" placeholder=<%= user.name %> /></div>
-                                <div class="form-group"><label class="small mb-1" >Email</label><input class="form-control py-4"  type="username"  name="username" placeholder="Enter email address" /></div>
-                                <div class="form-group"><label class="small mb-1" >Password</label><input class="form-control py-4"  type="password"  name="password" placeholder="Password" /></div>
+                             <form action="/admin_user/edit" method="post">
+                                <div class="form-group"><label class="small mb-1">Full name</label><input class="form-control py-4" type="name" name="name" placeholder=<%= users.name %> /></div>
+                                <div class="form-group"><label class="small mb-1" >Email</label><input class="form-control py-4"  type="username"  name="username" placeholder=<%= users.username %> /></div>
+                                <div class="form-group"><label class="small mb-1" >Password</label><input class="form-control py-4"  type="password"  name="password" placeholder=<%= users.password %> /></div>
                                 <div class="form-group"><label class="small mb-1" >Select Roles</label>
                                     <select name="roles" id="roles">
                                         <option value="admin">Admin</option>
@@ -25,7 +24,6 @@
                                 </div>
                                 <div class="form-group mt-4 mb-0"><input type="submit" value="Submit" a class="btn btn-primary btn-block" href="/admin_user"></div>           
                             </form>
-                            <% }) %>
                     </div>
                 </main>
                 <%- include('../layout/footer.ejs') %>.

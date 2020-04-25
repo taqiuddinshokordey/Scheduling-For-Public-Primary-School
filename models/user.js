@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
+var shortid = require('shortid');
 
 var UserSchema = new mongoose.Schema({
   
@@ -8,6 +9,14 @@ var UserSchema = new mongoose.Schema({
     unique: true, 
     required: true, 
     trim: true
+  },
+
+  staff_id:{
+
+    required: true, 
+    'type': String,
+    'default': shortid.generate
+    
   },
   
   password: {

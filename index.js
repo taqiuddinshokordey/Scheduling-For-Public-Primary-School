@@ -10,7 +10,6 @@ var favicon = require('serve-favicon')
 //Route to model and controller
 var user_route = require('./route/login');
 var register_user_route= require('./route/register_user');
-var error_handling_route=require('./route/error');
 var classroom_route=require('./route/classroom');
 var subject_route= require('./route/subject')
 
@@ -35,18 +34,19 @@ mongoose.connection.on('open',function() {
 
 ///use sessions for tracking logins
 app.use(session({
-  secret: 'work hard',
+  secret: 'sadbsakdsadsahdka',
   resave: true,
   saveUninitialized: false,
   store: new MongoStore({
     mongooseConnection: db
-  })
+  }),
+  
+  
 }));
 
 //user model and controller
 app.use('/', user_route);
 app.use('/', register_user_route);
-app.use('/', error_handling_route);
 app.use('/', classroom_route);
 app.use('/', subject_route);
 
@@ -69,5 +69,9 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
-
+//error handling
+app.use(function(error, req, res, next) {
+  res.status(401);
+res.render('error/401', {title:'No Access', error: error});
+});
 
