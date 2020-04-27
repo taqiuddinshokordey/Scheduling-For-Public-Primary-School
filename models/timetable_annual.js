@@ -8,4 +8,21 @@ var TimetableSchema = new mongoose.Schema ({
         'type': String,
         'default': shortid.generate
     },
+
+    classroom_id :{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'classroom'
+    },
+
+    subject_id :{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref:'classroom'
+    },
+
+    teacher_id :{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref:'user'
+    }
+
+
 })

@@ -23,7 +23,7 @@ router.post('/login',  function (req, res, next) {
         req.session.userId = user._id;
         if(user.roles=='admin')
         {
-          return res.redirect(`/admin/${req.body.username}`);
+          return res.redirect(`/admin`);
         }else if(user.roles=='teacher')
         {
           console.log('teacher login');
@@ -53,11 +53,27 @@ router.get('/login',function(req,res){
 //Login Logic ends
 
 //Get page after login
-router.get('/admin/:id', function(req, res) {
-  
-    res.render('admin_dashboard',{});
-
+router.get('/admin', function(req, res) {
+  if (! req.session.userId ) {
+    var err = new Error("You are not authorized to view this page.");
+    err.status = 403;
+    return next(err);
+  }
+  User.findById(req.session.userId)
+      .exec(function (error, user) {
+        if (error) {
+          return next(error);
+        } else {
+          return res.render('admin_dashboard',{});
+          ;
+        }
+      });
+    
 }); 
+
+
+
+
 
 
 router.get('/teacher', mid, function(req, res) {

@@ -11,10 +11,9 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Edit User</li>
                         </ol>
-                             <form action="/admin_user/edit" method="post">
+                             <form action="/admin_user/edit/:id" method="post">
                                 <div class="form-group"><label class="small mb-1">Full name</label><input class="form-control py-4" type="name" name="name" placeholder=<%= users.name %> /></div>
                                 <div class="form-group"><label class="small mb-1" >Email</label><input class="form-control py-4"  type="username"  name="username" placeholder=<%= users.username %> /></div>
-                                <div class="form-group"><label class="small mb-1" >Password</label><input class="form-control py-4"  type="password"  name="password" placeholder=<%= users.password %> /></div>
                                 <div class="form-group"><label class="small mb-1" >Select Roles</label>
                                     <select name="roles" id="roles">
                                         <option value="admin">Admin</option>

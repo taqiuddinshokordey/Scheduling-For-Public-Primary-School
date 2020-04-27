@@ -4,13 +4,7 @@ var shortid = require('shortid');
 
 var ClassroomSchema = new mongoose.Schema ({
 
-    classroom_id: {
-        
-        required: true, 
-        'type': String,
-        'default': shortid.generate
-    },
-    
+   
     classroom_name: {
         type:String,
         required:true,

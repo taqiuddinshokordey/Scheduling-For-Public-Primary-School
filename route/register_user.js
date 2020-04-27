@@ -34,10 +34,10 @@ router.post('/register', function (req, res, next) {
         if(user.roles=='teacher')
         {
           console.log('teacher Registered');
-          return res.redirect('/admin_user/:id');
+          return res.redirect('/admin_user');
         }
         console.log('User Registered');
-        return res.redirect('/admin_user/:id');
+        return res.redirect('/admin_user');
         }
       });
   
@@ -62,23 +62,27 @@ router.get('/admin_user',mid, function(req,res){
 
 //user edit
 router.get('/admin_user/edit/:id',function(req,res){
-  User.findOne({staff_id:req.params.id},function(err,users){
+  User.findOne({_id:req.params.id},function(err,users){
       res.render('admin_content/edit_user',{'users':users});
   });
 });
 
-router.post('/admin_user/edit/id', function(req,res){
+router.post('/admin_user/edit/:id', function(req,res){
   var updateData={
 
     username: req.body.username,
-    password: req.body.password,
     name: req.body.name,
     roles: req.body.roles
   }
-  User.update({staff_id:req.params.id},updateData,function(err,numrows){
+
+  User.updateOne({_id:req.params.id},updateData,function(err,numrows){
     if(!err)
     {
       console.log('User Update');
+      res.redirect('/admin_user');
+    }else
+    {
+      console.log('nt update Update');
       res.redirect('/admin_user');
     }
 });
@@ -88,7 +92,7 @@ router.post('/admin_user/edit/id', function(req,res){
 
 //user delete
 router.get('/admin_user/delete/:id',function(req,res){
-  User.deleteOne({staff_id:req.params.id},function(err){
+  User.deleteOne({_id:req.params.id},function(err){
     if(!err){
         res.redirect('/admin_user');
     }
