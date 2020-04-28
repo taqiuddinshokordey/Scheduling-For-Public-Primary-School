@@ -55,20 +55,21 @@ router.post('/classroom_add', function (req, res, next) {
 //classroom edit
 
 router.get('/classroom/edit/:id',mid, function(req,res){
-  Classroom.findOne({classroom_id:req.params.id},function(err,users){
-      res.render('admin_content/edit_classroom',{'users':users});
+  Classroom.findOne({_id:req.params.id},function(err,classroom){
+      res.render('admin_content/edit_classroom',{'classroom':classroom});
   });
 });
 
-router.post('/admin_user/edit/:id', function(req,res){
+router.post('/classroom/edit/:id', function(req,res){
   var updateData={
 
-      title:req.body.title,
-      description:req.body.description
+    classroom_name: req.body.classroom_name,
+    classroom_blok: req.body.classroom_blok,
+    classroom_floor: req.body.classroom_floor
   }
-  Classroom.update({classroom_id:req.params.id},updateData,function(err,numrows){
+  Classroom.updateOne({_id:req.params.id},updateData,function(err,numrows){
     if(!err){
-        res.redirect('/classroom'+req.params.id);
+        res.redirect('/classroom');
     }
 });
 })
@@ -76,7 +77,7 @@ router.post('/admin_user/edit/:id', function(req,res){
 //classroom delete
 
 router.get('/classroom/delete/:id',function(req,res){
-  Classroom.deleteOne({classroom_id:req.params.id},function(err){
+  Classroom.deleteOne({_id:req.params.id},function(err){
     if(!err){
         res.redirect('/classroom');
     }

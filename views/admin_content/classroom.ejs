@@ -42,7 +42,7 @@
                                                 <td><%= classroom.classroom_name %></td>
                                                 <td><%= classroom.classroom_blok %></td>
                                                 <td><%= classroom.classroom_floor %></td>
-                                                <td><a class="button" href="/admin_user/edit/:id <%= classroom._id %>"</a>Edit&nbsp;<a class="button" href="/admin_user/delete/:id <%= classroom._id %>"</a>Delete</a></td>
+                                                <td><a class="button" href="/classroom/edit/<%= classroom._id %>"</a>Edit&nbsp;<a class="button" href="/classroom/delete/<%= classroom._id %>"</a>Delete</a></td>
                                             </tr>
                                             <% }) %>
                                         </tbody>
