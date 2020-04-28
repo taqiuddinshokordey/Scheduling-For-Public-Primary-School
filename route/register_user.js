@@ -67,26 +67,21 @@ router.get('/admin_user/edit/:id',function(req,res){
   });
 });
 
-router.post('/admin_user/edit/:id', function(req,res){
+router.post('/admin_user/edit/:id',function(req,res){
+  // update Data
   var updateData={
-
     username: req.body.username,
     name: req.body.name,
     roles: req.body.roles
-  }
-
+  };
+  var message='Data has been not updated';
   User.updateOne({_id:req.params.id},updateData,function(err,numrows){
-    if(!err)
-    {
-      console.log('User Update');
-      res.redirect('/admin_user');
-    }else
-    {
-      console.log('nt update Update');
-      res.redirect('/admin_user');
-    }
+      if(!err){
+        console.log('User Updated');
+          res.redirect('/admin_user');
+      }
+  });
 });
-})
 
 //end user edit
 

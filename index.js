@@ -63,6 +63,7 @@ app.get('/',function(req,res){
 
 // Set the view engine
 app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 app.set('view engine', 'ejs');
 
 // Set Public Folder as static Path
