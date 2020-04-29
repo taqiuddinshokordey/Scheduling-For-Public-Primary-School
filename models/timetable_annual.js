@@ -26,3 +26,6 @@ var TimetableSchema = new mongoose.Schema ({
 
 
 })
+
+var Timetable = mongoose.model('Timetable', TimetableSchema);
+module.exports = Timetable;
