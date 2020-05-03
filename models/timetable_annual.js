@@ -5,23 +5,23 @@ var TimetableSchema = new mongoose.Schema ({
     
     timeslot: {
         required: true, 
-        'type': String,
+        'type': Number,
         
     },
 
-    classroom_id :{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'classroom'
+    classroom :{
+        type:String, 
+        required: true, 
     },
 
-    subject_id :{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref:'classroom'
+    subject :{
+        type:String, 
+        required: true, 
     },
 
-    teacher_id :{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref:'user'
+    teacher :{
+        type:String, 
+        required: true, 
     },
 
     year :{

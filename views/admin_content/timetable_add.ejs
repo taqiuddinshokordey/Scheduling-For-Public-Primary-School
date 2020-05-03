@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../layout/head.ejs') %>.
+    <body class="sb-nav-fixed">
+        <%- include('../layout/topbar.ejs') %>.
+        <div id="layoutSidenav">
+            <%- include('sidenav_admin.ejs') %>.
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Register New TimeTable</li>
+                        </ol>
+                             <form action="/register" method="post">
+                                <div class="form-group"><label>Select Classroom</label>
+                                    <select>
+                                        <% for (const i in collection2) { %>
+                                      <option value="<%= collection[i]._id %>"> <%=collection2[i].classroom_name %> </option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                <div class="form-group"><label>Select Subject</label>
+                                    <select name="subject" id="subject">
+                                        <% for (const i in collection) { %>
+                                      <option value="<%= collection[i]._id %>"> <%=collection[i].subject_name %> </option>
+                                        <% } %>
+                                    </select>
+                                </div>      
+                                <div class="form-group"><label >Select Timeslot</label>
+                                    <select name="timeslot" id="timeslot">
+                                        <option value="1">08-00</option>
+                                        <option value="2">09-00</option>
+                                        <option value="3">10-00</option>
+                                        <option value="4">11-00</option>
+                                        <option value="5">12-00</option>
+                                        <option value="6">01-00</option>
+                                    </select>
+                                </div>
+                                <div class="form-group"><label class="small mb-1" >Select Teacher</label>
+                                    <select name="subject" id="subject">
+                                        <% for (const i in collection3) { %>
+                                      <option value="<%= collection3[i]._id %>"> <%=collection3[i].name %> </option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                <div class="form-group mt-4 mb-0"><input type="submit" value="Submit" a class="btn btn-primary btn-block" href="/admin_user"></div>           
+                            </form>
+                    </div>
+                </main>
+                <%- include('../layout/footer.ejs') %>.
+            </div>
+        </div>
+                <%- include('../layout/js.ejs') %>.
+    </body>
+</html>
+
+
+
