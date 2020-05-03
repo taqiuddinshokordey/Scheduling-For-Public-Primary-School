@@ -45,13 +45,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
+                                            <% timetable.forEach(function (timetable) { %>
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td><a class="button" href="/subject/edit/"</a>Edit&nbsp;</td>
+                                                <td><%= timetable.classroom %></td>
+                                                <td><a class="button" href="/subject/edit/"</a>View&nbsp;</td>
+                                                
                                             </tr>
-                                           
+                                            <% }) %>
                                         </tbody>
                                         
                                     </table>

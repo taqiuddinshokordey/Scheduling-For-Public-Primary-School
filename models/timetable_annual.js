@@ -26,12 +26,12 @@ var TimetableSchema = new mongoose.Schema ({
 
     year :{
         type:String, 
-        required: true, 
+        //required: true, 
     },
 
     session :{
         type:Number,
-        required:true,
+        //required:true,
     }
 
 

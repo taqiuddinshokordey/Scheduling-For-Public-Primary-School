@@ -6,28 +6,20 @@ var Classroom = require('../models/classroom');
 var Teacher = require('../models/user');
 var mid  = require('../middleware/requiresLogin.js');
 
-//view Timetable
-router.get('/timetable',mid, function(req, res) {
-  res.render('admin_content/timetable', { });
+
+
+//display slot left
+
+router.get('/timetable',mid, function(req,res){
+  Timetable.find({ year: "2020"},function(err,timetable){
+    if (err) throw err;
+    res.render('admin_content/timetable',{'timetable':timetable});
+  });
 });
 
-/*
-router.get('/timetable_add',mid, function(req,res){
-  Subject.find({},function(err,result) {
-    if (err) throw err;
-    res.render('admin_content/timetable_add',{dropdownSubject: result});
-    console.log(result);
-  });
 
-  Classroom.find({},function(err,result2){
-    if (err) throw err;
-    res.render('admin_content/timetable_add',{dropdownSubject2: result2});
-    console.log(result);
-  });
-}
-);*/
-
-router.get("/timetable_add", function(req, res) {
+//Add timetable
+router.get("/timetable_add",mid, function(req, res) {
   Subject.find({}, function(err, collection) 
   {
        if(err) 
@@ -44,7 +36,7 @@ router.get("/timetable_add", function(req, res) {
             }
             else 
             {
-              Teacher.find({}, function(err, collection3)
+              Teacher.find({ roles: "teacher" }, function(err, collection3)
               {
                 if (err)
                 {
@@ -65,33 +57,32 @@ router.get("/timetable_add", function(req, res) {
 });
 
 
-router.post('/timetable_add', function (req, res, next) {
+router.post('/timetable_add',mid, function (req, res, next) {
   if (
     req.body.teacher &&
     req.body.timeslot,
     req.body.subject,
-    req.body.classroom ) {
+    req.body.classroom,
+    req.body.year) {
 
     var timetableData = {
       teacher: req.body.teacher,
       timeslot: req.body.timeslot,
       subject: req.body.subject,
-      classroom:  req.body.classroom
+      classroom:  req.body.classroom,
+      year: req.body.year
     }
 
     //use schema.create to insert data into the db
     Timetable.create(timetableData, function (err, user) {
-      if (err) {
+      if (err) 
+      {
         return next(err)
-      } else 
+      } 
+      else 
       {
-      if(user.roles=='teacher')
-      {
-        console.log('teacher Registered');
-        return res.redirect('/admin_user');
-      }
-      console.log('User Registered');
-      return res.redirect('/admin_user');
+        console.log(user);
+        return res.redirect('/timetable');
       }
     });
 
@@ -99,6 +90,7 @@ router.post('/timetable_add', function (req, res, next) {
     var err = new Error('All fields have to be filled out');
     err.status = 400;
     return next(err);
+    
   }
 
 });

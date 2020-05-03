@@ -11,40 +11,59 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Register New TimeTable</li>
                         </ol>
-                             <form action="/register" method="post">
+                             <form action="/timetable_add" method="post">
                                 <div class="form-group"><label>Select Classroom</label>
-                                    <select>
+                                    <select name="classroom" id="classroom">
                                         <% for (const i in collection2) { %>
-                                      <option value="<%= collection[i]._id %>"> <%=collection2[i].classroom_name %> </option>
+                                      <option value="<%= collection2[i].classroom_name %>"> <%=collection2[i].classroom_name %> </option>
                                         <% } %>
                                     </select>
                                 </div>
                                 <div class="form-group"><label>Select Subject</label>
                                     <select name="subject" id="subject">
                                         <% for (const i in collection) { %>
-                                      <option value="<%= collection[i]._id %>"> <%=collection[i].subject_name %> </option>
+                                      <option value="<%= collection[i].subject_name %>"> <%=collection[i].subject_name %> </option>
                                         <% } %>
                                     </select>
                                 </div>      
                                 <div class="form-group"><label >Select Timeslot</label>
                                     <select name="timeslot" id="timeslot">
-                                        <option value="1">08-00</option>
-                                        <option value="2">09-00</option>
-                                        <option value="3">10-00</option>
-                                        <option value="4">11-00</option>
-                                        <option value="5">12-00</option>
-                                        <option value="6">01-00</option>
+                                        <option value=1>08-00</option>
+                                        <option value=2>09-00</option>
+                                        <option value=3>10-00</option>
+                                        <option value=4>11-00</option>
+                                        <option value=5>12-00</option>
+                                        <option value=6>01-00</option>
                                     </select>
                                 </div>
                                 <div class="form-group"><label class="small mb-1" >Select Teacher</label>
-                                    <select name="subject" id="subject">
+                                    <select name="teacher" id="teacher">
                                         <% for (const i in collection3) { %>
-                                      <option value="<%= collection3[i]._id %>"> <%=collection3[i].name %> </option>
+                                      <option value="<%= collection3[i].name %>"> <%=collection3[i].name %> </option>
                                         <% } %>
                                     </select>
                                 </div>
-                                <div class="form-group mt-4 mb-0"><input type="submit" value="Submit" a class="btn btn-primary btn-block" href="/admin_user"></div>           
+                                
+                                <select id="year" name="year" style="visibility: hidden"></select>
+                                <script>
+                                    var min = 2020,
+                                    max = 2020,
+                                    select = document.getElementById('year');
+
+                                    for (var i = min; i<=max; i++){
+                                        var opt = document.createElement('option');
+                                        opt.value = i;
+                                        opt.innerHTML = i;
+                                        select.appendChild(opt);
+                                    }
+
+                                select.value = new Date().getFullYear();
+
+                            
+                                </script>
+                                <div class="form-group mt-4 mb-0"><input type="submit" value="Submit" a class="btn btn-primary btn-block" href="/timetable_add"></div>           
                             </form>
+                            
                     </div>
                 </main>
                 <%- include('../layout/footer.ejs') %>.
