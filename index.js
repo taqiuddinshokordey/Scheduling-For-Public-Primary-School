@@ -11,11 +11,12 @@ var favicon = require('serve-favicon')
 var user_route = require('./route/login');
 var register_user_route= require('./route/register_user');
 var classroom_route=require('./route/classroom');
+var subject_route= require('./route/subject');
 var subject_route= require('./route/subject')
 
 
 // Form Data
-app.use(bodyParser.json());
+app.use(bodyParser.json()); //ini adalah contoh perubhan
 app.use(bodyParser.urlencoded({extended:true}));
 
 //connect to MongoDB
