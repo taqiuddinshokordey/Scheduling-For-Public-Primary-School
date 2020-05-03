@@ -5,6 +5,9 @@ var mid  = require('../middleware/requiresLogin.js');
 
 //Login Logic start
 
+router.get('/login',function(req,res){
+  res.render('login', { });
+});
 
 
 router.post('/login',  function (req, res, next) {
@@ -44,12 +47,6 @@ router.post('/login',  function (req, res, next) {
   }
 });
 
-router.get('/login',function(req,res){
-  res.render('login', { });
-});
-
-
-
 //Login Logic ends
 
 //Get page after login
@@ -64,6 +61,7 @@ router.get('/admin', function(req, res) {
         if (error) {
           return next(error);
         } else {
+          console.log(user);
           return res.render('admin_dashboard',{});
           ;
         }
@@ -71,18 +69,42 @@ router.get('/admin', function(req, res) {
     
 }); 
 
-
-
-
-
-
 router.get('/teacher', mid, function(req, res) {
-  
-  res.render('teacher_dashboard', { })
+  if (! req.session.userId ) {
+    var err = new Error("You are not authorized to view this page.");
+    err.status = 403;
+    return next(err);
+  }
+  User.findById(req.session.userId)
+      .exec(function (error, user) {
+        if (error) {
+          return next(error);
+        } else {
+          console.log(user);
+          return res.render('teacher_dashboard',{});
+          ;
+        }
+      });
+    
 });
 
 router.get('/creator', mid, function(req, res) {
-  res.render('timetable_creator', { })
+  if (! req.session.userId ) {
+    var err = new Error("You are not authorized to view this page.");
+    err.status = 403;
+    return next(err);
+  }
+  User.findById(req.session.userId)
+      .exec(function (error, user) {
+        if (error) {
+          return next(error);
+        } else {
+          console.log(user);
+          return res.render('timetable_creator',{});
+          ;
+        }
+      });
+    
 });
 
 // GET for logout logout

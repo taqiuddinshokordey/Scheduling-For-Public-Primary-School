@@ -3,10 +3,10 @@ var shortid = require('shortid');
 
 var TimetableSchema = new mongoose.Schema ({
     
-    timeslot_id: {
+    timeslot: {
         required: true, 
         'type': String,
-        'default': shortid.generate
+        
     },
 
     classroom_id :{
@@ -22,6 +22,16 @@ var TimetableSchema = new mongoose.Schema ({
     teacher_id :{
         type: mongoose.Schema.Types.ObjectId, 
         ref:'user'
+    },
+
+    year :{
+        type:String, 
+        required: true, 
+    },
+
+    session :{
+        type:Number,
+        required:true,
     }
 
 
