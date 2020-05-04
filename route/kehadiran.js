@@ -3,9 +3,10 @@ var router = express.Router();
 var Kehadiran= require('../models/kehadiran');
 var mid  = require('../middleware/requiresLogin.js');
 
+
 router.get("/user/:id", async (req, res) => {
     try {
-      const user = await Kehadiran.findById(req.params.id);
+      var user = Kehadiran.findById(req.params.id);
       let hours = 0;
       if(user.kehadiran.length > 0 )
       {

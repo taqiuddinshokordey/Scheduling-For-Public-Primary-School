@@ -13,6 +13,7 @@ var register_user_route= require('./route/register_user');
 var classroom_route=require('./route/classroom');
 var subject_route= require('./route/subject');
 var timetable_route= require ('./route/timetable');
+var attendance_route= require ('./route/attendance');
 
 
 // Form Data
@@ -51,6 +52,7 @@ app.use('/', register_user_route);
 app.use('/', classroom_route);
 app.use('/', subject_route);
 app.use('/', timetable_route);
+app.use('/', attendance_route);
 
 
 // Run the Server
@@ -65,7 +67,6 @@ app.get('/',function(req,res){
 
 // Set the view engine
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 app.set('view engine', 'ejs');
 
 // Set Public Folder as static Path
