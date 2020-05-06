@@ -27,6 +27,15 @@ var UserSchema = new mongoose.Schema({
     required:true,
   },
 
+  specialize_subject: {
+    type:String,
+    required:true,
+  },
+
+  
+
+  
+
   
 });
 

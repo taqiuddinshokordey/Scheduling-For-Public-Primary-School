@@ -30,34 +30,19 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i>View Current Timetable by Class</div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>Class</th>
-                                                <th>Settings</th>
-                                               
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <% timetable.forEach(function (timetable) { %>
-                                            <tr>
-                                                <td><%= timetable.classroom %></td>
-                                                <td><a class="button" href="/subject/edit/"</a>View&nbsp;</td>
-                                                
-                                            </tr>
-                                            <% }) %>
-                                        </tbody>
-                                        
-                                    </table>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-primary text-white mb-4">
+                                    <div class="card-body">View Timetable by Class</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="/timetable_class">Click Here</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        
+                            
+                        
                         
                     </div>
                 </main>

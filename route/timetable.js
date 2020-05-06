@@ -7,13 +7,40 @@ var Teacher = require('../models/user');
 var mid  = require('../middleware/requiresLogin.js');
 
 
+//Declare current Year and date
+const todaysDate = new Date()
+const currentYear = todaysDate.getFullYear()
 
-//display slot left
+//Timetable Homepage
+router.get('/timetable',function(req,res){
+  res.render('admin_content/timetable', { });
+});
 
-router.get('/timetable',mid, function(req,res){
-  Timetable.find({ year: "2020"},function(err,timetable){
+//Get Timetable By Class
+router.get('/timetable_class',mid, function(req,res){
+  Timetable.distinct("classroom" ,{year:currentYear},function(err,timetable){
     if (err) throw err;
-    res.render('admin_content/timetable',{'timetable':timetable});
+    console.log(currentYear);
+    console.log(timetable);
+    res.render('admin_content/timetableviewbyclass',{'timetable':timetable});
+  });
+});
+
+router.get('/timetable_teacher',mid, function(req,res){
+  Timetable.distinct("teacher" ,{year:currentYear},function(err,timetable){
+    if (err) throw err;
+    console.log(currentYear);
+    console.log(timetable);
+    res.render('admin_content/timetableviewbyteacher',{'timetable':timetable});
+  });
+});
+
+router.get('/timetable_subject',mid, function(req,res){
+  Timetable.distinct("subject" ,{year:currentYear},function(err,timetable){
+    if (err) throw err;
+    console.log(currentYear);
+    console.log(timetable);
+    res.render('admin_content/timetableviewbysubject',{'timetable':timetable});
   });
 });
 
@@ -93,6 +120,16 @@ router.post('/timetable_add',mid, function (req, res, next) {
     
   }
 
+});
+
+//Update logic
+
+
+router.get('/timetable_class/edit/:id', function(req,res){
+  Timetable.find({classroom:req.params.id},function(err,timetable){
+    console.log(timetable);
+      res.render('admin_content/view_timetable_class',{'timetable':timetable});
+  });
 });
 
 module.exports = router;

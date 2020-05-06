@@ -14,6 +14,7 @@ var classroom_route=require('./route/classroom');
 var subject_route= require('./route/subject');
 var timetable_route= require ('./route/timetable');
 var attendance_route= require ('./route/attendance');
+var settings_route= require('./route/settings');
 
 
 // Form Data
@@ -53,6 +54,7 @@ app.use('/', classroom_route);
 app.use('/', subject_route);
 app.use('/', timetable_route);
 app.use('/', attendance_route);
+app.use('/', settings_route);
 
 
 // Run the Server

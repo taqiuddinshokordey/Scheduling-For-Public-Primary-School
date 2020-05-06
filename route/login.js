@@ -52,9 +52,7 @@ router.post('/login',  function (req, res, next) {
 //Get page after login
 router.get('/admin', function(req, res) {
   if (! req.session.userId ) {
-    var err = new Error("You are not authorized to view this page.");
-    err.status = 403;
-    return next(err);
+    console.log(err);
   }
   User.findById(req.session.userId)
       .exec(function (error, user) {
@@ -110,7 +108,7 @@ router.get('/creator', mid, function(req, res) {
 // GET for logout logout
 router.get('/logout', function (req, res, next) {
   if (req.session) {
-    console.log('user logout');
+    console.log(req.session.userId,'logout');
     // delete session object
     req.session.destroy(function (err) {
       if (err) {
