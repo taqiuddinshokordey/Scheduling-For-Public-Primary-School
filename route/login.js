@@ -3,6 +3,7 @@ var router = express.Router();
 var User = require('../models/user');
 var mid  = require('../middleware/requiresLogin.js');
 
+
 //Login Logic start
 
 router.get('/login',function(req,res){
