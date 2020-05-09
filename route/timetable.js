@@ -22,7 +22,16 @@ router.get('/timetable_class',mid, function(req,res){
     if (err) throw err;
     console.log(currentYear);
     console.log(timetable);
-    res.render('admin_content/timetableviewbyclass',{'timetable':timetable});
+    res.render('admin_content/view_timetable_table',{'timetable':timetable});
+  });
+});
+
+router.get('/timetable_class/view/:id',mid, function(req,res){
+  Timetable.distinct('classroom',({classroom: req.params.id, year: currentYear}),function(err,timetable){
+    if (err) throw err;
+    console.log(currentYear);
+    console.log(timetable );
+    res.render('admin_content/view_timetable_class',{'timetable':timetable});
   });
 });
 
@@ -31,7 +40,7 @@ router.get('/timetable_teacher',mid, function(req,res){
     if (err) throw err;
     console.log(currentYear);
     console.log(timetable);
-    res.render('admin_content/timetableviewbyteacher',{'timetable':timetable});
+    res.render('admin_content/view_timetable_teacher',{'timetable':timetable});
   });
 });
 
@@ -40,7 +49,7 @@ router.get('/timetable_subject',mid, function(req,res){
     if (err) throw err;
     console.log(currentYear);
     console.log(timetable);
-    res.render('admin_content/timetableviewbysubject',{'timetable':timetable});
+    res.render('admin_content/view_timetable_subject',{'timetable':timetable});
   });
 });
 

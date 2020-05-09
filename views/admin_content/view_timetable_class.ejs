@@ -17,23 +17,72 @@
                             <div class="card-header"><i class="fas fa-table mr-1"></i>View Current Timetable by Class</div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>Class</th>
-                                                <th>Settings</th>
-                                               
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                    <H1><FONT COLOR="DARKCYAN"><CENTER><%= timetable.classroom %></FONT></H1>
+                                    <table border="2" cellspacing="3" align="center">
+                                        <tr>
                                             
-                                            <tr>
-                                            <td><%= timetable.teacher %></td>
-                                            <td><a class="button" href="/timetable_class/edit/<%= timetable %>"</a>View&nbsp;<a class="button" href="/subject/edit/<%= timetable %>"</a>Update</td>
-                                            </tr>
-                                           
-                                         </tbody>
-                                        
+                                            <td align="center">
+                                                <td><%= timetable.timeslot %>
+                                                
+                                            </td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td align="center">MONDAY
+                                                <td align="center">---<td align="center"><font color="blue">SUB1<br>
+                                                <td align="center"><font color="pink">SUB2<br>
+                                                <td align="center"><font color="red">SUB3<br>
+                                                <td rowspan="6"align="center">L<br>U<br>N<br>C<br>H
+                                                <td align="center"><font color="maroon">SUB4<br>
+                                                <td align="center"><font color="brown">SUB5<br>
+                                                <td align="center">counselling class
+                                        </tr>
+                                        <tr>
+                                            <td align="center">TUESDAY
+                                            <td align="center"><font color="blue">SUB1<br>
+                                            <td align="center"><font color="red">SUB2<br>
+                                            <td align="center"><font color="pink">SUB3<br>
+                                            <td align="center">---
+                                            <td align="center"><font color="orange">SUB4<BR>
+                                            <td align="center"><font color="maroon">SUB5<br>
+                                            <td align="center">library
+                                           </tr>
+                                           <tr>
+                                            <td align="center">WEDNESDAY
+                                            <td align="center"><font color="pink">SUB1<br>
+                                            <td align="center"><font color="orange">SUB2<BR>
+                                            <td align="center"><font color="brown">SWA<br>
+                                            <td align="center">---
+                                            <td colspan="3" align="center"><font color="green"> lab
+                                           </tr>
+                                           <tr>
+                                            <td align="center">THURSDAY
+                                            <td align="center">SUB1<br>
+                                            <td align="center"><font color="brown">SUB2<br>
+                                            <td align="center"><font color="orange">SUB3<BR>
+                                            <td align="center">---
+                                            <td align="center"><font color="blue">SUB4<br>
+                                            <td align="center"><font color="red">SUB5<br>
+                                            <td align="center">library
+                                           </tr>
+                                           <tr>
+                                            <td align="center">FRIDAY
+                                            <td align="center"><font color="orange">SUB1<BR>
+                                            <td align="center"><font color="maroon">SUB2<br>
+                                            <td align="center"><font color="blue">SUB3<br>
+                                            <td align="center">---
+                                            <td align="center"><font color="pink">SUB4<br>
+                                            <td align="center"><font color="brown">SUB5<br>
+                                            <td align="center">library
+                                           </tr>
+                                           <tr>
+                                            <td align="center">SATURDAY
+                                            <td align="center"><font color="red">SUB1<br>
+                                            <td colspan="3" align="center">seminar
+                                            <td align="center"><font color="pink">SUB4<br>
+                                            <td align="center"><font color="brown">SUB5<br>
+                                            <td align="center">library
+                                           </tr>
                                     </table>
                                 </div>
                             </div>
