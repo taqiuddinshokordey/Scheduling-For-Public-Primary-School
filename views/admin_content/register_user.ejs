@@ -15,13 +15,28 @@
                                 <div class="form-group"><label class="small mb-1">Full name</label><input class="form-control py-4" type="name" name="name" placeholder="Enter full name" /></div>
                                 <div class="form-group"><label class="small mb-1" >Email</label><input class="form-control py-4"  type="username"  name="username" placeholder="Enter email address" /></div>
                                 <div class="form-group"><label class="small mb-1" >Password</label><input class="form-control py-4"  type="password"  name="password" placeholder="Password" /></div>
-                                <div class="form-group"><label class="small mb-1" >Select Roles</label>
+                                <div class="form-group"><label class="small mb-1" >Select Roles</label></div>
+                                <div class="dropdown">
+
+                                    <!--Trigger-->
+                                    <a class="btn btn-primary dropdown-toggle" type="button" name="roles" id="roles" data-toggle="dropdown"
+                                      aria-haspopup="true" aria-expanded="false">Select Roles</a>
+                                  
+                                  
+                                    <!--Menu-->
+                                    <div class="dropdown-menu dropdown-primary">
+                                      <a class="dropdown-item"  value="Admin">Admin</a>
+                                      <a class="dropdown-item"  value="Teacher">Teacher</a>
+                                      <a class="dropdown-item"  value="Creator">Creator</a>
+                                    </div>
+                                  </div>
+                                <div class="form-group"><label class="small mb-1" >Select Roles</label></div>
                                     <select name="roles" id="roles">
-                                        <option value="admin">Admin</option>
-                                        <option value="teacher">Teacher</option>
-                                        <option value="creator">Creator</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="Teacher">Teacher</option>
+                                        <option value="Creator">Creator</option>
                                     </select>
-                                </div>
+                                
                                 <div class="form-group mt-4 mb-0"><input type="submit" value="Submit" a class="btn btn-primary btn-block" href="/admin_user"></div>           
                             </form>
                     </div>

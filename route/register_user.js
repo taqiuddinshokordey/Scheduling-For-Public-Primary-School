@@ -5,8 +5,17 @@ var mid  = require('../middleware/requiresLogin.js');
 
 
 //get landing page
-router.get('/register',mid, function(req, res) {
-  res.render('admin_content/register_user', { });
+router.get('/register',mid, function(req, res, user) {
+  User.findById(req.session.userId).exec(function (error, user) {
+    if (error) {
+      return next(error);
+    } else {
+      console.log(user);
+      return res.render('admin_content/register_user', { user:user});
+      ;
+    }
+  });
+  
 });
 
 //add new user 
@@ -54,16 +63,36 @@ router.post('/register', function (req, res, next) {
 //show user list
 
 router.get('/admin_user',mid, function(req,res){
-  User.find({},function(err,users){
-    if (err) throw err;
-    res.render('admin_content/admin_user',{'users':users});
+  User.findById(req.session.userId).exec(function (error, user) {
+    if (error) {
+      return next(error);
+    } else {
+      console.log(user);
+      User.find({},function(err,users){
+        if (err) throw err;
+        res.render('admin_content/admin_user',{'users':users, user:user});
+      });
+      ;
+    }
   });
+  
 });
 
 //user edit
 router.get('/admin_user/edit/:id',function(req,res){
-  User.findOne({_id:req.params.id},function(err,users){
-      res.render('admin_content/edit_user',{'users':users});
+  User.findById(req.session.userId).exec(function (error, user) {
+    if (error) {
+      return next(error);
+    } else {
+      console.log(user);
+      User.find({},function(err,users){
+        if (err) throw err;
+        User.findOne({_id:req.params.id},function(err,users){
+          res.render('admin_content/edit_user',{'users':users, user:user});
+      });
+      });
+      ;
+    }
   });
 });
 

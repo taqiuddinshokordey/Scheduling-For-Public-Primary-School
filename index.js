@@ -5,7 +5,9 @@ var mongoose=require('mongoose');
 var app=express();
 var session=require('express-session');
 var MongoStore = require('connect-mongo')(session);
-var favicon = require('serve-favicon')
+var favicon = require('serve-favicon');
+var flash= require('express-flash');
+
 
 //Route to model and controller
 var user_route = require('./route/login');
@@ -20,6 +22,7 @@ var settings_route= require('./route/settings');
 // Form Data
 app.use(bodyParser.json()); //ini adalah contoh perubhan
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(flash());
 
 //connect to MongoDB
 mongoose.connect('mongodb+srv://taqiuddinshokordey:netvista277707@finalyearproject-kimkb.gcp.mongodb.net/Scheduling_system?retryWrites=true&w=majority'
