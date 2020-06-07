@@ -2,9 +2,38 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 var mid  = require('../middleware/requiresLogin.js');
+var json2csv = require('json2csv').parse;
+var multer      = require('multer'); 
+
+var storage = multer.diskStorage({  
+  destination:(req,file,cb)=>{  
+      cb(null,'./public/uploads');  
+  },  
+  filename:(req,file,cb)=>{  
+      cb(null,file.originalname);  
+  }  
+});  
+
+var uploads = multer({storage:storage});
+//show user list
+
+router.get('/admin_user',mid, function(req,res){
+  User.findById(req.session.userId).exec(function (error, user) {
+    if (error) {
+      return next(error);
+    } else {
+      console.log(user);
+      User.find({},function(err,users){
+        if (err) throw err;
+        res.render('admin_content/admin_user',{'users':users, user:user});
+      });
+    }
+  });
+  
+});
 
 
-//get landing page
+//Register User
 router.get('/register',mid, function(req, res, user) {
   User.findById(req.session.userId).exec(function (error, user) {
     if (error) {
@@ -12,6 +41,67 @@ router.get('/register',mid, function(req, res, user) {
     } else {
       console.log(user);
       return res.render('admin_content/register_user', { user:user});
+      ;
+    }
+  });
+  
+});
+
+/*Register Using CSV Files bulk
+
+router.get('/template', function(req, res) {
+ 
+  var fields = [
+      'username',
+      'password',
+      'roles',
+      'name',
+  ];
+
+  var csv = json2csv({ data: '', fields: fields });
+
+  res.set("Content-Disposition", "attachment;filename=template.csv");
+  res.set("Content-Type", "application/octet-stream");
+
+  res.send(csv);
+
+});
+
+router.post('/upload_csv', function (req, res) {
+  if (!req.files)
+      return res.status(400).send('No files were uploaded.');
+   
+  var authorFile = req.files.file;
+
+  var authors = [];
+       
+  csv
+   .fromString(authorFile.data.toString(), {
+       headers: true,
+       ignoreEmpty: true
+   })
+   .on("data", function(data){
+       data['_id'] = new mongoose.Types.ObjectId();
+        
+       authors.push(data);
+   })
+   .on("end", function(){
+       Author.create(authors, function(err, documents) {
+          if (err) throw err;
+       });
+        
+       res.send(authors.length + ' authors have been successfully uploaded.');
+   });
+}); */
+ 
+
+router.get('/register_csv',mid, function(req, res, user) {
+  User.findById(req.session.userId).exec(function (error, user) {
+    if (error) {
+      return next(error);
+    } else {
+      console.log(user);
+      return res.render('admin_content/register_user_csv', { user:user});
       ;
     }
   });
@@ -60,23 +150,7 @@ router.post('/register', function (req, res, next) {
 
 //Register Logic End
 
-//show user list
 
-router.get('/admin_user',mid, function(req,res){
-  User.findById(req.session.userId).exec(function (error, user) {
-    if (error) {
-      return next(error);
-    } else {
-      console.log(user);
-      User.find({},function(err,users){
-        if (err) throw err;
-        res.render('admin_content/admin_user',{'users':users, user:user});
-      });
-      ;
-    }
-  });
-  
-});
 
 //user edit
 router.get('/admin_user/edit/:id',function(req,res){

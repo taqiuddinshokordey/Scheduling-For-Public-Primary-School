@@ -2,8 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 var mid  = require('../middleware/requiresLogin.js');
-var async = require('async');
-var crypto = require('crypto');
+
 
 //Login Logic start
 
@@ -26,10 +25,10 @@ router.post('/login',  function (req, res, next) {
       else
       {
         req.session.userId = user._id;
-        if(user.roles=='admin')
+        if(user.roles=='Admin')
         {
           return res.redirect(`/admin`);
-        }else if(user.roles=='teacher')
+        }else if(user.roles=='Teacher')
         {
           console.log('teacher login');
           return res.redirect('/teacher');
@@ -53,19 +52,25 @@ router.post('/login',  function (req, res, next) {
 
 //Get page after login
 router.get('/admin',mid, function(req, res) {
-  if (! req.session.userId ) {
+  if (! req.session.userId ) 
+  {
     console.log(err);
-  }
-  User.findById(req.session.userId).exec(function (error, user) {
-        if (error) {
-          return next(error);
-        } else {
-          console.log(user);
-          return res.render('admin_dashboard',{user:user});
-          ;
-        }
-      });
-    
+  }else
+  {
+    User.findById(req.session.userId).exec(function (error, user) {
+      if (error) {
+        return next(error);
+      } else {
+        console.log(user);
+        return res.render('admin_dashboard',{user:user});
+        User.find({},function(err,users){
+          if (err) throw err;
+          res.render('admin_content/admin_user',{'users':users, user:user});
+        });
+        ;
+      }
+    });
+  }  
 }); 
 
 router.get('/teacher', mid, function(req, res) {

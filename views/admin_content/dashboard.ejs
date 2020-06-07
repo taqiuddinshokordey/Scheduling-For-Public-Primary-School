@@ -22,7 +22,39 @@
                     </div>
                 </div>
             </div>
+            
+            
         </div>
+       
+            <div class="card mb-4">
+                <div class="card-header"><i class="fas fa-table mr-1"></i>List of Online User</div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Roles</th>
+                                    <th>Email</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><a class="button" href="/admin_user/edit/<%= user._id %>"</a>Edit&nbsp;<a class="button" href="/admin_user/delete/<%= user._id %>"</a>Delete</a></td>
+                                </tr>
+                               
+                            </tbody>
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+       
         
     </div>
 </main>
