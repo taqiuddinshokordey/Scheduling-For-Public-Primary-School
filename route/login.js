@@ -52,8 +52,6 @@ router.post('/login',  function (req, res, next) {
 
 //Login Logic ends
 
-var session = mongoose.model('session');
-questions.find({}, function(err, data) { console.log(err, data, data.length); });
 
 //Get page after login
  
