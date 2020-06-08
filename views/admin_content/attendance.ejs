@@ -12,22 +12,19 @@
                             <li class="breadcrumb-item active">Attendance Management</li>
                         </ol>
                         <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <!--<div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Proceed Check In</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="/attendance">Click Here</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>-->
-                                <form action="/attendance" method="POST">
+                                <!--<form action="/attendance" method="POST">
                                 <input type="submit" value="Check In" a class="btn btn-primary btn-block" href="/attendance">         
                                 </form>
                                 <form action="/attendanceCheckOut" method="POST">
                                     <input type="submit" value="Check Out" a class="btn btn-primary btn-block" href="/attendance">         
-                                </form>
-
-                            </div>
+                                </form>-->
+                                <div class="col-xl-3 col-md-6">
+                                    <div class="card bg-danger text-white mb-4">
+                                        <form action="/absentee" method="GET">
+                                            <input type="submit" value="List of absentees" a class="btn btn-danger btn-block" href="#">         
+                                        </form>
+                                    </div>
+                                </div>
                         </div>
                         <!--list of attendance-->
                         <div class="card mb-4">
@@ -38,15 +35,17 @@
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
                                         <thead>
                                             <tr>
-                                                <th width="40%" style="text-align:left;">Teacher's Name</th>
-                                                <th width="20%">Check in</th>
-                                                <th width="20%">Check out</th>
+                                                <th width="15%">Date</th>
+                                                <th width="30%" style="text-align:left;">Teacher's Name</th>
+                                                <th width="15%">Check in</th>
+                                                <th width="15%">Check out</th>
                                                 <th width="20%">Reason (Optional)</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <% users.forEach(function (user) { %>
                                             <tr>
+                                                <td><%= user.dateEntry%></td>
                                                 <td style="text-align:left;"><%= user.name %></td>
                                                 <td><%= user.entry %></td>
                                                 <td><%= user.exit.time %></td>
@@ -58,31 +57,7 @@
                                     </table>
                                 </div>
                             </div>
-                        </div>
-
-                        <!--list of absentee-->
-                        <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i>List of Absentee</div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
-                                        <thead>
-                                            <tr>
-                                                <th width="40%" style="text-align:left;">Teacher's Name</th>
-                                                <th width="20%">Check in</th>
-                                                <th width="20%">Check out</th>
-                                                <th width="20%">Reason (Optional)</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                           
-                                        </tbody>
-                                        
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        
+                        </div>                        
                     </div>
                 </main>
                 <%- include('../layout/footer.ejs') %>.

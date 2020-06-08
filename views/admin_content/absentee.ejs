@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../layout/head.ejs') %>.
+    <body class="sb-nav-fixed">
+        <%- include('../layout/topbar.ejs') %>.
+        <div id="layoutSidenav">
+            <%- include('sidenav_admin.ejs') %>.
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Attendance Management</li>
+                        </ol>
+                        
+                        <!--list of absentee-->
+                        <div class="card mb-4">
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>List of Absentee</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <form id="tblReason">
+                                    </form>
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+                                        <thead>
+                                            <tr>
+                                                <th width="40%" style="text-align:left;">Teacher's Name</th>
+                                                <th width="20%">Reason (Optional)</th>
+                                                <th width="20%"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% users.forEach(function (user) { %>
+                                            <tr>
+                                                <td style="text-align:left;"><%= user.name %></td>
+                                                <td style="text-align:left;">-</td>                                               
+                                                <td>
+                                                    <!--<select class="selectpicker" data-style="btn-info" name="ddlReason">
+                                                        <optgroup label="Select Reason">
+                                                          <option name="" value="0">Select Reason</option>
+                                                          <option name="table1" value="General">General</option>
+                                                          <option name="table2" value="Emergency">Emergency</option>
+                                                        </optgroup>
+                                                    </select>-->
+                                                    <a class="button" href="/absentee/edit/<%= user._id %>"</a>Edit Reason
+                                                </td>                                            
+                                            </tr>
+                                            <% }) %>
+                                        </tbody>
+                                        
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </main>
+                <%- include('../layout/footer.ejs') %>.
+            </div>
+        </div>
+                <%- include('../layout/js.ejs') %>.
+    </body>
+</html>

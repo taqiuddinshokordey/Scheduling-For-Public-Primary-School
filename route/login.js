@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var CheckIn = require('../models/attendance');
 var mid  = require('../middleware/requiresLogin.js');
 
 //Login Logic start
@@ -63,6 +64,7 @@ router.get('/admin', function(req, res) {
         } else {
           console.log(user);
           return res.render('admin_dashboard',{});
+          
           ;
         }
       });
@@ -81,7 +83,11 @@ router.get('/teacher', mid, function(req, res) {
           return next(error);
         } else {
           console.log(user);
-          return res.render('teacher_dashboard',{});
+          CheckIn.find({userId:req.session.userId},function(err,users) {
+            if (err) throw err;
+            res.render('teacher_dashboard',{'users':users});
+          });
+     
           ;
         }
       });

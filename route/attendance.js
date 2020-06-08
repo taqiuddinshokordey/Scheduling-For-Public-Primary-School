@@ -13,13 +13,13 @@ var mid  = require('../middleware/requiresLogin.js');
     });
   });
 
-  router.get('/attendanceTcer',mid, function(req,res){
-    CheckIn.find({},function(err,users) {
+  //get absentee page
+  router.get('/absentee',mid, function(req,res){
+    User.find({flag : 0},function(err,users) {
       if (err) throw err;
-      res.render('teacher_content/dashboard',{'users':users});
+      res.render('admin_content/absentee',{'users':users});
     });
   });
-  
 
   //Check In data
   router.post('/attendance', function (req, res, next) {
@@ -45,7 +45,19 @@ var mid  = require('../middleware/requiresLogin.js');
             } else 
             {        
               //console.log('You\'ve Checked In ');
-              return res.redirect('back');
+              //return res.redirect('back');
+              
+            }
+          });
+
+          //Update flag
+          var updateFlag={     
+            flag:1
+          }
+          User.updateOne({_id:req.session.userId},updateFlag,function(err,numrows){
+            if(!err){
+              console.log('User Updated');
+                res.redirect('back');
             }
           });
               ;
@@ -70,10 +82,43 @@ var mid  = require('../middleware/requiresLogin.js');
     CheckIn.updateOne({userId:req.session.userId,dateEntry:date.toLocaleDateString()},updateData,function(err,numrows){
         if(!err){
           console.log('User Updated');
+          var updateFlag={     
+            flag:0
+          }
+          User.updateOne({_id:req.session.userId},updateFlag,function(err,numrows){
+            if(!err){
+              console.log('User Updated');
+                //res.redirect('back');
+            }
+          });
             res.redirect('back');
         }
     });
   });
+
+//Update absentee reason
+//EDIT DATABASE 
+router.get('/absentee/editReason/:id',function(req,res){
+  User.findOne({_id:req.params.id},function(err,users){
+      res.render('admin_content/edit_user',{'users':users});
+  });
+});
+
+router.post('/admin_user/edit/:id',function(req,res){
+  // update Data
+  var updateData={
+    username: req.body.username,
+    name: req.body.name,
+    roles: req.body.roles
+  };
+  var message='Data has been not updated';
+  User.updateOne({_id:req.params.id},updateData,function(err,numrows){
+      if(!err){
+        console.log('User Updated');
+          res.redirect('/admin_user');
+      }
+  });
+});
   
   
 module.exports = router;

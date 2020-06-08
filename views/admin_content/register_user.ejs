@@ -12,17 +12,17 @@
                             <li class="breadcrumb-item active">Register New User</li>
                         </ol>
                              <form action="/register" method="post">
-                                <div class="form-group"><label class="small mb-1">Full name</label><input class="form-control py-4" type="name" name="name" placeholder="Enter full name" /></div>
-                                <div class="form-group"><label class="small mb-1" >Email</label><input class="form-control py-4"  type="username"  name="username" placeholder="Enter email address" /></div>
-                                <div class="form-group"><label class="small mb-1" >Password</label><input class="form-control py-4"  type="password"  name="password" placeholder="Password" /></div>
+                                <div class="form-group"><label class="small mb-1">Full name</label><input class="form-control py-4" style="width: 50%;" type="name" name="name" placeholder="Enter full name" /></div>
+                                <div class="form-group"><label class="small mb-1" >Email</label><input class="form-control py-4" style="width: 50%;" type="username"  name="username" placeholder="Enter email address" /></div>
+                                <div class="form-group"><label class="small mb-1" >Password</label><input class="form-control py-4" style="width: 50%;" type="password"  name="password" placeholder="Password" /></div>
                                 <div class="form-group"><label class="small mb-1" >Select Roles</label>
-                                    <select name="roles" id="roles">
+                                    <select name="roles" class="form-control" style="width: 30%;" id="roles">
                                         <option value="admin">Admin</option>
                                         <option value="teacher">Teacher</option>
                                         <option value="creator">Creator</option>
                                     </select>
                                 </div>
-                                <div class="form-group mt-4 mb-0"><input type="submit" value="Submit" a class="btn btn-primary btn-block" href="/admin_user"></div>           
+                                <div class="form-group mt-4 mb-0"><input type="submit" value="Submit" style="width: 20%;" a class="btn btn-primary btn-block" href="/admin_user"></div>           
                             </form>
                     </div>
                 </main>

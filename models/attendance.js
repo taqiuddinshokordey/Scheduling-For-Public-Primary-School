@@ -21,7 +21,8 @@ var AttendanceSchema = new mongoose.Schema({
         // 2 - Vacation
         // 3 - Doctor
         reason:{
-            type:String
+            type:String,
+            default:"None"
         }
     }
 

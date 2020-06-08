@@ -8,15 +8,19 @@
             <div class="col-xl-3 col-md-6">
                 <div class="card bg-primary text-white mb-4">
                     <div class="card-body">Check In</div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        <form action="/attendanceTcer" method="POST">
-                            <input type="submit" value="Click here" a class="btn btn-primary btn-block" href="#">         
-                        </form>
-                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                    </div>
+                    <form action="/attendance" method="POST">
+                        <input type="submit" name="btnCheckIn" value="Click here" style="opacity: 50%;" a class="btn btn-primary btn-block" href="#">         
+                    </form>
                 </div>
             </div>
-        
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-danger text-white mb-4">
+                    <div class="card-body">Check Out</div>
+                    <form action="/attendanceCheckOut" method="POST">
+                        <input type="submit" value="Click Here" style="opacity: 50%;" a class="btn btn-danger btn-block" href="#">         
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="card mb-4">
             <div class="card-header"><i class="fas fa-table mr-1"></i>List of Attendance</div>
@@ -26,6 +30,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
                         <thead>
                             <tr>
+                                <th width="20%">Date</th>
                                 <th width="20%">Check in</th>
                                 <th width="20%">Check out</th>
                                 <th width="20%">Reason (Optional)</th>
@@ -34,6 +39,7 @@
                         <tbody>
                             <% users.forEach(function (user) { %>
                             <tr>
+                                <td><%= user.dateEntry %></td>
                                 <td><%= user.entry %></td>
                                 <td><%= user.exit.time %></td>
                                 <td><%= user.exit.reason %></td>                                            
