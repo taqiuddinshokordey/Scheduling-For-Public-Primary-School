@@ -2,6 +2,11 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 var mid  = require('../middleware/requiresLogin.js');
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var sessionsColl = db.collection('sessions');
+
+
 
 
 //Login Logic start
@@ -50,6 +55,9 @@ router.post('/login',  function (req, res, next) {
 
 //Login Logic ends
 
+var session = mongoose.model('session');
+questions.find({}, function(err, data) { console.log(err, data, data.length); });
+
 //Get page after login
 router.get('/admin',mid, function(req, res) {
   if (! req.session.userId ) 
@@ -61,11 +69,12 @@ router.get('/admin',mid, function(req, res) {
       if (error) {
         return next(error);
       } else {
-        console.log(user);
-        return res.render('admin_dashboard',{user:user});
-        User.find({},function(err,users){
+        console.log(user)
+        sessionsColl.find({},function(err,online_user){ //Get Online User
           if (err) throw err;
-          res.render('admin_content/admin_user',{'users':users, user:user});
+          console.log(online_user)
+          return res.render('admin_dashboard',{'online_users':online_user, user:user});
+          //res.render('admin_content/admin_user',{'users':users, user:user});
         });
         ;
       }
@@ -73,6 +82,8 @@ router.get('/admin',mid, function(req, res) {
   }  
 }); 
 
+
+//get Teacher landing page
 router.get('/teacher', mid, function(req, res) {
   if (! req.session.userId ) {
     var err = new Error("You are not authorized to view this page.");
