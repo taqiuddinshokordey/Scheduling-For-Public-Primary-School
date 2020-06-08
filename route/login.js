@@ -4,10 +4,6 @@ var User = require('../models/user');
 var CheckIn = require('../models/attendance');
 var mid  = require('../middleware/requiresLogin.js');
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var sessionsColl = db.collection('sessions');
-
-
 
 
 //Login Logic start
