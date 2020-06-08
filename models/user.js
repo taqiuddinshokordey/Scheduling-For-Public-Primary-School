@@ -27,6 +27,10 @@ var UserSchema = new mongoose.Schema({
     required:true,
   },
 
+  flag:{
+    type:Number,
+  },
+
   
 });
 

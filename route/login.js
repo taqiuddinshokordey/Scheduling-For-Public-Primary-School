@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var CheckIn = require('../models/attendance');
 var mid  = require('../middleware/requiresLogin.js');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
@@ -80,6 +81,24 @@ router.get('/admin',mid, function(req, res) {
       }
     });
   }  
+router.get('/admin', function(req, res) {
+  if (! req.session.userId ) {
+    var err = new Error("You are not authorized to view this page.");
+    err.status = 403;
+    return next(err);
+  }
+  User.findById(req.session.userId)
+      .exec(function (error, user) {
+        if (error) {
+          return next(error);
+        } else {
+          console.log(user);
+          return res.render('admin_dashboard',{});
+          
+          ;
+        }
+      });
+    
 }); 
 
 
@@ -96,7 +115,11 @@ router.get('/teacher', mid, function(req, res) {
           return next(error);
         } else {
           console.log(user);
-          return res.render('teacher_dashboard',{});
+          CheckIn.find({userId:req.session.userId},function(err,users) {
+            if (err) throw err;
+            res.render('teacher_dashboard',{'users':users});
+          });
+     
           ;
         }
       });
@@ -194,6 +217,3 @@ router.post('/forgot', function(req, res, next) {
 
 module.exports = router;
 
-
-  
-  

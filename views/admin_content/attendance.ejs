@@ -9,21 +9,55 @@
                 <main>
                     <div class="container-fluid">
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Register New User</li>
+                            <li class="breadcrumb-item active">Attendance Management</li>
                         </ol>
-                             <form action="/register" method="post">
-                                <div class="form-group"><label class="small mb-1">Full name</label><input class="form-control py-4" type="name" name="name" placeholder="Enter full name" /></div>
-                                <div class="form-group"><label class="small mb-1" >Email</label><input class="form-control py-4"  type="username"  name="username" placeholder="Enter email address" /></div>
-                                <div class="form-group"><label class="small mb-1" >Password</label><input class="form-control py-4"  type="password"  name="password" placeholder="Password" /></div>
-                                <div class="form-group"><label class="small mb-1" >Select Roles</label>
-                                    <select name="roles" id="roles">
-                                        <option value="admin">Admin</option>
-                                        <option value="teacher">Teacher</option>
-                                        <option value="creator">Creator</option>
-                                    </select>
+                        <div class="row">
+                                <!--<form action="/attendance" method="POST">
+                                <input type="submit" value="Check In" a class="btn btn-primary btn-block" href="/attendance">         
+                                </form>
+                                <form action="/attendanceCheckOut" method="POST">
+                                    <input type="submit" value="Check Out" a class="btn btn-primary btn-block" href="/attendance">         
+                                </form>-->
+                                <div class="col-xl-3 col-md-6">
+                                    <div class="card bg-danger text-white mb-4">
+                                        <form action="/absentee" method="GET">
+                                            <input type="submit" value="List of absentees" a class="btn btn-danger btn-block" href="#">         
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="form-group mt-4 mb-0"><input type="submit" value="Submit" a class="btn btn-primary btn-block" href="/admin_user"></div>           
-                            </form>
+                        </div>
+                        <!--list of attendance-->
+                        <div class="card mb-4">
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>List of Attendance</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+                                        <thead>
+                                            <tr>
+                                                <th width="15%">Date</th>
+                                                <th width="30%" style="text-align:left;">Teacher's Name</th>
+                                                <th width="15%">Check in</th>
+                                                <th width="15%">Check out</th>
+                                                <th width="20%">Reason (Optional)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% users.forEach(function (user) { %>
+                                            <tr>
+                                                <td><%= user.dateEntry%></td>
+                                                <td style="text-align:left;"><%= user.name %></td>
+                                                <td><%= user.entry %></td>
+                                                <td><%= user.exit.time %></td>
+                                                <td><%= user.exit.reason %></td>                                            
+                                            </tr>
+                                            <% }) %>
+                                        </tbody>
+                                        
+                                    </table>
+                                </div>
+                            </div>
+                        </div>                        
                     </div>
                 </main>
                 <%- include('../layout/footer.ejs') %>.
@@ -32,6 +66,3 @@
                 <%- include('../layout/js.ejs') %>.
     </body>
 </html>
-
-
-
