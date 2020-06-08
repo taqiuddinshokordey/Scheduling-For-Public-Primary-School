@@ -60,27 +60,8 @@ var session = mongoose.model('session');
 questions.find({}, function(err, data) { console.log(err, data, data.length); });
 
 //Get page after login
-router.get('/admin',mid, function(req, res) {
-  if (! req.session.userId ) 
-  {
-    console.log(err);
-  }else
-  {
-    User.findById(req.session.userId).exec(function (error, user) {
-      if (error) {
-        return next(error);
-      } else {
-        console.log(user)
-        sessionsColl.find({},function(err,online_user){ //Get Online User
-          if (err) throw err;
-          console.log(online_user)
-          return res.render('admin_dashboard',{'online_users':online_user, user:user});
-          //res.render('admin_content/admin_user',{'users':users, user:user});
-        });
-        ;
-      }
-    });
-  }  
+ 
+
 router.get('/admin', function(req, res) {
   if (! req.session.userId ) {
     var err = new Error("You are not authorized to view this page.");
