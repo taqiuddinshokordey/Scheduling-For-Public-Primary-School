@@ -4,20 +4,17 @@ var User = require('../models/user');
 var CheckIn = require('../models/attendance');
 var mid  = require('../middleware/requiresLogin.js');
 
-
-  //get landing page
-  router.get('/attendance',mid, function(req,res){
-    CheckIn.find({},function(err,users) {
-      if (err) throw err;
-      res.render('admin_content/attendance',{'users':users});
-    });
-  });
-
   //get absentee page
-  router.get('/absentee',mid, function(req,res){
-    User.find({flag : 0},function(err,users) {
-      if (err) throw err;
-      res.render('admin_content/absentee',{'users':users});
+  router.get('/absentee',mid, function(req,res){  
+    User.findById(req.session.userId).exec(function (error, user){
+      if (error){
+        return next(error);
+      }else{
+        User.find({flag : 0},function(err,users) {
+          if (err) throw err;
+          res.render('admin_content/absentee',{'users':users, user:user});
+        });
+      }
     });
   });
 
@@ -36,6 +33,7 @@ var mid  = require('../middleware/requiresLogin.js');
             dateEntry: date.toLocaleDateString(),
             entry: date.toTimeString().replace("GMT+0800 (Malaysia Time)", " "),
             exit: {time: "-", reason:"-"}
+            
           }
   
           //use schema.create to insert data into the db

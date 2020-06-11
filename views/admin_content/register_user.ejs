@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
     <%- include('../layout/head.ejs') %>.
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="assets/demo/chart-area-demo.js"></script>
+<script src="assets/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+<script src="assets/demo/datatables-demo.js"></script>
     <body class="sb-nav-fixed">
         <%- include('../layout/topbar.ejs') %>.
         <div id="layoutSidenav">
@@ -9,58 +18,137 @@
                 <main>
                     <div class="container-fluid">
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Register New User</li>
+                            <li class="breadcrumb-item active">Register Teacher</li>
                         </ol>
-                             <form action="/register" method="post">
-<<<<<<< HEAD
-                                <div class="form-group"><label class="small mb-1">Full name</label><input class="form-control py-4" type="name" name="name" placeholder="Enter full name" /></div>
-                                <div class="form-group"><label class="small mb-1" >Email</label><input class="form-control py-4"  type="username"  name="username" placeholder="Enter email address" /></div>
-                                <div class="form-group"><label class="small mb-1" >Password</label><input class="form-control py-4"  type="password"  name="password" placeholder="Password" /></div>
-                                <div class="form-group"><label class="small mb-1" >Select Roles</label></div>
-                                <div class="dropdown">
+                        <div class="form-group"><label class="small mb-1" >Select Roles</label>
+                            <select name="roles" class="form-control" style="width: 30%;" id="roles">
+                                <option value="">-- Select Roles --</option>
+                                <option value="admin">Admin</option>
+                                <option value="teacher">Teacher</option>
+                                <option value="creator">Creator</option>
+                            </select>
+                    </div>
+                
+                    <form action="/register" method="post" id="form1">
+                        <div class="form-group"><label class="small mb-1">Full name</label><input class="form-control py-4" style="width: 50%;" type="name" name="name" placeholder="Enter full name" /></div>
+                        <div class="form-group"><label class="small mb-1" >Email</label><input class="form-control py-4" style="width: 50%;" type="username"  name="username" placeholder="Enter email address" /></div>
+                        <div class="form-group"><label class="small mb-1" >Password</label><input class="form-control py-4" style="width: 50%;" type="password"  name="password" placeholder="Password" /></div>
+                        <input type="hidden" id="roles" name="roles" value="Admin">
+                        <div class="form-group mt-4 mb-0"><input type="submit" value="Submit" style="width: 20%;" a class="btn btn-primary btn-block" href="/admin_user"></div>           
+                    </form>
 
-                                    <!--Trigger-->
-                                    <a class="btn btn-primary dropdown-toggle" type="button" name="roles" id="roles" data-toggle="dropdown"
-                                      aria-haspopup="true" aria-expanded="false">Select Roles</a>
-                                  
-                                  
-                                    <!--Menu-->
-                                    <div class="dropdown-menu dropdown-primary">
-                                      <a class="dropdown-item"  value="Admin">Admin</a>
-                                      <a class="dropdown-item"  value="Teacher">Teacher</a>
-                                      <a class="dropdown-item"  value="Creator">Creator</a>
-                                    </div>
-                                  </div>
-                                <div class="form-group"><label class="small mb-1" >Select Roles</label></div>
-                                    <select name="roles" id="roles">
-                                        <option value="Admin">Admin</option>
-                                        <option value="Teacher">Teacher</option>
-                                        <option value="Creator">Creator</option>
-                                    </select>
-                                
-                                <div class="form-group mt-4 mb-0"><input type="submit" value="Submit" a class="btn btn-primary btn-block" href="/admin_user"></div>           
-=======
-                                <div class="form-group"><label class="small mb-1">Full name</label><input class="form-control py-4" style="width: 50%;" type="name" name="name" placeholder="Enter full name" /></div>
-                                <div class="form-group"><label class="small mb-1" >Email</label><input class="form-control py-4" style="width: 50%;" type="username"  name="username" placeholder="Enter email address" /></div>
-                                <div class="form-group"><label class="small mb-1" >Password</label><input class="form-control py-4" style="width: 50%;" type="password"  name="password" placeholder="Password" /></div>
-                                <div class="form-group"><label class="small mb-1" >Select Roles</label>
-                                    <select name="roles" class="form-control" style="width: 30%;" id="roles">
-                                        <option value="admin">Admin</option>
-                                        <option value="teacher">Teacher</option>
-                                        <option value="creator">Creator</option>
-                                    </select>
-                                </div>
-                                <div class="form-group mt-4 mb-0"><input type="submit" value="Submit" style="width: 20%;" a class="btn btn-primary btn-block" href="/admin_user"></div>           
->>>>>>> nanie_kehadiran_v1.0
-                            </form>
+                    <form action="/register" method="post" id="form2">
+                        <div class="form-group"><label class="small mb-1">Full name</label><input class="form-control py-4" style="width: 50%;" type="name" name="name" placeholder="Enter full name" /></div>
+                        <div class="form-group"><label class="small mb-1" >Email</label><input class="form-control py-4" style="width: 50%;" type="username"  name="username" placeholder="Enter email address" /></div>
+                        <div class="form-group"><label class="small mb-1" >Password</label><input class="form-control py-4" style="width: 50%;" type="password"  name="password" placeholder="Password" /></div>
+                        <input type="hidden" id="roles" name="roles" value="Teacher">
+                        <div class="form-group"><label class="small mb-1" >Select Primary Subject</label>
+                           
+                            <select name="roles" class="form-control" style="width: 30%;" id="subject">
+                                <% subject.forEach(function (subject) { %>
+                                <option value= "" ><%= subject.subject_name %></option>
+                                <% }) %>
+                            </select>
+                            
+                        </div>
+                        <div class="form-group"><label class="small mb-1" >Select Secondary Subject</label>
+                           
+                            <select name="roles" class="form-control" style="width: 30%;" id="subject">
+                                <% subject.forEach(function (subject) { %>
+                                <option value= "" ><%= subject.subject_name %></option>
+                                <% }) %>
+                            </select>
+                            
+                        </div>
+                        
+                        <div class="form-group mt-4 mb-0"><input type="submit" value="Submit" style="width: 20%;" a class="btn btn-primary btn-block" href="/admin_user"></div>           
+                    </form>
+
+                    <form action="/register" method="post" id="form3">
+                        <div class="form-group"><label class="small mb-1">Full name</label><input class="form-control py-4" style="width: 50%;" type="name" name="name" placeholder="Enter full name" /></div>
+                        <div class="form-group"><label class="small mb-1" >Email</label><input class="form-control py-4" style="width: 50%;" type="username"  name="username" placeholder="Enter email address" /></div>
+                        <div class="form-group"><label class="small mb-1" >Password</label><input class="form-control py-4" style="width: 50%;" type="password"  name="password" placeholder="Password" /></div>
+                        <input type="hidden" id="roles" name="roles" value="Creator">
+                        <div class="form-group"><label class="small mb-1" >Select Primary Subject</label>
+                           
+                            <select name="roles" class="form-control" style="width: 30%;" id="subject">
+                                <% subject.forEach(function (subject) { %>
+                                <option value= "" ><%= subject.subject_name %></option>
+                                <% }) %>
+                            </select>
+                            
+                        </div>
+                        <div class="form-group"><label class="small mb-1" >Select Secondary Subject</label>
+                           
+                            <select name="roles" class="form-control" style="width: 30%;" id="subject">
+                                <% subject.forEach(function (subject) { %>
+                                <option value= "" ><%= subject.subject_name %></option>
+                                <% }) %>
+                            </select>
+                            
+                        </div>
+                        
+                        <div class="form-group mt-4 mb-0"><input type="submit" value="Submit" style="width: 20%;" a class="btn btn-primary btn-block" href="/admin_user"></div>           
+                    </form>
+                
+                <script>
+                    $(document).ready(function(){
+                        $("form").hide();
+                    })
+
+                    $("#roles").change(function(){
+                        stateChange($(this).val());
+                    });
+
+                    function stateChange(stateValue){
+                        $("form").hide();
+                    
+                        switch(stateValue){
+                        case 'admin':
+                            $("#form1").show();
+                            break;
+                        ;
+                        case 'teacher':
+                            $("#form2").show();
+                            break;
+                        ;
+                        case 'creator':
+                            $("#form3").show();
+                            break;
+                        ;
+                        // so on and so on...
+                    }
+                    }
+                </script>
+                            
                     </div>
                 </main>
                 <%- include('../layout/footer.ejs') %>.
             </div>
         </div>
-                <%- include('../layout/js.ejs') %>.
+               
     </body>
 </html>
 
 
 
+
+
+
+<!---
+<form action="/register" method="post" id="form_utama">
+    <div class="form-group"><label class="small mb-1" >Select Roles</label>
+        <select name="roles" class="form-control" style="width: 30%;" id="roles">
+            <option value="">-- Select Roles --</option>
+            <option value="admin">Admin</option>
+            <option value="teacher">Teacher</option>
+            <option value="creator">Creator</option>
+        </select>
+    </div>
+    <div class="form-group"><label class="small mb-1">Full name</label><input class="form-control py-4" style="width: 50%;" type="name" name="name" placeholder="Enter full name" /></div>
+    <div class="form-group"><label class="small mb-1" >Email</label><input class="form-control py-4" style="width: 50%;" type="username"  name="username" placeholder="Enter email address" /></div>
+    <div class="form-group"><label class="small mb-1" >Password</label><input class="form-control py-4" style="width: 50%;" type="password"  name="password" placeholder="Password" /></div>
+    <div class="form-group mt-4 mb-0"><input type="submit" value="Submit" style="width: 20%;" a class="btn btn-primary btn-block" href="/admin_user"></div>           
+</form>
+
+--->

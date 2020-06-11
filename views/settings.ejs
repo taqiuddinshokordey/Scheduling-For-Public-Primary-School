@@ -4,9 +4,9 @@
     <body class="sb-nav-fixed">
         <%- include('./layout/topbar.ejs') %>.
         <div id="layoutSidenav">
-            <%if (user.roles == "admin") { %>
+            
             <%- include('admin_content/sidenav_admin.ejs') %>.
-            <% } %>
+            
             
             <div id="layoutSidenav_content">
                 <main>
@@ -90,30 +90,6 @@
                                                     <input class="form-control" type="email" value="<%= user.username %>">
                                                 </div>
                                             </div>
-                                            
-                                            <div class="form-group row">
-                                                <label class="col-lg-3 col-form-label form-control-label">Website</label>
-                                                <div class="col-lg-9">
-                                                    <input class="form-control" type="url" value="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-lg-3 col-form-label form-control-label">Address</label>
-                                                <div class="col-lg-9">
-                                                    <input class="form-control" type="text" value="" placeholder="Street">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-lg-3 col-form-label form-control-label"></label>
-                                                <div class="col-lg-6">
-                                                    <input class="form-control" type="text" value="" placeholder="City">
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input class="form-control" type="text" value="" placeholder="State">
-                                                </div>
-                                            </div>
-                                            
-                                           
                                             <div class="form-group row">
                                                 <label class="col-lg-3 col-form-label form-control-label">Password</label>
                                                 <div class="col-lg-9">

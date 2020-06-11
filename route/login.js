@@ -70,7 +70,11 @@ router.get('/admin',mid, function(req,res){
         } else
         {
           console.log(user);
-          return res.render('admin_dashboard',{'user':user});
+          CheckIn.find({},function(err,users) { //Get Attendance list
+            if (err) throw err;
+            res.render('admin_dashboard',{'users':users, 'user':user });
+          });
+          
           ;
         }
       });
@@ -78,31 +82,6 @@ router.get('/admin',mid, function(req,res){
   
   
 });
-
-/* router.get('/admin', function(req, res) {
-  if (! req.session.userId ) 
-  {
-    var err = new Error("You are not authorized to view this page.");
-    err.status = 403;
-    return next(err);
-  }else
-  {
-    User.findById(req.session.userId).exec(function (error, user) {
-        if (error) 
-        {
-          return next(error);
-
-        } else
-        {
-          console.log(user);
-          return res.render('admin_dashboard',{});
-          ;
-        }
-      });
-  }
-  
-    
-}); */ 
 
 
 //get Teacher landing page

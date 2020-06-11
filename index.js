@@ -17,6 +17,7 @@ var subject_route= require('./route/subject');
 var timetable_route= require ('./route/timetable');
 var attendance_route= require ('./route/attendance');
 var settings_route= require('./route/settings');
+var add_teacher_route=require('./route/teacher_add');
 
 
 // Form Data
@@ -58,6 +59,7 @@ app.use('/', subject_route);
 app.use('/', timetable_route);
 app.use('/', attendance_route);
 app.use('/', settings_route);
+app.use('/', add_teacher_route);
 
 
 // Run the Server
@@ -67,7 +69,7 @@ console.log('listen to server ' +3000+' connected.');
 
 // Show the Index Page
 app.get('/',function(req,res){
-    res.render('index',{title:"Sistem Penggantian Guru",'description':'This is Home page description.'});
+    res.render('index',{title:"Relief Timetable and Attendance System",'description':'This is Home page description.'});
 });
 
 // Set the view engine
@@ -78,10 +80,12 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
-/*/error handling
-app.use(function(error, req, res, next) {
+// error handling
+
+/* app.use(function(error, req, res, next) {
   res.status(401);
 res.render('error/401', {title:'No Access', error: error});
 });
 
 */
+

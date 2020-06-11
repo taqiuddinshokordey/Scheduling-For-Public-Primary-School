@@ -11,53 +11,111 @@ var mid  = require('../middleware/requiresLogin.js');
 const todaysDate = new Date()
 const currentYear = todaysDate.getFullYear()
 
+
 //Timetable Homepage
 router.get('/timetable',function(req,res){
-  res.render('admin_content/timetable', { });
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if (error){
+      return next(error);
+    }else
+    {
+      console.log(user);
+      res.render('admin_content/timetable', { user:user});
+    }
+  });
 });
 
-//Get Timetable By Class
+//Get Timetable By Category
 router.get('/timetable_class',mid, function(req,res){
-  Timetable.distinct("classroom" ,{year:currentYear},function(err,timetable){
-    if (err) throw err;
-    console.log(currentYear);
-    console.log(timetable);
-    res.render('admin_content/view_timetable_table',{'timetable':timetable});
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if (error){
+      return next(error);
+    }else
+    {
+      Timetable.distinct("classroom" ,{year:currentYear},function(err,timetable){
+        if (err) throw err;
+        console.log(currentYear);
+        console.log(timetable);
+        res.render('admin_content/view_timetable_table',{'timetable':timetable,  user:user});
+      });
+    }
   });
 });
 
 router.get('/timetable_class/view/:id',mid, function(req,res){
-  Timetable.distinct('classroom',({classroom: req.params.id, year: currentYear}),function(err,timetable){
-    if (err) throw err;
-    console.log(currentYear);
-    console.log(timetable );
-    res.render('admin_content/view_timetable_class',{'timetable':timetable});
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if (error){
+      return next(error);
+    }else
+    {
+      Timetable.distinct('classroom',({classroom: req.params.id, year: currentYear}),function(err,timetable){
+        if (err) throw err;
+        console.log(currentYear);
+        console.log(timetable );
+        res.render('admin_content/view_timetable_class',{'timetable':timetable, user:user});
+      });
+    }
   });
 });
 
 router.get('/timetable_teacher',mid, function(req,res){
-  Timetable.distinct("teacher" ,{year:currentYear},function(err,timetable){
-    if (err) throw err;
-    console.log(currentYear);
-    console.log(timetable);
-    res.render('admin_content/view_timetable_teacher',{'timetable':timetable});
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if(error){
+      return next(error);
+    }else
+    {
+      Timetable.distinct("teacher" ,{year:currentYear},function(err,timetable){
+        if (err) throw err;
+        console.log(currentYear);
+        console.log(timetable);
+        res.render('admin_content/view_timetable_teacher',{'timetable':timetable, user:user});
+      });
+    }
   });
 });
 
 router.get('/timetable_subject',mid, function(req,res){
-  Timetable.distinct("subject" ,{year:currentYear},function(err,timetable){
-    if (err) throw err;
-    console.log(currentYear);
-    console.log(timetable);
-    res.render('admin_content/view_timetable_subject',{'timetable':timetable});
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if(error){
+      return next(error);
+    }else
+    {
+      Timetable.distinct("subject" ,{year:currentYear},function(err,timetable){
+        if (err) throw err;
+        console.log(currentYear);
+        console.log(timetable);
+        res.render('admin_content/view_timetable_subject',{'timetable':timetable, user:user});
+      });
+    }
+  });
+});
+
+router.get('/timetable_year',mid, function(req,res){
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if(error){
+      return next(error);
+    }else
+    {
+      Timetable.distinct("year",function(err,timetable){
+        if (err) throw err;
+        console.log(currentYear);
+        console.log(timetable);
+        res.render('admin_content/view_timetable_table',{'timetable':timetable, user:user});
+      });
+    }
   });
 });
 
 
 //Add timetable
 router.get("/timetable_add",mid, function(req, res) {
-  Subject.find({}, function(err, collection) 
-  {
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if(error){
+      return next(error);
+    }else
+    {
+      Subject.find({}, function(err, collection) 
+      {
        if(err) 
        {
           console.log(err);
@@ -82,14 +140,17 @@ router.get("/timetable_add",mid, function(req, res) {
                 {
                 console.log(collection3, collection2,collection);
                  res.render("admin_content/timetable_add", 
-                 {collection: collection, collection2: collection2, collection3: collection3});
+                 {collection: collection, collection2: collection2, collection3: collection3, user:user});
                 }
               })
               
             }               
           }); 
        }
+      });
+    }
   });
+  
 });
 
 
@@ -132,7 +193,6 @@ router.post('/timetable_add',mid, function (req, res, next) {
 });
 
 //Update logic
-
 
 router.get('/timetable_class/edit/:id', function(req,res){
   Timetable.find({classroom:req.params.id},function(err,timetable){

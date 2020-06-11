@@ -3,29 +3,136 @@
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item active">Dashboard</li>
         </ol>
-        <div class="row">
-            <div class="col-xl-3 col-md-6">
-                <div class="card bg-success text-white mb-4">
-                    <div class="card-body">Clock In</div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#">View Details</a>
-                        <div class="small text-white"><i class="fas fa-angle-right"></i></div> 
+
+            <div class="row my-2">
+                <div class="col-lg-8 order-lg-2">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" data-target="#messages" data-toggle="tab" class="nav-link">Attendance</a>
+                        </li>
+                        
+                    </ul>
+                    <div class="tab-content py-4">
+                        <div class="tab-pane active" id="profile">
+                            <h5 class="mb-3"><%= user.name %></h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Roles</h6>
+                                    <p>
+                                        <%= user.roles %>
+                                    </p>
+                                    <h6>Username/Email</h6>
+                                    <p>
+                                        <%= user.username %>
+                                    </p>
+                                </div>
+                                
+                            </div>
+                            <!--/row-->
+                        </div>
+                        <div class="tab-pane" id="messages">
+                            <div class="row">
+                                <h5 class="mb-3">Please Clock In Before 8.00 AM</h5>
+                                <h5 class="mb-3">&nbsp;</h5>
+                                <h5 class="mb-3">Please Clock Out Before 5.00 PM</h5>
+                                <div class="col-xl-3 col-md-6">
+                                    <div class="card text-white bg-success mb-4">
+                                        <form action="attendance" method="POST">
+                                            <input type="submit" value="Clock In" a class="btn btn-success btn-block" href="#">         
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-md-6">
+                                    <div class="card bg-danger text-white mb-4">
+                                        <form action="attendanceCheckOut" method="POST">
+                                            <input type="submit" value="Clock Out" a class="btn btn-danger btn-block" href="#">         
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-lg-4 order-lg-1 text-center">
+                    <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
+                </div>
+            </div>
+        
+            <!--list of attendance-->
+            <div class="card mb-4">
+                <div class="card-header"><i class="fas fa-table mr-1"></i>List of Attendance</div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+                            <thead>
+                                <tr>
+                                    <th width="15%">Date</th>
+                                    <th width="30%" style="text-align:left;">Teacher's Name</th>
+                                    <th width="15%">Check in Time</th>
+                                    <th width="15%">Check out Time</th>
+                                    <th width="20%">Status</th>         //Late Ontime Early
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% users.forEach(function (user) { %>
+                                <tr>
+                                    <td><%= user.dateEntry%></td>
+                                    <td style="text-align:left;"><%= user.name %></td>
+                                    <td><%= user.entry %></td>
+                                    <td><%= user.exit.time %></td>
+                                    <td><%= user.exit.reason %></td>                                            
+                                </tr>
+                                <% }) %>
+                            </tbody>
+
+                            
+                        </table>
+                    </div>
+                </div>
+            </div> 
+            <div class="card mb-4">
+                <div class="card-header"><i class="fas fa-table mr-1"></i>List of Absentee</div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <form id="tblReason">
+                        </form>
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+                            <thead>
+                                <tr>
+                                    <th width="40%" style="text-align:left;">Teacher's Name</th>
+                                    <th width="20%">Reason (Optional)</th>
+                                    <th width="20%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% users.forEach(function (user) { %>
+                                <tr>
+                                    <td style="text-align:left;"><%= user.name %></td>
+                                    <td style="text-align:left;">-</td>                                               
+                                    <td>
+                                        <!--<select class="selectpicker" data-style="btn-info" name="ddlReason">
+                                            <optgroup label="Select Reason">
+                                              <option name="" value="0">Select Reason</option>
+                                              <option name="table1" value="General">General</option>
+                                              <option name="table2" value="Emergency">Emergency</option>
+                                            </optgroup>
+                                        </select>-->
+                                        <a class="button" href="/absentee/edit/<%= user._id %>"</a>Edit Reason
+                                    </td>                                            
+                                </tr>
+                                <% }) %>
+                            </tbody>
+                            
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
-                <div class="card bg-danger text-white mb-4">
-                    <div class="card-body">Clock Out</div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#">View Details</a>
-                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                    </div>
-                </div>
-            </div>
-            
-            
-        </div>
-       
+
+
             <div class="card mb-4">
                 <div class="card-header"><i class="fas fa-table mr-1"></i>List of Online User</div>
                 <div class="card-body">
@@ -54,6 +161,8 @@
                     </div>
                 </div>
             </div>
+
+            
        
         
     </div>
