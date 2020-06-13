@@ -87,5 +87,10 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 res.render('error/401', {title:'No Access', error: error});
 });
 
+/* app.use(function(error, req, res, next) {
+  res.status(401);
+res.render('error/402', {title:'No Access', error: error});
+});
+
 */
 

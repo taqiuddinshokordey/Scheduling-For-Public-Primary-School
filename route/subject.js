@@ -1,19 +1,25 @@
 var express = require('express');
 var router = express.Router();
 var Subject = require('../models/subject');
+var User = require('../models/user');
 var mid  = require('../middleware/requiresLogin.js');
 
 //view subject list
 
 router.get('/subject',mid, function(req,res){
+  User.findById(req.session.userId).exec(function (error, user){
     Subject.find({},function(err,subject){
       if (err) throw err;
-      res.render('admin_content/subject',{'subject':subject});
+      res.render('admin_content/subject',{'subject':subject, user:user});
     });
+  });
 });
 
 router.get('/subject_add',mid, function(req, res) {
-  res.render('admin_content/subject_add', { });
+  User.findById(req.session.userId).exec(function (error, user){
+    res.render('admin_content/subject_add', {user:user });
+  });
+  
 });
 
 
@@ -55,9 +61,13 @@ router.post('/subject_add', function (req, res, next) {
 //subject edit
 
 router.get('/subject/edit/:id', function(req,res){
-  Subject.findOne({_id:req.params.id},function(err,subject){
-      res.render('admin_content/edit_subject',{'subject':subject});
+  User.findById(req.session.userId).exec(function (error, user)
+  {
+    Subject.findOne({_id:req.params.id},function(err,subject){
+      res.render('admin_content/edit_subject',{'subject':subject, user:user});
   });
+  });
+  
 });
 
 router.post('/subject/edit/:id',function(req,res){
@@ -76,11 +86,14 @@ router.post('/subject/edit/:id',function(req,res){
 //classroom delete
 
 router.get('/subject/delete/:id',function(req,res){
-  Subject.deleteOne({_id:req.params.id},function(err){
-    if(!err){
-        res.redirect('/subject');
-    }
-});
+  User.findById(req.session.userId).exec(function (error, user){
+    Subject.deleteOne({_id:req.params.id},function(err){
+      if(!err){
+          res.redirect('/subject');
+      }
+  });
+  });
+  
 });
 
 

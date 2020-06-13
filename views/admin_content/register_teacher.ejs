@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../layout/head.ejs') %>.
+    <body class="sb-nav-fixed">
+        <%- include('../layout/topbar.ejs') %>.
+        <div id="layoutSidenav">
+            <%- include('sidenav_admin.ejs') %>.
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Register New User</li>
+                        </ol>
+                        <div class="card mb-4">
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>List of Registered User</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>First Subject</th>
+                                                <th>Secondary Subject</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% teacher.forEach(function (teacher) { %>
+                                            <tr>
+                                                <td><%= teacher.name %></td>
+                                                <td><%= teacher.subject %></td>
+                                                <td><%= teacher.second_subject %></td> 
+                                                <td><a class="button" href="/absentee/editReason/<%= user._id %>"</a>Edit&nbsp;<a class="button" href="/admin_user/delete/<%= user._id %>"</a>Delete</a></td>
+                                            </tr>
+                                            <% }) %>
+                                        </tbody>
+                                        
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <%- include('../layout/footer.ejs') %>.
+            </div>
+        </div>
+                <%- include('../layout/js.ejs') %>.
+    </body>
+</html>

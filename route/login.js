@@ -3,6 +3,7 @@ var router = express.Router();
 var User = require('../models/user');
 var CheckIn = require('../models/attendance');
 var mid  = require('../middleware/requiresLogin.js');
+//var mid2  = require('../middleware/admin_only.js');
 var mongoose = require('mongoose');
 
 
@@ -85,7 +86,7 @@ router.get('/admin',mid, function(req,res){
 
 
 //get Teacher landing page
-router.get('/teacher', mid, function(req, res) {
+router.get('/teacher', mid,  function(req, res) {
   if (! req.session.userId ) {
     var err = new Error("You are not authorized to view this page.");
     err.status = 403;
@@ -99,7 +100,7 @@ router.get('/teacher', mid, function(req, res) {
           console.log(user);
           CheckIn.find({userId:req.session.userId},function(err,users) {
             if (err) throw err;
-            res.render('teacher_dashboard',{'users':users});
+            res.render('teacher_dashboard',{'users':users , 'user':user});
           });
      
           ;
@@ -120,7 +121,7 @@ router.get('/creator', mid, function(req, res) {
           return next(error);
         } else {
           console.log(user);
-          return res.render('timetable_creator',{});
+          return res.render('timetable_creator',{'user':user});
           ;
         }
       });

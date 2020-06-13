@@ -74,6 +74,22 @@ router.get('/timetable_teacher',mid, function(req,res){
   });
 });
 
+router.get('/timetable_teacher/view/:id',mid, function(req,res){
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if (error){
+      return next(error);
+    }else
+    {
+      Timetable.distinct('teacher',({teacher: req.params.id, year: currentYear}),function(err,timetable){
+        if (err) throw err;
+        console.log(currentYear);
+        console.log(timetable );
+        res.render('admin_content/view_timetable_class',{'timetable':timetable, user:user});
+      });
+    }
+  });
+});
+
 router.get('/timetable_subject',mid, function(req,res){
   Teacher.findById(req.session.userId).exec(function (error, user){
     if(error){

@@ -1,17 +1,8 @@
 var mongoose = require('mongoose');
 
-
-
 var TeacherSchema = new mongoose.Schema ({
 
-    
-    
     subject: {
-        type:String,
-        required:true,
-    },
-
-    experience:{
         type:String,
         required:true,
     },
@@ -21,12 +12,18 @@ var TeacherSchema = new mongoose.Schema ({
         required:true,
     },
 
-    subject{
+
+    second_subject: {
         type:String,
         required:true,
+    },
+
+    teacher_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 
 });
 
-var Subject = mongoose.model('Subject', SubjectSchema);
-module.exports = Subject;
+var Teacher = mongoose.model('Teacher', TeacherSchema);
+module.exports = Teacher;

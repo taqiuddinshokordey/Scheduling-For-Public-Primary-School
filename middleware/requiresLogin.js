@@ -6,4 +6,4 @@ module.exports=function requiresLogin(req, res, next) {
       err.status = 401;
       return next(err);
     }
-  }
+}

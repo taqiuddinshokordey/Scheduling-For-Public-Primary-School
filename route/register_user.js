@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var Teacher = require('../models/teacher');
 var Subject = require('../models/subject');
 var mid  = require('../middleware/requiresLogin.js');
 
@@ -53,7 +54,7 @@ router.get('/register_csv',mid, function(req, res, user) {
   
 });
 
-//add new user 
+//add new user & add teacher detail
  
 router.post('/register', function (req, res, next) {
     if (
@@ -71,21 +72,48 @@ router.post('/register', function (req, res, next) {
   
       //use schema.create to insert data into the db
       User.create(userData, function (err, user) {
-        if (err) {
+        if (err)
+        {
           return next(err)
         } else 
         {
-        if(user.roles=='Admin')
-        {
-          console.log('Admin Registered');
-          return res.redirect('/admin_user');
-        }
-        console.log('teacher Registered')
-        return res.redirect('/teacher_add');
+          if(user.roles=='Admin')
+          {
+            console.log('Admin Registered');
+            return res.redirect('/admin_user');
+          }
+          if(req.body.subject && req.body.secondary_subject,req.body.level)
+          {
+                var teacherData = {
+                  subject: req.body.subject,
+                  second_subject: req.body.secondary_subject,
+                  level: req.body.level,
+                  teacher_id: user._id,
+                  
+              }
+              console.log(req.body);
+              Teacher.create(teacherData, function (err, teacher){
+                if(err){
+                    return next(err)
+                }else
+                {
+                    console.log('Teacher details added'+teacher)
+                    return res.redirect('/admin_user');
+                }
+            });
+          }else
+          {
+            var err = new Error('All fields have to be filled out');
+            err.status = 400;
+            return next(err);
+          }
+        
         }
       });
   
-    } else {
+    } 
+    else
+    {
       var err = new Error('All fields have to be filled out');
       err.status = 400;
       return next(err);
@@ -135,12 +163,18 @@ router.post('/admin_user/edit/:id',function(req,res){
 
 //user delete
 router.get('/admin_user/delete/:id',function(req,res){
-  User.deleteOne({_id:req.params.id},function(err){
-    if(!err)
-    {
-        res.redirect('/admin_user');
-    }
-});
+  //if(user.name=='SuperAdmin'){
+    //console.log('Cannot delete super admin');
+    //res.redirect('/admin_user');
+  //}else
+ // {
+    User.deleteOne({_id:req.params.id},function(err){
+      if(!err)
+      {
+          res.redirect('/admin_user');
+      }
+  });
+  //}
 });
 
 //end user delete

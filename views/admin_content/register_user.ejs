@@ -36,61 +36,70 @@
                         <input type="hidden" id="roles" name="roles" value="Admin">
                         <div class="form-group mt-4 mb-0"><input type="submit" value="Submit" style="width: 20%;" a class="btn btn-primary btn-block" href="/admin_user"></div>           
                     </form>
-
+                    
+                    <!-- Teacher From-->
                     <form action="/register" method="post" id="form2">
                         <div class="form-group"><label class="small mb-1">Full name</label><input class="form-control py-4" style="width: 50%;" type="name" name="name" placeholder="Enter full name" /></div>
                         <div class="form-group"><label class="small mb-1" >Email</label><input class="form-control py-4" style="width: 50%;" type="username"  name="username" placeholder="Enter email address" /></div>
                         <div class="form-group"><label class="small mb-1" >Password</label><input class="form-control py-4" style="width: 50%;" type="password"  name="password" placeholder="Password" /></div>
                         <input type="hidden" id="roles" name="roles" value="Teacher">
                         <div class="form-group"><label class="small mb-1" >Select Primary Subject</label>
-                           
-                            <select name="roles" class="form-control" style="width: 30%;" id="subject">
+                            <select name="subject" class="form-control" style="width: 30%;" id="subject">
+                                <option value="">-- Select Subject --</option>
                                 <% subject.forEach(function (subject) { %>
-                                <option value= "" ><%= subject.subject_name %></option>
+                                <option value= "<%= subject.subject_name %>" ><%= subject.subject_name %></option>
                                 <% }) %>
                             </select>
-                            
                         </div>
                         <div class="form-group"><label class="small mb-1" >Select Secondary Subject</label>
-                           
-                            <select name="roles" class="form-control" style="width: 30%;" id="subject">
+                            <select name="secondary_subject" class="form-control" style="width: 30%;" id="secondary_subject">
+                                <option value="">-- Select Subject --</option>
                                 <% subject.forEach(function (subject) { %>
-                                <option value= "" ><%= subject.subject_name %></option>
+                                <option value= "<%= subject.subject_name %>" ><%= subject.subject_name %></option>
                                 <% }) %>
                             </select>
-                            
                         </div>
-                        
+                        <div class="form-group"><label class="small mb-1" >Preffered Level of study</label>
+                            <select name="level" class="form-control" style="width: 30%;" id="level">
+                                <option value="">-- Select level --</option>
+                                <option value="Level 1">Level 1</option>
+                                <option value="Level 2">Level 2</option>
+                            </select>
+                        </div>
                         <div class="form-group mt-4 mb-0"><input type="submit" value="Submit" style="width: 20%;" a class="btn btn-primary btn-block" href="/admin_user"></div>           
                     </form>
 
+                    <!-- Creator From-->
                     <form action="/register" method="post" id="form3">
                         <div class="form-group"><label class="small mb-1">Full name</label><input class="form-control py-4" style="width: 50%;" type="name" name="name" placeholder="Enter full name" /></div>
                         <div class="form-group"><label class="small mb-1" >Email</label><input class="form-control py-4" style="width: 50%;" type="username"  name="username" placeholder="Enter email address" /></div>
                         <div class="form-group"><label class="small mb-1" >Password</label><input class="form-control py-4" style="width: 50%;" type="password"  name="password" placeholder="Password" /></div>
                         <input type="hidden" id="roles" name="roles" value="Creator">
                         <div class="form-group"><label class="small mb-1" >Select Primary Subject</label>
-                           
-                            <select name="roles" class="form-control" style="width: 30%;" id="subject">
+                            <select name="subject" class="form-control" style="width: 30%;" id="subject">
+                                <option value="">-- Select Subject --</option>
                                 <% subject.forEach(function (subject) { %>
-                                <option value= "" ><%= subject.subject_name %></option>
+                                <option value= "<%= subject.subject_name %>" ><%= subject.subject_name %></option>
                                 <% }) %>
                             </select>
-                            
                         </div>
                         <div class="form-group"><label class="small mb-1" >Select Secondary Subject</label>
-                           
-                            <select name="roles" class="form-control" style="width: 30%;" id="subject">
+                            <select name="secondary_subject" class="form-control" style="width: 30%;" id="secondary_subject">
+                                <option value="">-- Select Subject --</option>
                                 <% subject.forEach(function (subject) { %>
-                                <option value= "" ><%= subject.subject_name %></option>
+                                <option value= "<%= subject.subject_name %>" ><%= subject.subject_name %></option>
                                 <% }) %>
                             </select>
-                            
                         </div>
-                        
+                        <div class="form-group"><label class="small mb-1" >Preffered Level of study</label>
+                            <select name="level" class="form-control" style="width: 30%;" id="level">
+                                <option value="">-- Select level --</option>
+                                <option value="Level 1">Level 1</option>
+                                <option value="Level 2">Level 2</option>
+                            </select>
+                        </div>
                         <div class="form-group mt-4 mb-0"><input type="submit" value="Submit" style="width: 20%;" a class="btn btn-primary btn-block" href="/admin_user"></div>           
                     </form>
-                
                 <script>
                     $(document).ready(function(){
                         $("form").hide();

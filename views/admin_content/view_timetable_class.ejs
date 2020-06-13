@@ -1,98 +1,293 @@
-<!DOCTYPE html>
-<html lang="en">
-    <%- include('../layout/head.ejs') %>.
-    <body class="sb-nav-fixed">
-        <%- include('../layout/topbar.ejs') %>.
-        <div id="layoutSidenav">
-            <%- include('sidenav_admin.ejs') %>.
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid">
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Annual Time Table Management</li>
-                        </ol>
-                        <div class="row"> 
-                        </div>
-                        <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i>View Current Timetable by Class</div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <H1><FONT COLOR="DARKCYAN"><CENTER><%= timetable.classroom %></FONT></H1>
-                                    <table border="2" cellspacing="3" align="center">
-                                        <tr>
-                                            
-                                            <td align="center">
-                                                <td><%= timetable.timeslot %>
-                                                
-                                            </td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <td align="center">MONDAY
-                                                <td align="center">---<td align="center"><font color="blue">SUB1<br>
-                                                <td align="center"><font color="pink">SUB2<br>
-                                                <td align="center"><font color="red">SUB3<br>
-                                                <td rowspan="6"align="center">L<br>U<br>N<br>C<br>H
-                                                <td align="center"><font color="maroon">SUB4<br>
-                                                <td align="center"><font color="brown">SUB5<br>
-                                                <td align="center">counselling class
-                                        </tr>
-                                        <tr>
-                                            <td align="center">TUESDAY
-                                            <td align="center"><font color="blue">SUB1<br>
-                                            <td align="center"><font color="red">SUB2<br>
-                                            <td align="center"><font color="pink">SUB3<br>
-                                            <td align="center">---
-                                            <td align="center"><font color="orange">SUB4<BR>
-                                            <td align="center"><font color="maroon">SUB5<br>
-                                            <td align="center">library
-                                           </tr>
-                                           <tr>
-                                            <td align="center">WEDNESDAY
-                                            <td align="center"><font color="pink">SUB1<br>
-                                            <td align="center"><font color="orange">SUB2<BR>
-                                            <td align="center"><font color="brown">SWA<br>
-                                            <td align="center">---
-                                            <td colspan="3" align="center"><font color="green"> lab
-                                           </tr>
-                                           <tr>
-                                            <td align="center">THURSDAY
-                                            <td align="center">SUB1<br>
-                                            <td align="center"><font color="brown">SUB2<br>
-                                            <td align="center"><font color="orange">SUB3<BR>
-                                            <td align="center">---
-                                            <td align="center"><font color="blue">SUB4<br>
-                                            <td align="center"><font color="red">SUB5<br>
-                                            <td align="center">library
-                                           </tr>
-                                           <tr>
-                                            <td align="center">FRIDAY
-                                            <td align="center"><font color="orange">SUB1<BR>
-                                            <td align="center"><font color="maroon">SUB2<br>
-                                            <td align="center"><font color="blue">SUB3<br>
-                                            <td align="center">---
-                                            <td align="center"><font color="pink">SUB4<br>
-                                            <td align="center"><font color="brown">SUB5<br>
-                                            <td align="center">library
-                                           </tr>
-                                           <tr>
-                                            <td align="center">SATURDAY
-                                            <td align="center"><font color="red">SUB1<br>
-                                            <td colspan="3" align="center">seminar
-                                            <td align="center"><font color="pink">SUB4<br>
-                                            <td align="center"><font color="brown">SUB5<br>
-                                            <td align="center">library
-                                           </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </main>
-                <%- include('../layout/footer.ejs') %>.
+<html>
+    <head>
+        <title>Timetable</title>
+        <style type="text/css">
+            div.timetable {
+                position: relative;
+                overflow: hidden;
+                width: 630px;
+                margin: 0 auto;
+            }
+        div.timetable table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        div.timetable th, div.timetable td {
+            border-bottom-style: dotted;
+            border-color: #DDDDDD;
+            border-width: 1px;
+            padding: 0px;
+            font-size: 12px;
+            color: #444444;
+        }
+        div.timetable td.hour {
+            font-style: italic;
+        }
+        div.timetable .lesson {
+            border: 1px solid #DDDDDD;
+            position: absolute;
+            z-index: 0;
+            font-size: 11px;
+            color: #444444;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            background-color: white;
+        }
+        div.timetable .lesson.classesPresent .lesson_head {
+            background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAVklEQVR4Xn3PgQkAMQhDUXfqTu7kTtkpd5RA8AInfArtQ2iRXFWT2QedAfttj2FsPIOE1eCOlEuoWWjgzYaB/IkeGOrxXhqB+uA9Bfcm0lAZuh+YIeAD+cAqSz4kCMUAAAAASUVORK5CYII=") no-repeat scroll 95% center transparent;
+            cursor: pointer;
+        }
+        div.timetable .lesson.classesPresent input {
+            display: none;
+        }
+        div.timetable .lesson_head {
+            padding: 2px;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 1px solid #DDDDDD;
+            font-size: 11px;
+            font-family: arial,helvetica,clean,sans-serif;
+        }
+        div.timetable .lesson_body {
+            padding: 0px 3px 2px 3px;
+            vertical-align: middle;
+            font-size: 11px;
+            font-family: arial,helvetica,clean,sans-serif;
+        }
+        div.timetable .actual_day {
+            background-color: #F0F0F0;
+            border: 1px solid black;
+        }
+        div.timetable .actual_day .lesson_head{
+            border-bottom: 1px solid black;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="timetable">
+            <table>
+                <tr>
+                    <th style="width: 55px; height: 30px"></th>
+                    <th style="width: 110px">Monday</th>
+                    <th style="width: 110px">Tuesday</th>
+                    <th style="width: 110px">Wednesday</th>
+                    <th style="width: 110px">Thursday</th>
+                    <th style="width: 110px">Friday</th>
+                </tr>
+                <tr>
+                    <td class="hour" style="height: 60px">07.45am</td>
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <td class="hour" style="height: 60px">8:00am</td>
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <td class="hour" style="height: 60px">8:30am</td>
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <td class="hour" style="height: 60px">9:00am</td>
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <td class="hour" style="height: 60px">9:30am</td>
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <td class="hour" style="height: 60px">10:00am</td>
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <td class="hour" style="height: 60px">10:30pm</td>
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <td class="hour" style="height: 60px">11:00pm</td>
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <td class="hour" style="height: 60px">11:30pm</td>
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <td class="hour" style="height: 60px">12:00pm</td>
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <td class="hour" style="height: 60px">12:30pm</td>
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <td class="hour" style="height: 60px">13:00pm</td>
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <td class="hour" style="height: 60px">13:30pm</td>
+                    <td colspan="5"></td>
+                </tr>
+                
+            </table>
+            
+            <div  class="lesson actual_day" style=" left: 169px; top: 54px; width: 102px; height: 62px ">
+                <div class="lesson_head">Weekly Assembly</div>
+                <div class="lesson_body">Mr W McAteer<br />Room: 24<br />09:10am - 09:45am</div>
+            </div>
+            
+            <div  class="lesson actual_day" style=" left: 169px; top: 194px; width: 102px; height: 62px ">
+                <div class="lesson_head">FRENCH</div>
+                <div class="lesson_body">Ms L Bailly<br />Room: B13<br />10:20am - 10:55am</div>
+            </div>
+            <div  class="lesson actual_day" style=" left: 169px; top: 304px; width: 102px; height: 62px ">
+                <div class="lesson_head">COMPUTING</div>
+                <div class="lesson_body">Mr A Davis<br />Room: K2<br />11:15am - 11:50am</div>
+            </div>
+            <div  class="lesson actual_day" style=" left: 169px; top: 374px; width: 102px; height: 62px ">
+                <div class="lesson_head">POLITICS</div>
+                <div class="lesson_body">Ms J Heaton<br />Room: 18<br />11:50am - 12:25pm</div>
+            </div>
+            <div  class="lesson actual_day" style=" left: 169px; top: 444px; width: 102px; height: 62px ">
+                <div class="lesson_head">POLITICS</div>
+                <div class="lesson_body">Ms J Heaton<br />Room: 18<br />12:25pm - 13:00pm</div>
+            </div>
+            <div  class="lesson actual_day" style=" left: 169px; top: 664px; width: 102px; height: 62px ">
+                <div class="lesson_head">PSHE</div>
+                <div class="lesson_body">Mr M Cloke<br />Room: BC2<br />14:15pm - 14:50pm</div>
+            </div>
+            <div  class="lesson actual_day" style=" left: 169px; top: 734px; width: 102px; height: 62px ">
+                <div class="lesson_head">FRENCH</div>
+                <div class="lesson_body">Mr S Button<br />Room: B11<br />14:50pm - 15:25pm</div>
+            </div>
+            <div  class="lesson actual_day" style=" left: 169px; top: 804px; width: 102px; height: 62px ">
+                <div class="lesson_head">FRENCH</div>
+                <div class="lesson_body">Mr S Button<br />Room: B11<br />15:25pm - 16:00pm</div>
+            </div>
+            <div  class="lesson  " style=" left: 279px; top: 54px; width: 102px; height: 62px ">
+                <div class="lesson_head">POLITICS</div>
+                <div class="lesson_body">Ms J Heaton<br />Room: 18<br />09:10am - 09:45am</div>
+            </div>
+            <div  class="lesson  " style=" left: 279px; top: 124px; width: 102px; height: 62px ">
+                <div class="lesson_head">POLITICS</div>
+                <div class="lesson_body">Ms J Heaton<br />Room: 18<br />09:45am - 10:20am</div>
+            </div>
+            <div  class="lesson  " style=" left: 279px; top: 194px; width: 102px; height: 62px ">
+                <div class="lesson_head">FRENCH</div>
+                <div class="lesson_body">Mr S Button<br />Room: B11<br />10:20am - 10:55am</div>
+            </div>
+            <div  class="lesson  " style=" left: 279px; top: 374px; width: 102px; height: 62px ">
+                <div class="lesson_head">COMPUTING</div>
+                <div class="lesson_body">Mr J Enemuwe<br />Room: K2<br />11:50am - 12:25pm</div>
+            </div>
+            <div  class="lesson  " style=" left: 279px; top: 444px; width: 102px; height: 62px ">
+                <div class="lesson_head">COMPUTING</div>
+                <div class="lesson_body">Mr J Enemuwe<br />Room: K2<br />12:25pm - 13:00pm</div>
+            </div>
+            <div  class="lesson  " style=" left: 279px; top: 664px; width: 102px; height: 62px ">
+                <div class="lesson_head">GAMES</div>
+                <div class="lesson_body">Dr R Welch<br />Room: <br />14:15pm - 14:50pm</div>
+            </div>
+            <div  class="lesson  " style=" left: 279px; top: 734px; width: 102px; height: 62px ">
+                <div class="lesson_head">GAMES</div>
+                <div class="lesson_body">Dr R Welch<br />Room: <br />14:50pm - 15:25pm</div>
+            </div>
+            <div  class="lesson  " style=" left: 279px; top: 804px; width: 102px; height: 62px ">
+                <div class="lesson_head">GAMES</div>
+                <div class="lesson_body">Room: <br />15:25pm - 16:00pm</div>
+            </div>
+            <div  class="lesson  " style=" left: 389px; top: 54px; width: 102px; height: 62px ">
+                <div class="lesson_head">MATHS Statist..</div>
+                <div class="lesson_body">Mr W McAteer<br />Room: 15<br />09:10am - 09:45am</div>
+            </div>
+            <div  class="lesson  " style=" left: 389px; top: 124px; width: 102px; height: 62px ">
+                <div class="lesson_head">MATHS Statist..</div>
+                <div class="lesson_body">Mr W McAteer<br />Room: 15<br />09:45am - 10:20am</div>
+            </div>
+            <div  class="lesson  " style=" left: 389px; top: 304px; width: 102px; height: 62px ">
+                <div class="lesson_head">POLITICS</div>
+                <div class="lesson_body">Ms H O'Connell<br />Room: 19<br />11:15am - 11:50am</div>
+            </div>
+            <div  class="lesson  " style=" left: 389px; top: 374px; width: 102px; height: 62px ">
+                <div class="lesson_head">FRENCH</div>
+                <div class="lesson_body">Mrs C Herran<br />Room: B3<br />11:50am - 12:25pm</div>
+            </div>
+            <div  class="lesson  " style=" left: 389px; top: 734px; width: 102px; height: 62px ">
+                <div class="lesson_head">COMPUTING</div>
+                <div class="lesson_body">Mr J Enemuwe<br />Room: K2<br />14:50pm - 15:25pm</div>
+            </div>
+            <div  class="lesson  " style=" left: 389px; top: 804px; width: 102px; height: 62px ">
+                <div class="lesson_head">COMPUTING</div>
+                <div class="lesson_body">Mr J Enemuwe<br />Room: K2<br />15:25pm - 16:00pm</div>
+            </div>
+            <div  class="lesson  " style=" left: 499px; top: 54px; width: 102px; height: 62px ">
+                <div class="lesson_head">MATHS Statist..</div>
+                <div class="lesson_body">Mr S Cork<br />Room: 12<br />09:10am - 09:45am</div>
+            </div>
+            <div  class="lesson  " style=" left: 499px; top: 124px; width: 102px; height: 62px ">
+                <div class="lesson_head">MATHS Statist..</div>
+                <div class="lesson_body">Mr S Cork<br />Room: 12<br />09:45am - 10:20am</div>
+            </div>
+            <div  class="lesson  " style=" left: 499px; top: 304px; width: 102px; height: 62px ">
+                <div class="lesson_head">FRENCH</div>
+                <div class="lesson_body">Mrs C Herran<br />Room: B3<br />11:15am - 11:50am</div>
+            </div>
+            <div  class="lesson  " style=" left: 499px; top: 374px; width: 102px; height: 62px ">
+                <div class="lesson_head">POLITICS</div>
+                <div class="lesson_body">Ms H O'Connell<br />Room: 19<br />11:50am - 12:25pm</div>
+            </div>
+            <div  class="lesson  " style=" left: 499px; top: 444px; width: 102px; height: 62px ">
+                <div class="lesson_head">POLITICS</div>
+                <div class="lesson_body">Ms H O'Connell<br />Room: 19<br />12:25pm - 13:00pm</div>
+            </div>
+            <div  class="lesson  " style=" left: 499px; top: 664px; width: 102px; height: 62px ">
+                <div class="lesson_head">Activities</div>
+                <div class="lesson_body">Room: <br />14:15pm - 14:50pm</div>
+            </div>
+            <div  class="lesson  " style=" left: 499px; top: 734px; width: 102px; height: 62px ">
+                <div class="lesson_head">Activities</div>
+                <div class="lesson_body">Room: <br />14:50pm - 15:25pm</div>
+            </div>
+            <div  class="lesson  " style=" left: 499px; top: 804px; width: 102px; height: 62px ">
+                <div class="lesson_head">Activities</div>
+                <div class="lesson_body">Room: <br />15:25pm - 16:00pm</div>
+            </div>
+            <div  class="lesson  " style=" left: 59px; top: 54px; width: 102px; height: 62px ">
+                <div class="lesson_head">COMPUTING</div>
+                <div class="lesson_body">Mr A Davis<br />Room: K2<br />09:10am - 09:45am</div>
+            </div>
+            <div  class="lesson  " style=" left: 59px; top: 124px; width: 102px; height: 62px ">
+                <div class="lesson_head">COMPUTING</div>
+                <div class="lesson_body">Mr A Davis<br />Room: K2<br />09:45am - 10:20am</div>
+            </div>
+            <div  class="lesson  " style=" left: 59px; top: 194px; width: 102px; height: 62px ">
+                <div class="lesson_head">COMPUTING</div>
+                <div class="lesson_body">Mr J Enemuwe<br />Room: K2<br />10:20am - 10:55am</div>
+            </div>
+            <div  class="lesson  " style=" left: 59px; top: 304px; width: 102px; height: 62px ">
+                <div class="lesson_head">POLITICS</div>
+                <div class="lesson_body">Ms H O'Connell<br />Room: 19<br />11:15am - 11:50am</div>
+            </div>
+            <div  class="lesson  " style=" left: 59px; top: 374px; width: 102px; height: 62px ">
+                <div class="lesson_head">MATHS Statist..</div>
+                <div class="lesson_body">Mr S Cork<br />Room: 12<br />11:50am - 12:25pm</div>
+            </div>
+            <div  class="lesson  " style=" left: 59px; top: 444px; width: 102px; height: 62px ">
+                <div class="lesson_head">MATHS Statist..</div>
+                <div class="lesson_body">Mr S Cork<br />Room: 12<br />12:25pm - 13:00pm</div>
+            </div>
+            <div  class="lesson  " style=" left: 59px; top: 664px; width: 102px; height: 62px ">
+                <div class="lesson_head">FRENCH</div>
+                <div class="lesson_body">Mrs C Herran<br />Room: B3<br />14:15pm - 14:50pm</div>
+            </div>
+            <div  class="lesson  " style=" left: 59px; top: 734px; width: 102px; height: 62px ">
+                <div class="lesson_head">FRENCH</div>
+                <div class="lesson_body">Mrs C Herran<br />Room: B3<br />14:50pm - 15:25pm</div>
+            </div>
+            <div  class="lesson  " style=" left: 59px; top: 804px; width: 102px; height: 62px ">
+                <div class="lesson_head">FRENCH</div>
+                <div class="lesson_body">Mr S Button<br />Room: B11<br />15:25pm - 16:00pm</div>
             </div>
         </div>
-        <%- include('../layout/js.ejs') %>.
+        
     </body>
 </html>
