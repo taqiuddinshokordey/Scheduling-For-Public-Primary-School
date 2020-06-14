@@ -41,18 +41,6 @@ router.get('/register',mid, function(req, res, user) {
   
 });
 
-router.get('/register_csv',mid, function(req, res, user) {
-  User.findById(req.session.userId).exec(function (error, user) {
-    if (error) {
-      return next(error);
-    } else {
-      console.log(user);
-      return res.render('admin_content/register_user_csv', { user:user});
-      ;
-    }
-  });
-  
-});
 
 //add new user & add teacher detail
  

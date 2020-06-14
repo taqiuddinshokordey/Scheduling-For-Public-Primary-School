@@ -9,7 +9,7 @@
                 <main>
                     <div class="container-fluid">
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Register New User</li>
+                            <li class="breadcrumb-item active">Teacher Management</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header"><i class="fas fa-table mr-1"></i>List of Registered User</div>
@@ -22,16 +22,18 @@
                                                 <th>Name</th>
                                                 <th>First Subject</th>
                                                 <th>Secondary Subject</th>
+                                                <th>Level</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <% teacher.forEach(function (teacher) { %>
                                             <tr>
-                                                <td><%= teacher.name %></td>
+                                                <td><%= teacher.teacher_id.name %></td>
                                                 <td><%= teacher.subject %></td>
-                                                <td><%= teacher.second_subject %></td> 
-                                                <td><a class="button" href="/absentee/editReason/<%= user._id %>"</a>Edit&nbsp;<a class="button" href="/admin_user/delete/<%= user._id %>"</a>Delete</a></td>
+                                                <td><%= teacher.second_subject %></td>
+                                                <td><%= teacher.level %></td> 
+                                                <td><a class="button" href="/absentee/editReason/<%= teacher._id %>"</a>Edit&nbsp;<a class="button" href="/admin_user/delete/<%= teacher._id %>"</a>Delete</a></td>
                                             </tr>
                                             <% }) %>
                                         </tbody>

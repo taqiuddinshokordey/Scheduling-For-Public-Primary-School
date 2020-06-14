@@ -26,8 +26,8 @@
                                         <tbody>
                                             <% timetable.forEach(function (timetable) { %>
                                             <tr>
-                                                <td><%= timetable %></td>
-                                                <td><a class="button" href="/timetable_class/view/<%= timetable %>"</a>View&nbsp;</td>
+                                                <td><%= timetable.classroom.classroom_name %></td>
+                                                <td><a class="button" href="/timetable_class/view/<%= timetable.classroom._id %>"</a>View&nbsp;</td>
                                             </tr>
                                             <% }) %>
                                         </tbody>

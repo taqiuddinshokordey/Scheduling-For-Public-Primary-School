@@ -25,7 +25,176 @@ router.get('/timetable',function(req,res){
   });
 });
 
-//Get Timetable By Category
+//Display Timetable by Classroom
+
+router.get('/timetable_class',mid, function(req,res){
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if (error){
+      return next(error);
+    }else
+    {
+      Timetable.find({year:currentYear}).populate('classroom').exec(function(err, timetable) 
+      {
+        if (err) throw err;
+        console.log(currentYear);
+        console.log(timetable);
+        res.render('admin_content/view_timetable_table',{timetable:timetable,  user:user});
+      });
+    }
+  });
+});
+
+router.get('/timetable_class/view/:id',mid, function(req,res){
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if (error){
+      return next(error);
+    }else
+    {
+      Timetable.find({classroom:req.params.id, year:currentYear }).populate('classroom').exec(function(err, timetable) 
+      {
+        if (err) throw err;
+        console.log(timetable);
+        res.render('admin_content/view_timetable_class',{ timetable:timetable, user:user});
+      });
+    }
+  });
+});
+
+//Get timetable add_page
+router.get("/timetable_add",mid, function(req, res) {
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if(error){
+      return next(error);
+    }else
+    {
+      Subject.find({}, function(err, subject) 
+      {
+       if(err) 
+       {
+          console.log(err);
+       } 
+       else 
+       {
+          Classroom.find({}, function(err, classroom) 
+          {
+            if(err) 
+            {
+              console.log(err)
+            }
+            else 
+            {
+              Teacher.find({ roles: "Teacher" }, function(err, teacher)
+              {
+                if (err)
+                {
+                  console.log(err);
+                }
+                else
+                {
+                  console.log(subject, classroom, teacher);
+                 res.render("admin_content/timetable_add", {subject:subject, classroom:classroom, teacher:teacher ,user:user});
+                }
+              })
+              
+            }               
+          }); 
+       }
+      });
+    }
+  });
+  
+});
+
+
+//Add timetable
+router.post('/timetable_morning', function (req, res, next) {
+  if (
+    req.body.teacher &&
+    req.body.timeslot,
+    req.body.subject,
+    req.body.classroom,
+    req.body.session,
+    req.body.day) {
+
+    var timetableData = {
+      teacher: req.body.teacher,
+      timeslot: req.body.timeslot,
+      subject: req.body.subject,
+      classroom:  req.body.classroom,
+      year: currentYear,
+      day: req.body.day,
+      session: req.body.session
+    }
+
+    //use schema.create to insert data into the db
+    Timetable.create(timetableData, function (err, user) {
+      if (err) 
+      {
+        return next(err)
+      } 
+      else 
+      {
+        console.log(user);
+        return res.redirect('/timetable');
+      }
+    });
+
+  } else {
+    var err = new Error('All fields have to be filled out');
+    err.status = 400;
+    return next(err);
+    
+  }
+
+});
+
+router.post('/timetable_evening', function (req, res, next) {
+  if (
+    req.body.teacher &&
+    req.body.timeslot,
+    req.body.subject,
+    req.body.classroom,
+    req.body.session,
+    req.body.day) {
+
+    var timetableData = {
+      teacher: req.body.teacher,
+      timeslot: req.body.timeslot,
+      subject: req.body.subject,
+      classroom:  req.body.classroom,
+      year: currentYear,
+      day: req.body.day,
+      session: req.body.session
+    }
+
+    //use schema.create to insert data into the db
+    Timetable.create(timetableData, function (err, user) {
+      if (err) 
+      {
+        return next(err)
+      } 
+      else 
+      {
+        console.log(user);
+        return res.redirect('/timetable');
+      }
+    });
+
+  } else {
+    var err = new Error('All fields have to be filled out');
+    err.status = 400;
+    return next(err);
+    
+  }
+
+});
+
+
+//Update logic
+
+
+
+/*/Get Timetable By Category
 router.get('/timetable_class',mid, function(req,res){
   Teacher.findById(req.session.userId).exec(function (error, user){
     if (error){
@@ -42,21 +211,7 @@ router.get('/timetable_class',mid, function(req,res){
   });
 });
 
-router.get('/timetable_class/view/:id',mid, function(req,res){
-  Teacher.findById(req.session.userId).exec(function (error, user){
-    if (error){
-      return next(error);
-    }else
-    {
-      Timetable.distinct('classroom',({classroom: req.params.id, year: currentYear}),function(err,timetable){
-        if (err) throw err;
-        console.log(currentYear);
-        console.log(timetable );
-        res.render('admin_content/view_timetable_class',{'timetable':timetable, user:user});
-      });
-    }
-  });
-});
+
 
 router.get('/timetable_teacher',mid, function(req,res){
   Teacher.findById(req.session.userId).exec(function (error, user){
@@ -122,100 +277,14 @@ router.get('/timetable_year',mid, function(req,res){
   });
 });
 
-
-//Add timetable
-router.get("/timetable_add",mid, function(req, res) {
-  Teacher.findById(req.session.userId).exec(function (error, user){
-    if(error){
-      return next(error);
-    }else
-    {
-      Subject.find({}, function(err, collection) 
-      {
-       if(err) 
-       {
-          console.log(err);
-       } 
-       else 
-       {
-          Classroom.find({}, function(err, collection2) 
-          {
-            if(err) 
-            {
-              console.log(err)
-            }
-            else 
-            {
-              Teacher.find({ roles: "teacher" }, function(err, collection3)
-              {
-                if (err)
-                {
-                  console.log(err);
-                }
-                else
-                {
-                console.log(collection3, collection2,collection);
-                 res.render("admin_content/timetable_add", 
-                 {collection: collection, collection2: collection2, collection3: collection3, user:user});
-                }
-              })
-              
-            }               
-          }); 
-       }
-      });
-    }
-  });
-  
-});
-
-
-router.post('/timetable_add',mid, function (req, res, next) {
-  if (
-    req.body.teacher &&
-    req.body.timeslot,
-    req.body.subject,
-    req.body.classroom,
-    req.body.year) {
-
-    var timetableData = {
-      teacher: req.body.teacher,
-      timeslot: req.body.timeslot,
-      subject: req.body.subject,
-      classroom:  req.body.classroom,
-      year: req.body.year
-    }
-
-    //use schema.create to insert data into the db
-    Timetable.create(timetableData, function (err, user) {
-      if (err) 
-      {
-        return next(err)
-      } 
-      else 
-      {
-        console.log(user);
-        return res.redirect('/timetable');
-      }
-    });
-
-  } else {
-    var err = new Error('All fields have to be filled out');
-    err.status = 400;
-    return next(err);
-    
-  }
-
-});
-
-//Update logic
-
 router.get('/timetable_class/edit/:id', function(req,res){
   Timetable.find({classroom:req.params.id},function(err,timetable){
     console.log(timetable);
       res.render('admin_content/view_timetable_class',{'timetable':timetable});
   });
 });
+
+*/
 
 module.exports = router;
 
