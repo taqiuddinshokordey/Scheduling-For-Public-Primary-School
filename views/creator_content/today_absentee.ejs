@@ -9,7 +9,7 @@
                 <main>
                     <div class="container-fluid">
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">View Timetable by</li>
+                            <li class="breadcrumb-item active">List of Today Absentee</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header"><i class="fas fa-table mr-1"></i>Timetable By Class</div>
@@ -20,14 +20,14 @@
                                         <thead>
                                             <tr>
                                                 <th>Class</th>
-                                                <th>Settings</th>
+                                                <th>Assign Replacement Teacher</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <% classroom.forEach(function (classroom) { %>
+                                            <% teacher.forEach(function (teacher) { %>
                                             <tr>
-                                                <td><%= classroom.classroom_name %></td>
-                                                <td><a class="button" target="_blank" href="/timetable_class/view/<%= classroom._id%>"</a>View&nbsp;</td>
+                                                <td><%= teacher.name %></td>
+                                                <td><a class="button" target="_blank" href="/timetable_class/view/<%= teacher._id%>"</a>View&nbsp;</td>
                                             </tr>
                                             <% }) %>
                                         </tbody>
@@ -44,4 +44,3 @@
         </div>
                 <%- include('../layout/js.ejs') %>.
     </body>
-</html>

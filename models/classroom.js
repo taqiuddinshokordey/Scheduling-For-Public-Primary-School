@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+const Timetable = require('./timetable_annual');
 
 
 
@@ -20,8 +21,6 @@ var ClassroomSchema = new mongoose.Schema ({
         type:String,
         required:true,
     },
-    
-    
 
 
 });

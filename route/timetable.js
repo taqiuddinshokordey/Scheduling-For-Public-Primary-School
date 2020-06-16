@@ -7,6 +7,8 @@ var Teacher = require('../models/user');
 var mid  = require('../middleware/requiresLogin.js');
 
 
+
+
 //Declare current Year and date
 const todaysDate = new Date()
 const currentYear = todaysDate.getFullYear()
@@ -20,12 +22,44 @@ router.get('/timetable',function(req,res){
     }else
     {
       console.log(user);
-      res.render('admin_content/timetable', { user:user});
+      if(user.roles=='Admin')
+        {
+          res.render('admin_content/timetable', { user:user});
+
+        }else if(user.roles=='Teacher')
+        {
+          console.log('teacher login');
+          res.render('teacher_content/timetable', { user:user});
+        }else
+        {
+          console.log('Time Table Creator login');
+          res.render('creator_content/timetable', { user:user});
+        }
     }
   });
 });
 
-//Display Timetable by Classroom
+//Display Timetable by teacher
+
+router.get('/timetable_teacher',mid, function(req,res){
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if (error){
+      return next(error);
+    }else
+    {
+        Teacher.find().exec(function(err, teacher) 
+        {
+        console.log(currentYear);
+        console.log(teacher);
+        res.render('admin_content/view_timetable_teacher',{teacher:teacher, user:user});
+        });
+        
+      
+    }
+  });
+});
+
+//end of Timetable by Teacher
 
 router.get('/timetable_class',mid, function(req,res){
   Teacher.findById(req.session.userId).exec(function (error, user){
@@ -33,13 +67,14 @@ router.get('/timetable_class',mid, function(req,res){
       return next(error);
     }else
     {
-      Timetable.find({year:currentYear}).populate('classroom').exec(function(err, timetable) 
-      {
-        if (err) throw err;
+        Classroom.find().exec(function(err, classroom) 
+        {
         console.log(currentYear);
-        console.log(timetable);
-        res.render('admin_content/view_timetable_table',{timetable:timetable,  user:user});
-      });
+        console.log(classroom);
+        res.render('admin_content/view_timetable_table',{classroom:classroom, user:user});
+        });
+        
+      
     }
   });
 });
@@ -52,9 +87,15 @@ router.get('/timetable_class/view/:id',mid, function(req,res){
     {
       Timetable.find({classroom:req.params.id, year:currentYear }).populate('classroom').exec(function(err, timetable) 
       {
-        if (err) throw err;
-        console.log(timetable);
-        res.render('admin_content/view_timetable_class',{ timetable:timetable, user:user});
+        Classroom.find({}).exec(function (error, classroom){
+          if (err) throw err;
+        
+         for (let i in classroom) {  
+          console.log(classroom[0])
+        }
+         res.render('admin_content/view_timetable_class',{ timetable:timetable, user:user, classroom:classroom});
+        });
+        
       });
     }
   });
@@ -138,6 +179,9 @@ router.post('/timetable_morning', function (req, res, next) {
         return res.redirect('/timetable');
       }
     });
+    
+
+    
 
   } else {
     var err = new Error('All fields have to be filled out');

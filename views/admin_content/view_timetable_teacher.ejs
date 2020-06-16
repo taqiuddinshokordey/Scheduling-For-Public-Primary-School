@@ -26,12 +26,12 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
+                                            <% teacher.forEach(function (teacher) { %>
                                             <tr>
-                                            <td><%= timetable.teacher %></td>
-                                            <td><a class="button" href="/timetable_class/edit/<%= timetable %>"</a>View&nbsp;<a class="button" href="/subject/edit/<%= timetable %>"</a>Update</td>
+                                            <td><%= teacher.name %></td>
+                                            <td><a class="button" href="/timetable_class/edit/<%= teacher._id %>"</a>View&nbsp;
                                             </tr>
-                                           
+                                            <% }) %>
                                          </tbody>
                                         
                                     </table>

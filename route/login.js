@@ -71,7 +71,7 @@ router.get('/admin',mid, function(req,res){
         } else
         {
           console.log(user);
-          CheckIn.find({},function(err,users) { //Get Attendance list
+          CheckIn.findById(req.session.userId,function(err,users) { //Get Attendance list
             if (err) throw err;
             res.render('admin_dashboard',{'users':users, 'user':user });
           });
@@ -109,23 +109,33 @@ router.get('/teacher', mid,  function(req, res) {
     
 });
 
-router.get('/creator', mid, function(req, res) {
-  if (! req.session.userId ) {
+router.get('/creator',mid, function(req,res){
+  if (! req.session.userId )  
+  {
     var err = new Error("You are not authorized to view this page.");
     err.status = 403;
     return next(err);
+  } else 
+  {
+    User.findById(req.session.userId).exec(function (error, user) {
+      if (error) 
+      {
+        return next(error);
+
+      } else
+      {
+        console.log(user);
+        CheckIn.find({userId:req.session.userId},function(err,users) { //Get Attendance list
+          if (err) throw err;
+          res.render('timetable_creator',{'users':users, 'user':user });
+        });
+        
+        ;
+      }
+    });
   }
-  User.findById(req.session.userId)
-      .exec(function (error, user) {
-        if (error) {
-          return next(error);
-        } else {
-          console.log(user);
-          return res.render('timetable_creator',{'user':user});
-          ;
-        }
-      });
-    
+
+
 });
 
 // GET for logout logout

@@ -7,6 +7,7 @@ var session=require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var favicon = require('serve-favicon');
 var flash= require('express-flash');
+var _ = require('underscore');
 
 
 //Route to model and controller
@@ -18,6 +19,7 @@ var timetable_route= require ('./route/timetable');
 var attendance_route= require ('./route/attendance');
 var settings_route= require('./route/settings');
 var add_teacher_route=require('./route/teacher_add');
+var relief_route=require('./route/timetable_relief')
 
 
 // Form Data
@@ -60,6 +62,7 @@ app.use('/', timetable_route);
 app.use('/', attendance_route);
 app.use('/', settings_route);
 app.use('/', add_teacher_route);
+app.use('/', relief_route);
 
 
 // Run the Server
