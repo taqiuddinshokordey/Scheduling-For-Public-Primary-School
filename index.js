@@ -6,8 +6,10 @@ var app=express();
 var session=require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var favicon = require('serve-favicon');
-var flash= require('express-flash');
-var _ = require('underscore');
+
+
+
+
 
 
 //Route to model and controller
@@ -25,7 +27,7 @@ var relief_route=require('./route/timetable_relief')
 // Form Data
 app.use(bodyParser.json()); //ini adalah contoh perubhan
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(flash());
+
 
 //connect to MongoDB
 mongoose.connect('mongodb+srv://taqiuddinshokordey:netvista277707@finalyearproject-kimkb.gcp.mongodb.net/Scheduling_system?retryWrites=true&w=majority'
@@ -52,6 +54,8 @@ app.use(session({
   
   
 }));
+
+
 
 //user model and controller
 app.use('/', user_route);
@@ -90,10 +94,13 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 res.render('error/401', {title:'No Access', error: error});
 });
 
-/* app.use(function(error, req, res, next) {
-  res.status(401);
+
+app.use(function(error, req, res, next) {
+  res.status(402);
 res.render('error/402', {title:'No Access', error: error});
 });
 
 */
+
+
 

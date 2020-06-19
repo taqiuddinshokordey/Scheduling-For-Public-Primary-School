@@ -3,13 +3,12 @@ var router = express.Router();
 var User = require('../models/user');
 var CheckIn = require('../models/attendance');
 var mid  = require('../middleware/requiresLogin.js');
-//var mid2  = require('../middleware/admin_only.js');
-var mongoose = require('mongoose');
+
 
 
 //Login Logic start
 
-router.get('/login',function(req,res){
+router.get('/login',  function(req,res){
   res.render('login', { });
 });
 
@@ -71,7 +70,7 @@ router.get('/admin',mid, function(req,res){
         } else
         {
           console.log(user);
-          CheckIn.findById(req.session.userId,function(err,users) { //Get Attendance list
+          CheckIn.find({userId:req.session.userId},function(err,users) { //Get Attendance list
             if (err) throw err;
             res.render('admin_dashboard',{'users':users, 'user':user });
           });

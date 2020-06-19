@@ -8,53 +8,36 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
+                       
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Replacement Teacher Management</li>
+                            <li class="breadcrumb-item active">Replacement Management</li>
                         </ol>
-                        <hr style="width:100%;text-align:left;margin-left:0">
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Assign Replacement Teacher</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="/replacement _add">Click Here</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">View Today Absentee</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="/today_absentee">Click Here</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-
-                        </div>
-                        <hr style="width:100%;text-align:left;margin-left:0">
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">View Today Replacement</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="/timetable_class">Click Here</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">View Timetable by Teacher</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="/timetable_teacher">Click Here</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
+                         
+                        <div class="card mb-4">
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>Personal Attendance Record</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+                                        <thead>
+                                            <tr>
+                                                <th width="20%">Teacher's Name</th>
+                                                
+                                                <th width="20%">Detail</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% teacher.forEach(function (teacher) { %>
+                                            <tr>
+                                                <td><%= teacher.name %></td>
+                                                <td><a class="button" target="_blank" href="/today_absentee/<%= teacher._id%>"</a>View Information&nbsp;</td>                                         
+                                            </tr>
+                                            <% }) %>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
+                
                     </div>
                 </main>
                 <%- include('../layout/footer.ejs') %>.
