@@ -9,25 +9,50 @@
                 <main>
                     <div class="container-fluid">
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">List of Today Absentee</li>
+                            <li class="breadcrumb-item active">User Management</li>
                         </ol>
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-primary text-white mb-4">
+                                    <div class="card-body">Register New User</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="/register">Click Here</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="col-xl-3 col-md-6">
+                                <div class="card bg-primary text-white mb-4">
+                                    <div class="card-body">Teacher Management</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="/register_teacher">Click Here</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div> 
+                        <hr style="width:100%;text-align:left;margin-left:0">
                         <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i>Timetable By Class</div>
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>List of Registered User</div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Class</th>
-                                                <th>Assign Replacement Teacher</th>
+                                                <th>Name</th>
+                                                <th>Roles</th>
+                                                <th>Email</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <% teacher.forEach(function (teacher) { %>
+                                            <% users.forEach(function (user) { %>
                                             <tr>
-                                                <td><%= teacher.name %></td>
-                                                <td><a class="button" target="_blank" href="/today_absentee//<%= teacher._id%>"</a>View&nbsp;</td>
+                                                <td><%= user.name %></td>
+                                                <td><%= user.roles %></td>
+                                                <td><%= user.username %></td>
+                                                <td><a class="button" href="/absentee/editReason/<%= user._id %>"</a>Edit&nbsp;<a class="button" href="/admin_user/delete/<%= user._id %>"</a>Delete</a></td>
                                             </tr>
                                             <% }) %>
                                         </tbody>
@@ -44,3 +69,4 @@
         </div>
                 <%- include('../layout/js.ejs') %>.
     </body>
+</html>

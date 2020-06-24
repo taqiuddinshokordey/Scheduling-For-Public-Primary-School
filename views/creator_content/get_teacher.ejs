@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../layout/head.ejs') %>.
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="assets/demo/chart-area-demo.js"></script>
+    <script src="assets/demo/chart-bar-demo.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+    <script src="assets/demo/datatables-demo.js"></script>
+    <body class="sb-nav-fixed">
+        <%- include('../layout/topbar.ejs') %>.
+        <div id="layoutSidenav">
+            <%- include('sidenav_admin.ejs') %>.
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Please Confirm Information!!</li>
+                        </ol> 
+                    <!-- Morning From-->
+                    <form action="/find_teacher" method="post" id="form1">
+                        <div class="form-group"><label class="small mb-1" >Original Teacher</label>
+                            <select name="teacher" class="form-control" style="width: 30%;" id="teacher">
+                                <% timetable.forEach(function (timetable) { %>
+                                <option value= "<%= timetable.teacher.name %>" ><%= timetable.teacher.name %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="form-group"><label class="small mb-1" >Subject</label>
+                            <select name="classroom"" class="form-control" style="width: 30%;" id="classroom">
+                                <% timetable.forEach(function (timetable) { %>
+                                <option value= "<%= timetable.classroom.classroom_name %>" ><%= timetable.classroom.classroom_name %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="form-group"><label class="small mb-1" >Subject</label>
+                            <select name="subject" class="form-control" style="width: 30%;" id="subject">
+                                <% timetable.forEach(function (timetable) { %>
+                                <option value= "<%= timetable.subject.subject_name %>" ><%= timetable.subject.subject_name %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="form-group"><label class="small mb-1" >Day</label>
+                            <select name="day" class="form-control" style="width: 30%;" id="day">
+                                <% timetable.forEach(function (timetable) { %>
+                                <option value= "<%= timetable.day %>" ><%= timetable.day %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="form-group"><label class="small mb-1" >Timeslot</label>
+                            <select name="timeslot" class="form-control" style="width: 30%;" id="timeslot">
+                                <% timetable.forEach(function (timetable) { %>
+                                <option value= "<%= timetable.timeslot %>" ><%= timetable.timeslot %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="form-group"><label class="small mb-1" >Session</label>
+                            <select name="session" class="form-control" style="width: 30%;" id="session">
+                                <% timetable.forEach(function (timetable) { %>
+                                <option value= "<%= timetable.session %>" ><%= timetable.session %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="form-group mt-4 mb-0"><input type="submit" value="Find Available Teacher" style="width: 20%;" a class="btn btn-primary btn-block" href="/find_teacher"></div>           
+                    </form>
+                
+                            
+                    </div>
+                </main>
+                <%- include('../layout/footer.ejs') %>.
+            </div>
+        </div>
+                <%- include('../layout/js.ejs') %>.
+    </body>
+</html>

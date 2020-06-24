@@ -10,26 +10,32 @@
                     <div class="container-fluid">
                        
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Replacement Management</li>
+                            <li class="breadcrumb-item active">Daily Timetable</li>
                         </ol>
                          
                         <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i>Today Teacher's Absentee</div>
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>Today's Timetable</div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
                                         <thead>
                                             <tr>
-                                                <th width="20%">Teacher's Name</th>
-                                                
-                                                <th width="20%">Detail</th>
+                                                <th width="20%">Subject</th>
+                                                <th width="20%">classroom</th>
+                                                <th width="20%">timeslot</th>
+                                                <th width="20%">session</th>
+                                                <th width="20%">day</th>
+                                               
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <% teacher.forEach(function (teacher) { %>
+                                            <% timetable.forEach(function (timetable) { %>
                                             <tr>
-                                                <td><%= teacher.name %></td>
-                                                <td><a class="button" href="/today_absentee/<%= teacher._id%>"</a>View Teacher Timetable&nbsp;</td>                                         
+                                                <td><%= timetable.subject.subject_name  %></td>
+                                                <td><%= timetable.classroom.classroom_name  %></td>
+                                                <td><%= timetable.timeslot %></td>
+                                                <td><%= timetable.session %></td>
+                                                <td><%= timetable.day %></td>                                         
                                             </tr>
                                             <% }) %>
                                         </tbody>

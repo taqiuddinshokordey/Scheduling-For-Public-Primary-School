@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var Teacher = require('../models/teacher');
 var mid  = require('../middleware/requiresLogin.js');
+var flash = require('connect-flash');
 
 router.get('/settings',mid, function(req, res) {
     if (! req.session.userId ) {
@@ -14,9 +16,15 @@ router.get('/settings',mid, function(req, res) {
           if (error) {
             return next(error);
           } else {
-            console.log(user);
-            return res.render('settings',{user:user});
-            ;
+            Teacher.find({teacher_id:req.session.userId}).exec(function(err, teacher)
+            {
+              console.log(user); 
+              console.log(teacher);
+              
+              return res.render('settings',{teacher:teacher, user:user}, { message: req.flash('info')});
+              
+            });
+            
           }
         }); 
   }); 

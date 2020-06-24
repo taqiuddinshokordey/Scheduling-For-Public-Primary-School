@@ -9,6 +9,7 @@ var mid  = require('../middleware/requiresLogin.js');
 //Login Logic start
 
 router.get('/login',  function(req,res){
+  req.flash("Sila Login", "Login Success")
   res.render('login', { });
 });
 

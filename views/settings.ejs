@@ -21,9 +21,10 @@
                                         <a href="" data-target="#messages" data-toggle="tab" class="nav-link">Messages</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Edit</a>
+                                        <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Edit Profile</a>
                                     </li>
                                 </ul>
+                               
                                 <div class="tab-content py-4">
                                     <div class="tab-pane active" id="profile">
                                         <h5 class="mb-3"><%= user.name %></h5>
@@ -36,6 +37,14 @@
                                                 <h6>Username/Email</h6>
                                                 <p>
                                                     <%= user.username %>
+                                                </p>
+                                                <h6>Primary Subject</h6>
+                                                <p>
+                                                    <%= teacher.subject %>
+                                                </p>
+                                                <h6>Secondary Subject</h6>
+                                                <p>
+                                                    <%= teacher.second_subject %>
                                                 </p>
                                             </div>
                                             
@@ -97,12 +106,6 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-3 col-form-label form-control-label">Confirm password</label>
-                                                <div class="col-lg-9">
-                                                    <input class="form-control" type="password" value="11111122333">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
                                                 <label class="col-lg-3 col-form-label form-control-label"></label>
                                                 <div class="col-lg-9">
                                                     <input type="reset" class="btn btn-secondary" value="Cancel">
@@ -113,14 +116,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 order-lg-1 text-center">
-                                <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
-                                <h6 class="mt-2">Upload a different photo</h6>
-                                <label class="custom-file">
-                                    <input type="file" id="file" class="custom-file-input">
-                                    <span class="custom-file-control">Choose file</span>
-                                </label>
-                            </div>
+                            
                         </div>
                     </div>
                 </main>

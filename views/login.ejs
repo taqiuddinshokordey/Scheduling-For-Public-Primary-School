@@ -36,6 +36,13 @@
             <button class="login100-form-btn">Login</button>
           </div>
         </form>
+        <% if (locals.messages) { %>
+
+          <script language="javascript">
+          alert("<%= messages.msg %>");
+          </script>
+      
+              <% } %>
       </div>
     </div>
   </div>

@@ -30,6 +30,27 @@ var UserSchema = new mongoose.Schema({
   flag:{
     type:Number,
   },
+
+
+  teacher: {
+    
+    subject: {
+      type:String,
+      required:true,
+  },
+
+  level: {
+      type:String,
+      required:true,
+  },
+
+
+  second_subject: {
+      type:String,
+      required:true,
+  },
+
+  },
 });
 
 
