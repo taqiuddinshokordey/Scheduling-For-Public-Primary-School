@@ -2,21 +2,23 @@
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
           <div class="nav">
-            <div class="sb-sidenav-menu-heading">Menu Utama</div><a class="nav-link" href="admin">
+            <div class="sb-sidenav-menu-heading">Menu Utama</div><a class="nav-link" href="teacher">
               <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>Dashboard
-            </a><a class="nav-link" href="admin_user">
-              <div class="sb-nav-link-icon"><i class="fas fa-female"></i></div>User Management
-            </a><a class="nav-link" href="index.html">
-              <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>Annual Time Table
-            </a><a class="nav-link" href="charts.html">
-              <div class="sb-nav-link-icon"><i class="fas fa-graduation-cap"></i></div>Classroom
-            </a><a class="nav-link" href="tables.html">
-              <div class="sb-nav-link-icon"><i class="fas fa-pen"></i></div>Subject
+            </a><a class="nav-link" href="daily_timetable">
+              <div class="sb-nav-link-icon"><i class="fas fa-female"></i></div>Daily Timetable
+            </a><a class="nav-link" href="replacement_task">
+              <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>Replacement Task
+            </a><a class="nav-link" href="timetable_by_class">
+              <div class="sb-nav-link-icon"><i class="fas fa-graduation-cap"></i></div>Weekly Timetable
+            </a><a class="nav-link" href="/logout">
+              <div class="sb-nav-link-icon"><i class="fas fa-pen"></i></div>Logout
             </a>
           </div>
         </div>
         <div class="sb-sidenav-footer">
-          <div class="small">Logged in as:</div>user.username
+          <div class="small">User Information </div>
+          <div class="small"><%= user.name %></div>
+          <div class="small" class="capitalize"><%= user.roles %></div>
         </div>
       </nav>
 </div>

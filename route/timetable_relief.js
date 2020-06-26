@@ -1,14 +1,23 @@
 var express = require('express');
 var router = express.Router();
 var Timetable = require('../models/timetable_annual');
-var Subject = require('../models/subject');
-var Classroom = require('../models/classroom');
+var Timetable_relief = require('../models/timetable_relief');
 var Teacher = require('../models/user');
+var Replacement= require('../models/teacher');
 var mid  = require('../middleware/requiresLogin.js');
+const mongoose = require("mongoose");
+
 
 //Declare current Year and date
 const todaysDate = new Date()
 const currentYear = todaysDate.getFullYear()
+let weekday = ['Sunday',
+               'Monday',
+               'Tuesday',
+               'Wednesday',
+               'Thursday',
+               'Friday',
+               'Saturday'][new Date().getDay()];
 
 
 //Timetable Homepage
@@ -19,150 +28,196 @@ router.get('/timetable_relief',function(req,res){
     }else
     {
       Teacher.find({flag:0, roles:"Teacher"}).exec(function (error, teacher){
-        console.log(user);
-        res.render('creator_content/relief', { teacher:teacher, user:user});
+
+        Timetable_relief.find({day:weekday}).exec(function (error, replacement){
+
+          console.log(user);
+          console.log(weekday);
+          res.render('creator_content/relief', { replacement:replacement, teacher:teacher, user:user});
+        });
+       
       });
      
     }
   });
 });
 
-router.get('/replacement_add',function(req,res){
-  Teacher.findById(req.session.userId).exec(function (error, user){
-    if (error){
-      return next(error);
-    }else
-    {
-      console.log(user);
-      res.render('creator_content/relief', { user:user});
-    }
-  });
-});
-
-
-/*
-router.get('/today_absentee/view/:id',function(req,res){
-  Teacher.findById(req.session.userId).exec(function (error, user){
-    if (error){
-      return next(error);
-    }else
-    {
-      Teacher.find({_id:req.params.id }).exec(function(err, teacher){
-        if(err)
-        {
-          return next(err);
-        }else
-        {
-          Timetable.aggregate([
-        
-            {
-              $lookup:{
-                  from: "Classroom",       // other table name
-                  localField: "classroom",   // name of users table field
-                  foreignField: "_id", // name of userinfo table field
-                  as: "classroom"         // alias for userinfo table
-              }
-    
-              
-              
-            },
-    
-            {   $unwind:"$classroom" },     // $unwind used for getting data in object or for one record only
-    
-            {
-              $lookup:{
-                  from: "Subject",       // other table name
-                  localField: "subject",   // name of users table field
-                  foreignField: "_id", // name of userinfo table field
-                  as: "subject"         // alias for userinfo table
-              }  
-            },
-    
-            {   $unwind:"$subject" },     // $unwind used for getting data in object or for one record only
-    
-            // define some conditions here 
-            {
-                $match:{
-                $and:[{teacher:req.params.id}]
-                 }
-            },
-    
-            // define which fields are you want to fetch
-             {   
-                $project:{
-    
-                    subject_name : "$subject.subject_name",
-                    classroom : "$classroom.classroom_name",
-                } 
-             }
-          ]).exec(function(err, timetable) 
-          {
-            // The query output is such that `classroom.classroom_name`
-            // value is unique for each document
-            if (err) throw err;
-            console.log(currentYear);
-            console.log(timetable);
-            res.render('creator_content/today_absentee_id',{timetable:timetable,  user:user, teacher:teacher});
-          });
-        }
-      });
-      
-      
-    }
-  });
-});
-
-*/
-
 
 router.get('/today_absentee/:id',function(req,res){
-  Teacher.findById(req.session.userId).exec(function (error, user){
+  Teacher.findById(req.session.userId).exec(function (error, user){ 
     if (error){
       return next(error);
     }else
     {
-      Teacher.find({_id:req.params.id }).exec(function(err, teacher){
+      Teacher.find({_id:req.params.id}).exec(function(err, teacher){
         if(err){
-          return next(err);
+          return (err);
         }else
         {
-          Timetable.find({teacher:req.params.id }).populate('classroom').exec(function(err, timetable){
+          Timetable.find({teacher:req.params.id,day:weekday }).populate('classroom').populate('subject').populate('teacher').exec(function(err, timetable){
             if(err)
             {
               return next(err);
             }else
             {
-              Timetable.find({teacher:req.params.id }).populate('subject').exec(function(err,subject){
-                if (error){
-                  return next(error);
-                }else
-                {
-                  console.log(subject);
-                  res.render('creator_content/today_absentee_id', { subject:subject, timetable:timetable, teacher:teacher, user:user});
-                }
-              });
+                  console.log(timetable);
+                  res.render('creator_content/replacement_detail', { timetable:timetable, teacher:teacher, user:user});
+             
             }
           });
         }
       });  
     }
   });
+}); 
+
+router.get('/replace_class/:id',function(req,res){
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if (error){
+      return next(error);
+    }else
+    {
+      Timetable.find({_id:req.params.id }).populate('classroom').populate('subject').populate('teacher').exec(function(err, timetable){
+        if(err)
+        {
+          return (err);
+        }else
+        {
+              Replacement.aggregate([
+                {
+                  $lookup: {
+                      from: "user",
+                      localField: "teacher_id",
+                      foreignField: "_id",
+                      as: "join"
+                  }
+              }
+            ]).exec(function(err,replacement)
+              {
+                console.log(timetable);
+                console.log(replacement);
+                res.render('creator_content/get_teacher', {replacement:replacement, timetable:timetable, user:user});
+              });
+        }
+      });
+    }
+  });
 });
 
-router.get('/add_replacement/:id',function(req,res){
-  if(erro){
-    return next(error);
-  }else
-  {
-    Timetable.find({_id:req.params.id }).populate('teacher').exec(function(err, timetable){
-      res.render('creator_content/add_replacement' );
+
+router.post('/find_teacher', function (req, res, next) {
+  if (
+    req.body.teacher &&
+    req.body.timeslot,
+    req.body.subject,
+    req.body.classroom,
+    req.body.session,
+    req.body.day,
+    req.body.replacement) {
+
+    var timetableData = {
+      teacher: req.body.teacher,
+      timeslot: req.body.timeslot,
+      subject: req.body.subject,
+      classroom:  req.body.classroom,
+      day: req.body.day,
+      session: req.body.session,
+      replacement: req.body.replacement
+    }
+
+    //use schema.create to insert data into the db
+    Timetable_relief.create(timetableData, function (err, user) {
+      if (err) 
+      {
+        return next(err)
+      } 
+      else 
+      {
+        console.log(user);
+        return res.redirect('/find_teacher');
+      }
     });
     
+
+    
+
+  } else {
+
+    var err = new Error('All fields have to be filled out');
+    err.status = 400;
+    return next(err);
+    
   }
+
 });
 
 
+
+
+
+router.get('/find_teacher',function(req,res){
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if (error){
+      return next(error);
+    }else
+    {
+      Replacement.find({}).exec(function(err,replacement){
+
+        console.log(replacement);
+        res.render('creator_content/get_teacher', { user:user});
+      });
+     
+    }
+  });
+});
 
 
 
 module.exports = router;
+
+
+/*
+router.get('/today_absentee/:id', function(req, res) {
+  Teacher.findById(req.session.userId).exec(function(error, user) {
+    if (error) {
+      return next(error);
+    } else {
+      
+          Timetable.aggregate([
+             
+            { 
+              $match : { 
+                  "teacher" : req.params.id
+              }
+          }, 
+            {
+                $lookup: {
+                    from: 'classroom',
+                    localField: 'classroom',
+                    foreignField: '_id',
+                    as: "join_classroom"
+                }
+            }, 
+            
+            {
+                $lookup: {
+                    from: "Subject",
+                    localField: "subject",
+                    foreignField: "_id",
+                    as: "join_subject"
+                }
+            }
+        ]).then(function(timetable) {
+          console.log("Successful query!");
+          console.log(req.params.id);
+          console.log(timetable);
+          console.log(teacher);
+          res.render('creator_content/replacement_detail', { timetable:timetable, user:user});
+        }, function(err) {
+          console.trace(err.message);
+        });
+       
+
+    }
+  });
+}); */

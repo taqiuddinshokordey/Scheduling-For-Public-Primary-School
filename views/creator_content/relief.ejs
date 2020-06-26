@@ -14,7 +14,7 @@
                         </ol>
                          
                         <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i>Personal Attendance Record</div>
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>Today Teacher's Absentee</div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
@@ -29,7 +29,37 @@
                                             <% teacher.forEach(function (teacher) { %>
                                             <tr>
                                                 <td><%= teacher.name %></td>
-                                                <td><a class="button" target="_blank" href="/today_absentee/<%= teacher._id%>"</a>View Information&nbsp;</td>                                         
+                                                <td><a class="button" href="/today_absentee/<%= teacher._id%>"</a>View Teacher Timetable&nbsp;</td>                                         
+                                            </tr>
+                                            <% }) %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4">
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>Today Replacement Teacher</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+                                        <thead>
+                                            <tr>
+                                                <th width="20%">Teacher's Name</th>
+                                                <th width="20%">Classroom</th>
+                                                <th width="20%">Timeslot</th>
+                                                <th width="20%">Session</th>
+                                                <th width="20%">Subject</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% replacement.forEach(function (replacement) { %>
+                                            <tr>
+                                                <td>Shaari bin Soleh</td>
+                                                <td><%= replacement.classroom %></td> 
+                                                <td><%= replacement.timeslot %></td>   
+                                                <td><%= replacement.session %></td>     
+                                                <td><%= replacement.subject%></td>                                         
                                             </tr>
                                             <% }) %>
                                         </tbody>

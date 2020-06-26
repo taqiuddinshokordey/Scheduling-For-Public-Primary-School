@@ -1,29 +1,29 @@
 var mongoose = require('mongoose');
-var shortid = require('shortid');
 
-var TimetableReliefSchema = new mongoose.Schema ({
+
+var Timetable_reliefSchema = new mongoose.Schema ({
     
-    original_teacher: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Teacher'
+    timeslot: {
+        required: true, 
+        type: String,
     },
 
-    replacement_teacher :{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Teacher' 
+    classroom :{
+        type: String,
+        
     },
 
     subject :{
-        type:String, 
-        required: true, 
+        type: String,
+        
     },
 
     teacher :{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Teacher'  
+        type: String,
+           
     },
 
-    year :{
+    day :{
         type:String, 
         required: true, 
     },
@@ -31,10 +31,15 @@ var TimetableReliefSchema = new mongoose.Schema ({
     session :{
         type:String,
         required:true,
-    }
+    },
+
+    replacement :{
+        type: String,
+        ref: 'User'   
+    },
 
 
 })
 
-var Timetable = mongoose.model('TimetableRelief', TimetableReliefSchema);
-module.exports = Timetable;
+var Timetable_relief = mongoose.model('Timetable_relief', Timetable_reliefSchema);
+module.exports = Timetable_relief;

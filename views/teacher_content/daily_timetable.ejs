@@ -10,11 +10,11 @@
                     <div class="container-fluid">
                        
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Weekly Timetable</li>
+                            <li class="breadcrumb-item active">Daily Timetable</li>
                         </ol>
                          
                         <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i></div>
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>Today's Timetable</div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
@@ -25,7 +25,6 @@
                                                 <th width="20%">timeslot</th>
                                                 <th width="20%">session</th>
                                                 <th width="20%">day</th>
-                                                
                                                
                                             </tr>
                                         </thead>
@@ -36,8 +35,7 @@
                                                 <td><%= timetable.classroom.classroom_name  %></td>
                                                 <td><%= timetable.timeslot %></td>
                                                 <td><%= timetable.session %></td>
-                                                <td><%= timetable.day %></td>  
-                                                                                     
+                                                <td><%= timetable.day %></td>                                         
                                             </tr>
                                             <% }) %>
                                         </tbody>

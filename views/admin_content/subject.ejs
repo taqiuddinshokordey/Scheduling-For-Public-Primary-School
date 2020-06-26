@@ -31,7 +31,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Subject</th>
-                                                <th>Darjah</th>
+                                                
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -39,7 +39,7 @@
                                             <% subject.forEach(function (subject) { %>
                                             <tr>
                                                 <td><%= subject.subject_name %></td>
-                                                <td><%= subject.subject_darjah %></td>
+                                                
                                                 <td><a class="button" href="/subject/edit/<%= subject._id %>"</a>Edit&nbsp;<a class="button" href="/subject/delete/<%= subject._id %>"</a>Delete</a></td>
                                             </tr>
                                             <% }) %>

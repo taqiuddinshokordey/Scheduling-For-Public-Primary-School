@@ -30,6 +30,10 @@ var UserSchema = new mongoose.Schema({
   flag:{
     type:Number,
   },
+
+
+ 
+  
 });
 
 
