@@ -87,7 +87,13 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 // error handling
 
-/* app.use(function(error, req, res, next) {
+
+app.use(function(error, req, res, next) {
+  res.status(400);
+res.render('error/400', {title:'No Access', error: error});
+});
+
+ app.use(function(error, req, res, next) {
   res.status(401);
 res.render('error/401', {title:'No Access', error: error});
 });
@@ -98,7 +104,8 @@ app.use(function(error, req, res, next) {
 res.render('error/402', {title:'No Access', error: error});
 });
 
-*/
+
+
 
 
 

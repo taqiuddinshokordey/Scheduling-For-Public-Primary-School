@@ -20,7 +20,7 @@ let weekday = ['Sunday',
 
 
 //get add teacher module page
-router.get('/register_teacher',mid, function(req,res){
+router.get('/register_teacher', function(req,res){
   User.findById(req.session.userId).exec(function (error, user) {
     if (error) {
       return next(error);

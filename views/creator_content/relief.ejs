@@ -37,6 +37,36 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="card mb-4">
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>Today Replacement Teacher</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+                                        <thead>
+                                            <tr>
+                                                <th width="20%">Teacher's Name</th>
+                                                <th width="20%">Classroom</th>
+                                                <th width="20%">Timeslot</th>
+                                                <th width="20%">Session</th>
+                                                <th width="20%">Subject</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% replacement.forEach(function (replacement) { %>
+                                            <tr>
+                                                <td>Shaari bin Soleh</td>
+                                                <td><%= replacement.classroom %></td> 
+                                                <td><%= replacement.timeslot %></td>   
+                                                <td><%= replacement.session %></td>     
+                                                <td><%= replacement.subject%></td>                                         
+                                            </tr>
+                                            <% }) %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                 
                     </div>
                 </main>

@@ -79,27 +79,6 @@ router.get('/timetable_class',mid, function(req,res){
   });
 });
 
-/* router.get('/timetable_class/view/:id',mid, function(req,res){
-  Teacher.findById(req.session.userId).exec(function (error, user){
-    if (error){
-      return next(error);
-    }else
-    {
-      Timetable.find({classroom:req.params.id, year:currentYear }).populate('classroom').exec(function(err, timetable) 
-      {
-        Classroom.find({}).exec(function (error, classroom){
-          if (err) throw err;
-        
-         
-         res.render('admin_content/view_timetable_class',{ timetable:timetable, user:user, classroom:classroom});
-        });
-        
-      });
-    }
-  });
-}); */
-
-
 router.get('/timetable_class/view/:id',mid, function(req,res){
   Teacher.findById(req.session.userId).exec(function (error, user){
     if (error){
@@ -165,52 +144,7 @@ router.get('/timetable_teacher/view/:id',mid, function(req,res){
 });
 
 
-/*
-router.get('/timetable_teacher/view/:id',mid, function(req,res){
-  Teacher.findById(req.session.userId).exec(function (error, user){
-    if (error){
-      return next(error);
-    } else
-    {
-      // In place of .find() and .populate(), I'm using .aggregate()
-      Timetable.aggregate([
-        {
-          // This is doing the same thing as the previous .find()
-          $match: { year: currentYear, classroom:req.params.id}
-        },
-        // The stages($lookup and $set) below are doing what the previous
-       // .populate() was doing
-        {
-          $lookup: {
-            from: "Classroom",
-            localField: "classroom",
-            foreignField: "_id",
-            as: "classroom"
-          }
-        },
-        
-        // Group the documents with their classroom.classroom_name value
-        {
-          $group: {
-            _id: "$classroom.classroom_name",
-            doc: { $first: "$$ROOT" }
-          }
-        },
-        // A bit of cleanup 
-        { $replaceRoot: { newRoot: "$doc" } }
-        
-      ]).exec(function(err, timetable) 
-      {
-        // The query output is such that `classroom.classroom_name`
-        // value is unique for each document
-        if (err) throw err;
-        console.log(currentYear);
-        console.log(timetable);
-        res.render('admin_content/view_timetable_subject',{'timetable':timetable,  user:user});
-      });
-    }
-  });
-}); */
+
 
 //Get timetable add_page
 router.get("/timetable_add",mid, function(req, res) {
@@ -347,6 +281,53 @@ router.post('/timetable_evening', function (req, res, next) {
 
 //Update logic
 
+/*
+router.get('/timetable_teacher/view/:id',mid, function(req,res){
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if (error){
+      return next(error);
+    } else
+    {
+      // In place of .find() and .populate(), I'm using .aggregate()
+      Timetable.aggregate([
+        {
+          // This is doing the same thing as the previous .find()
+          $match: { year: currentYear, classroom:req.params.id}
+        },
+        // The stages($lookup and $set) below are doing what the previous
+       // .populate() was doing
+        {
+          $lookup: {
+            from: "Classroom",
+            localField: "classroom",
+            foreignField: "_id",
+            as: "classroom"
+          }
+        },
+        
+        // Group the documents with their classroom.classroom_name value
+        {
+          $group: {
+            _id: "$classroom.classroom_name",
+            doc: { $first: "$$ROOT" }
+          }
+        },
+        // A bit of cleanup 
+        { $replaceRoot: { newRoot: "$doc" } }
+        
+      ]).exec(function(err, timetable) 
+      {
+        // The query output is such that `classroom.classroom_name`
+        // value is unique for each document
+        if (err) throw err;
+        console.log(currentYear);
+        console.log(timetable);
+        res.render('admin_content/view_timetable_subject',{'timetable':timetable,  user:user});
+      });
+    }
+  });
+}); */
+
 
 /*
 //Get Timetable By Category
@@ -439,6 +420,26 @@ router.get('/timetable_class/edit/:id', function(req,res){
   });
 });
  */
+
+/* router.get('/timetable_class/view/:id',mid, function(req,res){
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if (error){
+      return next(error);
+    }else
+    {
+      Timetable.find({classroom:req.params.id, year:currentYear }).populate('classroom').exec(function(err, timetable) 
+      {
+        Classroom.find({}).exec(function (error, classroom){
+          if (err) throw err;
+        
+         
+         res.render('admin_content/view_timetable_class',{ timetable:timetable, user:user, classroom:classroom});
+        });
+        
+      });
+    }
+  });
+}); */
 
 module.exports = router;
 

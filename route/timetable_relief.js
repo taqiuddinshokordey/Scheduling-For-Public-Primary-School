@@ -28,9 +28,14 @@ router.get('/timetable_relief',function(req,res){
     }else
     {
       Teacher.find({flag:0, roles:"Teacher"}).exec(function (error, teacher){
-        console.log(user);
-        console.log(weekday);
-        res.render('creator_content/relief', { teacher:teacher, user:user});
+
+        Timetable_relief.find({day:weekday}).exec(function (error, replacement){
+
+          console.log(user);
+          console.log(weekday);
+          res.render('creator_content/relief', { replacement:replacement, teacher:teacher, user:user});
+        });
+       
       });
      
     }
@@ -91,7 +96,7 @@ router.get('/replace_class/:id',function(req,res){
               {
                 console.log(timetable);
                 console.log(replacement);
-                res.render('creator_content/replacement_class', {replacement:replacement, timetable:timetable, user:user});
+                res.render('creator_content/get_teacher', {replacement:replacement, timetable:timetable, user:user});
               });
         }
       });
@@ -107,7 +112,8 @@ router.post('/find_teacher', function (req, res, next) {
     req.body.subject,
     req.body.classroom,
     req.body.session,
-    req.body.day) {
+    req.body.day,
+    req.body.replacement) {
 
     var timetableData = {
       teacher: req.body.teacher,
@@ -115,7 +121,8 @@ router.post('/find_teacher', function (req, res, next) {
       subject: req.body.subject,
       classroom:  req.body.classroom,
       day: req.body.day,
-      session: req.body.session
+      session: req.body.session,
+      replacement: req.body.replacement
     }
 
     //use schema.create to insert data into the db
