@@ -1,6 +1,4 @@
 var mongoose = require('mongoose');
-
-
 var Timetable_reliefSchema = new mongoose.Schema ({
     
     timeslot: {
@@ -9,17 +7,21 @@ var Timetable_reliefSchema = new mongoose.Schema ({
     },
 
     classroom :{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Classroom'
         
     },
 
     subject :{
-        type: String,
+        required: true, 
+        'type': String,
         
     },
 
     teacher :{
-        type: String,
+
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User' 
            
     },
 
@@ -34,8 +36,12 @@ var Timetable_reliefSchema = new mongoose.Schema ({
     },
 
     replacement :{
-        type: String,
-        ref: 'User'   
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'    
+    },
+
+    flag:{
+        type:Number,
     },
 
 

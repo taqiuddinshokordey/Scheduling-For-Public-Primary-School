@@ -159,7 +159,11 @@ router.get('/admin_user/delete/:id',function(req,res){
     User.deleteOne({_id:req.params.id},function(err){
       if(!err)
       {
+        Teacher.deleteOne({teacher_id:req.params.id},function(err)
+        {
+          if(!err)
           res.redirect('/admin_user');
+        }) 
       }
   });
   //}

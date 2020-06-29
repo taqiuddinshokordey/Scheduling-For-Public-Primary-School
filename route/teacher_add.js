@@ -20,11 +20,13 @@ let weekday = ['Sunday',
 
 
 //get add teacher module page
-router.get('/register_teacher', function(req,res){
+router.get('/register_teacher',mid, function(req,res){
   User.findById(req.session.userId).exec(function (error, user) {
-    if (error) {
-      return next(error);
-    } else {
+    if (error) 
+    {
+      console.log(error);
+    } else 
+    {
       console.log(user);
       Teacher.find({}).populate('teacher_id').exec(function(err, teacher) 
       {
@@ -44,7 +46,7 @@ router.get('/daily_timetable',mid, function(req,res){
       return next(error);
     } else {
       console.log(user);
-      Timetable.find({teacher:req.session.userId, day:weekday}).populate('teacher').populate('subject').populate('classroom').exec(function(err, timetable) 
+      Timetable.find({teacher:req.session.userId, day:weekday}).populate('teacher').populate('classroom').exec(function(err, timetable) 
       {
         // do stuff with post
         if (err) throw err;
@@ -62,12 +64,19 @@ router.get('/replacement_task',mid, function(req,res){
       return next(error);
     } else {
       console.log(user);
-      Timetable_relief.find({replacement:req.session.userId, day:weekday}).populate('replacement').exec(function(err, timetable) 
+      Timetable_relief.find({replacement:req.session.userId, day:weekday}).populate('teacher').populate('classroom').exec(function(err, timetable) 
       {
         // do stuff with post
         if (err) throw err;
         console.log(timetable);
-        res.render('teacher_content/replacement_task',{timetable:timetable, user:user});
+        if(user.roles=='Teacher')
+        {
+          res.render('teacher_content/replacement_task',{timetable:timetable, user:user});
+        }else
+        {
+          res.render('creator_content/replacement_task',{timetable:timetable, user:user});
+        }
+        
       });
     }
   });
@@ -80,7 +89,7 @@ router.get('/timetable_by_class',mid, function(req,res){
       return next(error);
     } else {
       console.log(user);
-      Timetable.find({teacher:req.session.userId}).populate('teacher').populate('subject').populate('classroom').exec(function(err, timetable) 
+      Timetable.find({teacher:req.session.userId}).populate('teacher').populate('classroom').exec(function(err, timetable) 
       {
         // do stuff with post
         if (err) throw err;

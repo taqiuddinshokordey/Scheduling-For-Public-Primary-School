@@ -10,7 +10,14 @@
 <div class="container">
 
 
-      
+  <tbody>
+    <% timetable.forEach(function (timetable) { %>
+    <tr>
+    <td><%= timetable %></td>
+    <td><a class="button" href="/timetable_teacher/view/<%= teacher._id %>"</a>View&nbsp;
+    </tr>
+    <% }) %>
+ </tbody>
   
   
   <h3 align="Center">Jadual Waktu Persekolahan</h3>

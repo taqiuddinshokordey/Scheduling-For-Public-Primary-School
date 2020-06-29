@@ -20,9 +20,10 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Add New Timetable</li>
                         </ol>
+                        <p>Please add daily timetable using Timeslot provided!</p>
                         <div class="form-group"><label class="small mb-1" >Select Pnp Session</label>
                             <select name="roles" class="form-control" style="width: 30%;" id="roles">
-                                <option value="">-- Select Roles --</option>
+                                <option value="">-- Select Session --</option>
                                 <option value="morning">Morning</option>
                                 <option value="evening">Evening</option>
                             </select>
@@ -34,7 +35,7 @@
                             <select name="subject" class="form-control" style="width: 30%;" id="subject">
                                 <option value="">-- Select Subject --</option>
                                 <% subject.forEach(function (subject) { %>
-                                <option value= "<%= subject._id %>" ><%= subject.subject_name %></option>
+                                <option value= "<%= subject.subject_name %>" ><%= subject.subject_name %></option>
                                 <% }) %>
                             </select>
                         </div>

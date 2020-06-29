@@ -28,10 +28,8 @@ router.get('/timetable_relief',function(req,res){
     }else
     {
       Teacher.find({flag:0, roles:"Teacher"}).exec(function (error, teacher){
-
-        Timetable_relief.find({day:weekday}).exec(function (error, replacement){
-
-          console.log(user);
+        Timetable_relief.find({day:weekday, flag:1}).populate('replacement').populate('classroom').exec(function (error, replacement){
+          console.log(replacement);
           console.log(weekday);
           res.render('creator_content/relief', { replacement:replacement, teacher:teacher, user:user});
         });
@@ -54,10 +52,10 @@ router.get('/today_absentee/:id',function(req,res){
           return (err);
         }else
         {
-          Timetable.find({teacher:req.params.id,day:weekday }).populate('classroom').populate('subject').populate('teacher').exec(function(err, timetable){
+          Timetable.find({teacher:req.params.id,day:weekday }).populate('classroom').populate('teacher').exec(function(err, timetable){
             if(err)
             {
-              return next(err);
+              return (err);
             }else
             {
                   console.log(timetable);
@@ -71,39 +69,84 @@ router.get('/today_absentee/:id',function(req,res){
   });
 }); 
 
+
+
 router.get('/replace_class/:id',function(req,res){
   Teacher.findById(req.session.userId).exec(function (error, user){
     if (error){
       return next(error);
     }else
     {
-      Timetable.find({_id:req.params.id }).populate('classroom').populate('subject').populate('teacher').exec(function(err, timetable){
+      Timetable.find({_id:req.params.id }).populate('classroom').populate('teacher').exec(function(err, timetable){
         if(err)
         {
           return (err);
         }else
         {
-              Replacement.aggregate([
+                Teacher.find({flag:1, roles:"Teacher"}).exec(function (error, teacher)
                 {
-                  $lookup: {
-                      from: "user",
-                      localField: "teacher_id",
-                      foreignField: "_id",
-                      as: "join"
-                  }
-              }
-            ]).exec(function(err,replacement)
-              {
-                console.log(timetable);
-                console.log(replacement);
-                res.render('creator_content/get_teacher', {replacement:replacement, timetable:timetable, user:user});
-              });
+                  console.log(timetable);
+                  console.log(teacher);
+                  res.render('creator_content/get_teacher', { timetable:timetable, user:user, teacher:teacher});
+                })
+              
         }
       });
     }
   });
+}); 
+
+
+router.post('/find_teacher', function (req, res, next) {
+  if (
+    req.body.teacher &&
+    req.body.timeslot,
+    req.body.subject,
+    req.body.classroom,
+    req.body.session,
+    req.body.day,
+    req.body.replacement) {
+
+    var timetableData = {
+      teacher: req.body.teacher,
+      timeslot: req.body.timeslot,
+      subject: req.body.subject,
+      classroom:  req.body.classroom,
+      day: req.body.day,
+      session: req.body.session,
+      replacement: req.body.replacement,
+      flag:1
+    }
+
+    //use schema.create to insert data into the db
+    Timetable_relief.create(timetableData, function (err, user) {
+      if (err) 
+      {
+        return next(err)
+      } 
+      else 
+      {
+        console.log(user);
+        return res.redirect('/timetable_relief');
+      }
+    });
+    
+
+    
+
+  } else {
+
+    var err = new Error('All fields have to be filled out');
+    err.status = 400;
+    return next(err);
+    
+  }
+
 });
 
+
+
+/*
 
 router.post('/find_teacher', function (req, res, next) {
   if (
@@ -149,9 +192,7 @@ router.post('/find_teacher', function (req, res, next) {
     
   }
 
-});
-
-
+}); 
 
 
 
@@ -170,6 +211,8 @@ router.get('/find_teacher',function(req,res){
     }
   });
 });
+
+*/
 
 
 

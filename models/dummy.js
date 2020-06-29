@@ -1,27 +1,28 @@
 var mongoose = require('mongoose');
-var shortid = require('shortid');
-
-var TimetableSchema = new mongoose.Schema ({
+var DummySchema = new mongoose.Schema ({
     
     timeslot: {
         required: true, 
-        'type': String,
+        type: String,
     },
 
     classroom :{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Classroom'
+        
     },
 
     subject :{
-        
         required: true, 
         'type': String,
+        
     },
 
     teacher :{
+
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'   
+        ref: 'User' 
+           
     },
 
     day :{
@@ -29,18 +30,22 @@ var TimetableSchema = new mongoose.Schema ({
         required: true, 
     },
 
-    year :{
-        type:String, 
-        required: true, 
-    },
-
     session :{
         type:String,
         required:true,
-    }
+    },
+
+    replacement :{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'    
+    },
+
+    flag:{
+        type:Number,
+    },
 
 
 })
 
-var Timetable = mongoose.model('Timetable', TimetableSchema);
-module.exports = Timetable;
+var Dummy = mongoose.model('Dummy', DummySchema);
+module.exports = Dummy;

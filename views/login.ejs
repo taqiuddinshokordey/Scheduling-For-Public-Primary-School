@@ -22,6 +22,7 @@
     <div class="container-login100">
       <div class="wrap-login100">
         <div class="login100-form-title" style="background-image: url(https://colorlib.com/etc/lf/Login_v15/images/bg-01.jpg);"><span class="login100-form-title-1">Sign In</span></div>
+       
         <form class="login100-form validate-form" action="/login" method="post">
           <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required"><span class="label-input100">Username</span>
             <input class="input100" type="text" name="username" placeholder="Enter username" /><span class="focus-input100"></span>
@@ -36,13 +37,7 @@
             <button class="login100-form-btn">Login</button>
           </div>
         </form>
-        <% if (locals.messages) { %>
-
-          <script language="javascript">
-          alert("<%= messages.msg %>");
-          </script>
-      
-              <% } %>
+        
       </div>
     </div>
   </div>

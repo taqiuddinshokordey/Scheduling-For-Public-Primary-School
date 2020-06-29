@@ -45,9 +45,11 @@ router.post('/login',  function (req, res, next) {
     });
   }else
   {
+    
     var err = new Error('All fields required.');
     err.status = 400;
     return next(err);
+    
   }
 });
 
