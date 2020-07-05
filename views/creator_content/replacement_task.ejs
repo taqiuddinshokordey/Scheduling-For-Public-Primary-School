@@ -14,7 +14,7 @@
                         </ol>
                          
                         <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i>Today's Replacement Task</div>
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>Today's Replacement</div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
@@ -33,10 +33,9 @@
                                             <% timetable.forEach(function (timetable) { %>
                                                 <tr>
                                                     <td><%= timetable.subject %></td>
-                                                    <td><%= timetable.classroom.classroom_name %></td>
+                                                    <td><%= timetable.classroom.classroom_name %></td> 
                                                     <td><%= timetable.timeslot %></td>   
-                                                    <td><%= timetable.session %></td>  
-                                                    <td><%= timetable.day %></td>   
+                                                    <td><%= timetable.session %></td>     
                                                     <td><%= timetable.teacher.name %></td>                                         
                                                 </tr>
                                                 <% }) %>

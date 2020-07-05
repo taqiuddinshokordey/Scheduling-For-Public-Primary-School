@@ -1,47 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include('../layout/head.ejs') %>.
-    <body class="sb-nav-fixed">
-        <%- include('../layout/topbar.ejs') %>.
-        <div id="layoutSidenav">
-            <%- include('sidenav_admin.ejs') %>.
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid">
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">View Timetable by</li>
-                        </ol>
-                        <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i>Timetable By Class</div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>Class</th>
-                                                <th>Settings</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <% classroom.forEach(function (classroom) { %>
-                                            <tr>
-                                                <td><%= classroom.classroom_name %></td>
-                                                <td><a class="button" target="_blank" href="/timetable_class/view/<%= classroom._id%>"</a>View&nbsp;</td>
-                                            </tr>
-                                            <% }) %>
-                                        </tbody>
-                                        
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </main>
-                <%- include('../layout/footer.ejs') %>.
-            </div>
-        </div>
-                <%- include('../layout/js.ejs') %>.
-    </body>
+<%- include('../layout/head.ejs') %>.
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+<div class="container">
+
+
+  <tbody>
+    <% timetable.forEach(function (timetable) { %>
+    <tr>
+    <td><%= timetable %></td>
+    
+    </tr>
+    <% }) %>
+ </tbody>
+  
+  
+  <h3 align="Center">Jadual Waktu Persekolahan</h3>
+  <br>          
+  <table class="w3-table-all w3-card-4"  >
+    <thead>
+      <tr class="w3-hover-green">
+        <th></th>
+        <th>7.40</th>
+        <th>8.10</th>
+        <th>8.40</th>
+        <th>9.10</th>
+        <th>9.40</th>
+        <th>10.00</th>
+        <th>10.30</th>
+        <th>11.00</th>
+        <th>11.30</th>
+        <th>12.00</th>
+        <th>12.30</th>
+        <th>1.00</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="w3-hover-green">
+        <td>Monday</td>
+        <td>Per</td>
+        <td>Malay Language</td>
+        <td>Malay Language</td>
+        <td>Science</td>
+        <td>Science</td>
+        <td>R</td>
+        <td>English Education</td>
+        <td>English Education</td>
+        <td>Mathematics</td>
+        <td>Mathematics</td>
+        <td>Islamic Education</td> 
+        <td>Islamic Education</td> 
+      </tr>
+      <tr>
+        <td>Tuesday</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>E</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td> 
+        <td></td> 
+      </tr>
+      <tr>
+        <td>Wednesday</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>H</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td> 
+        <td></td>  
+      </tr>
+      <tr>
+        <td>Thursday</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>A</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td> 
+        <td></td>
+      </tr>
+      <tr>
+        <td>Friday</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>T</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td colspan="2">Solat Jumaat</td> 
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <h5 >*Per is for Perhimpunan</h2>
+  <h5 >Subject to Future Change</h2>
+</div>
+
+</body>
 </html>

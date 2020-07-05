@@ -31,6 +31,10 @@ var UserSchema = new mongoose.Schema({
     type:Number,
   },
 
+  resetPasswordToken: String,
+  
+  resetPasswordExpires: Date
+
 
  
   

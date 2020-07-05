@@ -15,32 +15,51 @@
   <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v15/vendor/daterangepicker/daterangepicker.css" />
   <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v15/css/util.css" />
   <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v15/css/main.css" />
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 
 <body>
-  <div class="limiter">
-    <div class="container-login100">
-      <div class="wrap-login100">
-        <div class="login100-form-title" style="background-image: url(https://colorlib.com/etc/lf/Login_v15/images/bg-01.jpg);"><span class="login100-form-title-1">Sign In</span></div>
-       
-        <form class="login100-form validate-form" action="/login" method="post">
-          <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required"><span class="label-input100">Username</span>
-            <input class="input100" type="text" name="username" placeholder="Enter username" /><span class="focus-input100"></span>
-          </div>
-          <div class="wrap-input100 validate-input m-b-18" data-validate="Password is required"><span class="label-input100">Password</span>
-            <input class="input100" type="password" name="password" placeholder="Enter password" /><span class="focus-input100"></span>
-          </div>
-          <div class="flex-sb-m w-full p-b-30">
-            <div><a class="txt1" href="/">Back To Homepage</a></div><div><a class="txt1" href="/forgot">Forgot Password?</a></div>
-          </div>
-          <div class="container-login100-form-btn">
-            <button class="login100-form-btn">Login</button>
-          </div>
-        </form>
+    <div class="form-gap"></div>
+    <div class="container">
+      
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <div class="text-center">
+                      <h3><i class="fa fa-lock fa-4x"></i></h3>
+                      <h2 class="text-center">Forgot Password?</h2>
+                      <p>You can reset your password here.</p>
+                      <div class="panel-body">
         
-      </div>
+                        <form id="register-form" role="form" autocomplete="off" class="form" method="post">
+        
+                          <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                              <input id="email" name="email" placeholder="email address" class="form-control"  type="email">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
+                          </div>
+                          <input type="hidden" class="hide" name="token" id="token" value=""> 
+                        </form>
+        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
     </div>
-  </div>
+    
+  
   <script type="text/javascript" src="flash/flash-client.js"></script> 
   <script src="https://blackrockdigital.github.io/startbootstrap-stylish-portfolio/vendor/jquery/jquery.min.js" type="bd19142cc5f3bbde83e3e025-text/javascript"></script>
   <script src="https://colorlib.com/etc/lf/Login_v15/vendor/animsition/js/animsition.min.js" type="bd19142cc5f3bbde83e3e025-text/javascript"></script>

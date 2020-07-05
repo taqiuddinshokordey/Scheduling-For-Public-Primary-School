@@ -17,7 +17,7 @@
                             <div class="card-header"><i class="fas fa-table mr-1"></i>Today Teacher's Absentee</div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;" class="display">
                                         <thead>
                                             <tr>
                                                 <th width="20%">Teacher's Name</th>
@@ -37,12 +37,13 @@
                                 </div>
                             </div>
                         </div>
+                        
 
                         <div class="card mb-4">
                             <div class="card-header"><i class="fas fa-table mr-1"></i>Today Replacement Teacher</div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;" class="display">
                                         <thead>
                                             <tr>
                                                 <th width="20%">Teacher's Name</th>
@@ -55,8 +56,8 @@
                                         <tbody>
                                             <% replacement.forEach(function (replacement) { %>
                                             <tr>
-                                                <td>Shaari bin Soleh</td>
-                                                <td><%= replacement.classroom %></td> 
+                                                <td><%= replacement.replacement.name %></td>
+                                                <td><%= replacement.classroom.classroom_name %></td> 
                                                 <td><%= replacement.timeslot %></td>   
                                                 <td><%= replacement.session %></td>     
                                                 <td><%= replacement.subject%></td>                                         
@@ -64,6 +65,11 @@
                                             <% }) %>
                                         </tbody>
                                     </table>
+                                    <script>
+                                        $(document).ready(function() {
+    $('table.display').DataTable();
+} );
+                                    </script>
                                 </div>
                             </div>
                         </div>

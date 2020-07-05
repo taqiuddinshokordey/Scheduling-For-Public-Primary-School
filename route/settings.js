@@ -21,7 +21,7 @@ router.get('/settings',mid, function(req, res) {
               console.log(user); 
               console.log(teacher);
               
-              return res.render('settings',{teacher:teacher, user:user}, { message: req.flash('info')});
+              return res.render('settings',{teacher:teacher, user:user});
               
             });
             

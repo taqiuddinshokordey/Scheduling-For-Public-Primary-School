@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Timetable_reliefSchema = new mongoose.Schema ({
+var DummySchema = new mongoose.Schema ({
     
     timeslot: {
         required: true, 
@@ -47,5 +47,5 @@ var Timetable_reliefSchema = new mongoose.Schema ({
 
 })
 
-var Timetable_relief = mongoose.model('Timetable_relief', Timetable_reliefSchema);
-module.exports = Timetable_relief;
+var Dummy = mongoose.model('Dummy', DummySchema);
+module.exports = Dummy;

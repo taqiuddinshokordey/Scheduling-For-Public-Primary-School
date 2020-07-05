@@ -21,25 +21,25 @@
                             <li class="breadcrumb-item active">Please Confirm Information!!</li>
                         </ol> 
                     <!-- Morning From-->
-                    <form action="/find_teacher" method="post" id="form1">
+                    <form action="/find_teacher/<%= timetable._id %>" method="post" id="form1">
                         <div class="form-group"><label class="small mb-1" >Original Teacher</label>
                             <select name="teacher" class="form-control" style="width: 30%;" id="teacher">
                                 <% timetable.forEach(function (timetable) { %>
-                                <option value= "<%= timetable.teacher.name %>" ><%= timetable.teacher.name %></option>
+                                <option value= "<%= timetable.teacher._id %>" ><%= timetable.teacher.name %></option>
                                 <% }) %>
                             </select>
                         </div>
                         <div class="form-group"><label class="small mb-1" >Subject</label>
                             <select name="classroom"" class="form-control" style="width: 30%;" id="classroom">
                                 <% timetable.forEach(function (timetable) { %>
-                                <option value= "<%= timetable.classroom.classroom_name %>" ><%= timetable.classroom.classroom_name %></option>
+                                <option value= "<%= timetable.classroom._id %>" ><%= timetable.classroom.classroom_name %></option>
                                 <% }) %>
                             </select>
                         </div>
                         <div class="form-group"><label class="small mb-1" >Subject</label>
                             <select name="subject" class="form-control" style="width: 30%;" id="subject">
                                 <% timetable.forEach(function (timetable) { %>
-                                <option value= "<%= timetable.subject.subject_name %>" ><%= timetable.subject.subject_name %></option>
+                                <option value= "<%= timetable.subject %>" ><%= timetable.subject %></option>
                                 <% }) %>
                             </select>
                         </div>
@@ -65,14 +65,14 @@
                             </select>
                         </div>
                         <div class="form-group"><label class="small mb-1" >Select Replacement Teacher</label>
-                            <select name="timeslot" class="form-control" style="width: 30%;" id="replacement">
-                                <option value="">-- Select Replacement --</option>
-                                <option value= "7.40" >Shaari bin Soleh</option>
-                                <option value= "8.10" >Siti Noor Khairani binti Afifuddeen</option>
+                            <select name="replacement" class="form-control" style="width: 30%;" id="replacement">
+                                <% teacher.forEach(function (teacher) { %>
+                                    <option value= "<%= teacher._id %>" ><%= teacher.name %></option>
+                                <% }) %>
                             </select>
                         </div>
-                        <div class="form-group mt-4 mb-0"><input type="submit" value="Replace Teacher" style="width: 20%;" a class="btn btn-primary btn-block" href="/find_teacher"></div>           
-                    </form>
+                        <div class="form-group mt-4 mb-0"><input type="submit" value="Replace Teacher" style="width: 20%;" a class="btn btn-primary btn-block" href=""></div>           
+                         </form>
                 
                             
                     </div>
