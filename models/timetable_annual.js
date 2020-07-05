@@ -6,41 +6,50 @@ var TimetableSchema = new mongoose.Schema ({
     timeslot: {
         required: true, 
         'type': String,
+        
     },
 
     classroom :{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Classroom'
+        ref: 'Classroom',
     },
 
     subject :{
         
         required: true, 
         'type': String,
+       
     },
 
     teacher :{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'   
+        ref: 'User'   ,
+        
     },
 
     day :{
         type:String, 
         required: true, 
+        
     },
 
     year :{
         type:String, 
         required: true, 
+       
     },
 
     session :{
         type:String,
         required:true,
+        
     }
 
 
 })
 
 var Timetable = mongoose.model('Timetable', TimetableSchema);
+
+
+
 module.exports = Timetable;

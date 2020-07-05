@@ -48,7 +48,7 @@ router.get('/timetable_teacher',mid, function(req,res){
       return next(error);
     }else
     {
-        Teacher.find({}).exec(function(err, teacher) 
+        Teacher.find({ roles: {$nin:[ "Admin" ]}}).exec(function(err, teacher) 
         {
         console.log(currentYear);
         console.log(teacher);
@@ -169,7 +169,7 @@ router.get("/timetable_add",mid, function(req, res) {
             }
             else 
             {
-              Teacher.find({ roles: "Teacher" }, function(err, teacher)
+              Teacher.find({ roles: {$nin:[ "Admin" ]}}, function(err, teacher)
               {
                 if (err)
                 {
@@ -191,95 +191,177 @@ router.get("/timetable_add",mid, function(req, res) {
   
 });
 
-
-//Add timetable
-router.post('/timetable_morning', function (req, res, next) {
-  if (
-    req.body.teacher &&
-    req.body.timeslot,
-    req.body.subject,
-    req.body.classroom,
-    req.body.session,
-    req.body.day) {
-
-    var timetableData = {
+router.post('/timetable_morning', function (req, res, next){
+  if (req.body.teacher && req.body.timeslot,req.body.subject,req.body.classroom,req.body.session,req.body.day) 
+  {
+    var clashing1 = {
       teacher: req.body.teacher,
       timeslot: req.body.timeslot,
-      subject: req.body.subject,
       classroom:  req.body.classroom,
-      year: currentYear,
       day: req.body.day,
-      session: req.body.session
     }
 
-    //use schema.create to insert data into the db
-    Timetable.create(timetableData, function (err, user) {
-      if (err) 
+    Timetable.find(clashing1, function (err, clash1){
+      if (clash1.length)
       {
-        return next(err)
-      } 
-      else 
-      {
-        console.log(user);
+        console.log("Document Already Exist in");
         return res.redirect('/timetable');
+
+      }else
+      {
+        var clashing2 = {
+          timeslot: req.body.timeslot,
+          classroom:  req.body.classroom,
+          day: req.body.day,
+        }
+
+        Timetable.find(clashing2, function (err, clash2){
+          if (clash2.length)
+          {
+
+             console.log("Document Already Exist in");
+             return res.redirect('/timetable');
+
+          }else
+          {
+            var clashing3 = {
+              timeslot: req.body.timeslot,
+              teacher: req.body.teacher,
+              day: req.body.day,
+            }
+            
+            Timetable.find(clashing3, function (err, clash3){
+              if (clash3.length)
+              {
+                console.log("Document Already Exist in");
+                return res.redirect('/timetable');
+              }else
+              {
+                var timetableData = {
+                  teacher: req.body.teacher,
+                  timeslot: req.body.timeslot,
+                  subject: req.body.subject,
+                  classroom:  req.body.classroom,
+                  year: currentYear,
+                  day: req.body.day,
+                  session: req.body.session
+                }
+
+                Timetable.create(timetableData, function (err, user){
+                  if (err) 
+                  {
+                    return next(err)
+                  } 
+                  else 
+                  {
+                    console.log(user);
+                    return res.redirect('/timetable');
+                  }
+                });
+              }
+            });
+          }
+        });
+
       }
     });
+  }else
+  {
     
-
-    
-
-  } else {
     var err = new Error('All fields have to be filled out');
     err.status = 400;
     return next(err);
-    
+
+
   }
-
 });
-    
 
-    
-router.post('/timetable_evening', function (req, res, next) {
-  if (
-    req.body.teacher &&
-    req.body.timeslot,
-    req.body.subject,
-    req.body.classroom,
-    req.body.session,
-    req.body.day) {
 
-    var timetableData = {
+router.post('/timetable_evening', function (req, res, next){
+  if (req.body.teacher && req.body.timeslot,req.body.subject,req.body.classroom,req.body.session,req.body.day) 
+  {
+    var clashing1 = {
       teacher: req.body.teacher,
       timeslot: req.body.timeslot,
-      subject: req.body.subject,
       classroom:  req.body.classroom,
-      year: currentYear,
       day: req.body.day,
-      session: req.body.session
     }
 
-    //use schema.create to insert data into the db
-    Timetable.create(timetableData, function (err, user) {
-      if (err) 
+    Timetable.find(clashing1, function (err, clash1){
+      if (clash1.length)
       {
-        return next(err)
-      } 
-      else 
-      {
-        console.log(user);
+        console.log("Document Already Exist in");
         return res.redirect('/timetable');
+
+      }else
+      {
+        var clashing2 = {
+          timeslot: req.body.timeslot,
+          classroom:  req.body.classroom,
+          day: req.body.day,
+        }
+
+        Timetable.find(clashing2, function (err, clash2){
+          if (clash2.length)
+          {
+
+             console.log("Document Already Exist in");
+             return res.redirect('/timetable');
+
+          }else
+          {
+            var clashing3 = {
+              timeslot: req.body.timeslot,
+              teacher: req.body.teacher,
+              day: req.body.day,
+            }
+            
+            Timetable.find(clashing3, function (err, clash3){
+              if (clash3.length)
+              {
+                console.log("Document Already Exist in");
+                return res.redirect('/timetable');
+              }else
+              {
+                var timetableData = {
+                  teacher: req.body.teacher,
+                  timeslot: req.body.timeslot,
+                  subject: req.body.subject,
+                  classroom:  req.body.classroom,
+                  year: currentYear,
+                  day: req.body.day,
+                  session: req.body.session
+                }
+
+                Timetable.create(timetableData, function (err, user){
+                  if (err) 
+                  {
+                    return next(err)
+                  } 
+                  else 
+                  {
+                    console.log(user);
+                    return res.redirect('/timetable');
+                  }
+                });
+              }
+            });
+          }
+        });
+
       }
     });
-
-  } else {
+  }else
+  {
+    
     var err = new Error('All fields have to be filled out');
     err.status = 400;
     return next(err);
-    
+
+
   }
-
 });
-
+  
 
 //Update logic
 
