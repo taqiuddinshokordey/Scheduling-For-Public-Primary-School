@@ -4,7 +4,20 @@
     <body class="sb-nav-fixed">
         <%- include('../layout/topbar.ejs') %>.
         <div id="layoutSidenav">
-            <%- include('sidenav_admin.ejs') %>.
+            <% switch (user.roles) {
+                case 'Admin' : %>
+                <%- include('../admin_content/sidenav_admin.ejs') %>.
+                        <% break;
+                
+                case 'Teacher' : %>
+                <%- include('../teacher_content/sidenav_admin.ejs') %>.
+                        <% break;
+                
+                case 'Creator' : %>
+                <%- include('../creator_content/sidenav_admin.ejs') %>.
+                        <% break;
+                
+                } %>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
@@ -14,7 +27,7 @@
                         </ol>
                          
                         <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i></div>
+                            
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
@@ -25,10 +38,13 @@
                                                 <th width="20%">timeslot</th>
                                                 <th width="20%">session</th>
                                                 <th width="20%">day</th>
+                                                <th width="20%">Settings</th>
                                                 
                                                
                                             </tr>
                                         </thead>
+                                        
+                                            
                                         <tbody>
                                             <% timetable.forEach(function (timetable) { %>
                                             <tr>
@@ -36,7 +52,8 @@
                                                 <td><%= timetable.classroom.classroom_name  %></td>
                                                 <td><%= timetable.timeslot %></td>
                                                 <td><%= timetable.session %></td>
-                                                <td><%= timetable.day %></td>  
+                                                <td><%= timetable.day %></td>
+                                                <td><a class="button" href="/timetable_edit/<%= timetable._id %>"</a>Edit&nbsp;<a class="button" href="/timetable_remove/<%= timetable._id %>"</a>Delete</a></td>  
                                                                                      
                                             </tr>
                                             <% }) %>

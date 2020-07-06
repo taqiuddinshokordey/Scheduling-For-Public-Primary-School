@@ -23,7 +23,7 @@
                                                 <th>First Subject</th>
                                                 <th>Secondary Subject</th>
                                                 <th>Level</th>
-                                                <th></th>
+                                                
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -33,7 +33,6 @@
                                                 <td><%= teacher.subject %></td>
                                                 <td><%= teacher.second_subject %></td>
                                                 <td><%= teacher.level %></td> 
-                                                <td><a class="button" href="/absentee/editReason/<%= teacher._id %>"</a>Edit&nbsp;<a class="button" href="/admin_user/delete/<%= teacher._id %>"</a>Delete</a></td>
                                             </tr>
                                             <% }) %>
                                         </tbody>

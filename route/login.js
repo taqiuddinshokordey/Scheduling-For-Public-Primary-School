@@ -26,8 +26,7 @@ router.post('/login',  function (req, res, next) {
     {
       if (error || !user)
       {
-        var err = new Error('Wrong username or password.');
-        err.status = 401;
+        req.flash('info', 'Wrong Password or Wrong Username Please Login Again');
         return res.redirect('/login');
       }
       else
@@ -51,10 +50,8 @@ router.post('/login',  function (req, res, next) {
   }else
   {
     
-    var err = new Error('All fields required.');
-    err.status = 400;
-    return next(err);
-    
+    req.flash('error', 'Fill out the field');
+    return res.redirect('/login');
   }
 });
 

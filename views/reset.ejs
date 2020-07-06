@@ -1,14 +1,94 @@
-<form method="POST">
-    <legend>Reset Password</legend>
-    <div class="form-group">
-      <label for="password">New Password</label>
-      <input class="form-control" type="password" name="password" value="" placeholder="New password" autofocus="autofocus" />
+<html lang="en">
+
+<head>
+  <title>Replacement Teacher and Attendance System</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="bootstrap/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v15/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v15/fonts/Linearicons-Free-v1.0.0/icon-font.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v15/vendor/animate/animate.css" />
+  <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v15/vendor/css-hamburgers/hamburgers.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v15/vendor/animsition/css/animsition.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v15/vendor/select2/select2.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v15/vendor/daterangepicker/daterangepicker.css" />
+  <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v15/css/util.css" />
+  <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v15/css/main.css" />
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="form-gap"></div>
+    <div class="container">
+      
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <div class="text-center">
+                      <h3><i class="fa fa-lock fa-4x"></i></h3>
+                      <h2 class="text-center">Enter New Password</h2>
+                     
+                      <div class="panel-body">
+        
+                        <form method="POST">
+                          <legend>Enter New Password</legend>
+                          <div class="form-group">
+                            <label for="password">New Password</label>
+                            <input class="form-control" type="password" name="password" value="" placeholder="New password" autofocus="autofocus" />
+                          </div>
+                          <div class="form-group">
+                            <label for="confirm">Confirm Password</label>
+                            <input class="form-control" type="password" name="confirm" value="" placeholder="Confirm password" />
+                          </div>
+                          <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Update Password</button>
+                          </div>
+                        </form>
+        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
     </div>
-    <div class="form-group">
-      <label for="confirm">Confirm Password</label>
-      <input class="form-control" type="password" name="confirm" value="" placeholder="Confirm password" />
-    </div>
-    <div class="form-group">
-      <button class="btn btn-primary" type="submit">Update Password</button>
-    </div>
-  </form>
+
+    <% if (messages.error) { %>
+      <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong><%- messages.error %></strong> 
+      </div>
+      <% } %>
+      <% if (messages.success) { %>
+        <div class="alert alert-info alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong><%- messages.success %></strong> 
+        </div>
+        <% } %>
+    
+  
+  <script type="text/javascript" src="flash/flash-client.js"></script> 
+  <script src="https://blackrockdigital.github.io/startbootstrap-stylish-portfolio/vendor/jquery/jquery.min.js" type="bd19142cc5f3bbde83e3e025-text/javascript"></script>
+  <script src="https://colorlib.com/etc/lf/Login_v15/vendor/animsition/js/animsition.min.js" type="bd19142cc5f3bbde83e3e025-text/javascript"></script>
+  <script src="https://colorlib.com/etc/lf/Login_v15/vendor/bootstrap/js/popper.js" type="bd19142cc5f3bbde83e3e025-text/javascript"></script>
+  <script src="https://colorlib.com/etc/lf/Login_v15/vendor/bootstrap/js/bootstrap.min.js" type="bd19142cc5f3bbde83e3e025-text/javascript"></script>
+  <script src="https://colorlib.com/etc/lf/Login_v15/vendor/select2/select2.min.js" type="bd19142cc5f3bbde83e3e025-text/javascript"></script>
+  <script src="https://colorlib.com/etc/lf/Login_v15/vendor/daterangepicker/moment.min.js" type="bd19142cc5f3bbde83e3e025-text/javascript"></script>
+  <script src="https://colorlib.com/etc/lf/Login_v15/vendor/daterangepicker/daterangepicker.js" type="bd19142cc5f3bbde83e3e025-text/javascript"></script>
+  <script src="https://colorlib.com/etc/lf/Login_v15/vendor/countdowntime/countdowntime.js" type="bd19142cc5f3bbde83e3e025-text/javascript"></script>
+  <script src="https://colorlib.com/etc/lf/Login_v15/js/main.js" type="bd19142cc5f3bbde83e3e025-text/javascript"></script>
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13" type="bd19142cc5f3bbde83e3e025-text/javascript"></script>
+  <script src="https://ajax.cloudflare.com/cdn-cgi/scripts/7089c43e/cloudflare-static/rocket-loader.min.js" data-cf-settings="bd19142cc5f3bbde83e3e025-|49" defer=""></script>
+</body>
+
+</html>
+
+
+

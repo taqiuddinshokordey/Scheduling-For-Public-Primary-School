@@ -4,6 +4,8 @@ var User = require('../models/user');
 var Teacher = require('../models/teacher');
 var Subject = require('../models/subject');
 var mid  = require('../middleware/requiresLogin.js');
+var Timetable = require('../models/timetable_annual');
+var Timetable_relief = require('../models/timetable_relief');
 
 
 router.get('/admin_user',mid, function(req,res){
@@ -67,6 +69,7 @@ router.post('/register', function (req, res, next) {
         {
           if(user.roles=='Admin')
           {
+            req.flash('success', 'User Registered');
             console.log('Admin Registered');
             return res.redirect('/admin_user');
           }
@@ -85,6 +88,7 @@ router.post('/register', function (req, res, next) {
                     return next(err)
                 }else
                 {
+                    req.flash('success', 'User Registered');
                     console.log('Teacher details added'+teacher)
                     return res.redirect('/admin_user');
                 }
@@ -162,7 +166,15 @@ router.get('/admin_user/delete/:id',function(req,res){
         Teacher.deleteOne({teacher_id:req.params.id},function(err)
         {
           if(!err)
-          res.redirect('/admin_user');
+          Timetable({teacher:req.params.id},function(err)
+          {
+            if(!err)
+            Timetable_relief({teacher:req.params.id, replacement:req.params.id},function(err){
+              if(!err)
+              res.redirect('/admin_user');
+            })
+          });
+          
         }) 
       }
   });

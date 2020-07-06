@@ -14,13 +14,6 @@
                              <form method="post" action="/admin_user/edit/<%= users._id %>" >
                                 <div class="form-group"><label class="small mb-1">Full name</label><input class="form-control py-4" type="name" name="name" placeholder=<%= users.name %> /></div>
                                 <div class="form-group"><label class="small mb-1" >Email</label><input class="form-control py-4"  type="username"  name="username" placeholder=<%= users.username %> /></div>
-                                <div class="form-group"><label class="small mb-1" >Select Roles</label>
-                                    <select name="roles" id="roles">
-                                        <option value="admin">Admin</option>
-                                        <option value="teacher">Teacher</option>
-                                        <option value="creator">Creator</option>
-                                    </select>
-                                </div>
                                 <div class="form-group mt-4 mb-0"><input type="submit" value="Submit" a class="btn btn-primary btn-block" href="/admin_user"></div>           
                             </form>
                     </div>
