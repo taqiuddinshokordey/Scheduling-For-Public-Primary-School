@@ -1,6 +1,6 @@
 var path=require('path');
 var express=require('express');
-var flash = require('connect-flash');
+var flash = require('express-flash');
 var bodyParser=require('body-parser');
 var mongoose=require('mongoose');
 var app=express();
@@ -87,7 +87,7 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 // error handling
 
-/*
+
 app.use(function(error, req, res, next) {
   res.status(400);
 res.render('error/400', {title:'No Access', error: error});
@@ -102,7 +102,8 @@ res.render('error/401', {title:'No Access', error: error});
 app.use(function(error, req, res, next) {
   res.status(402);
 res.render('error/402', {title:'No Access', error: error});
-}); */
+}); 
+
 
 
 

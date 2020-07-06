@@ -20,7 +20,22 @@
 <body>
   <div class="limiter">
     <div class="container-login100">
+      
+       
+     
       <div class="wrap-login100">
+        <% if (messages.info) { %>
+        <div class="alert alert-danger alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong><%- messages.info %></strong> 
+        </div>
+        <% } %>
+        <% if (messages.error) { %>
+          <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong><%- messages.error %></strong> 
+          </div>
+          <% } %>
         <div class="login100-form-title" style="background-image: url(https://colorlib.com/etc/lf/Login_v15/images/bg-01.jpg);"><span class="login100-form-title-1">Sign In</span></div>
        
         <form class="login100-form validate-form" action="/login" method="post">

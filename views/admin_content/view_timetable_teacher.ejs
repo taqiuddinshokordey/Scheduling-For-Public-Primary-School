@@ -4,7 +4,20 @@
     <body class="sb-nav-fixed">
         <%- include('../layout/topbar.ejs') %>.
         <div id="layoutSidenav">
-            <%- include('sidenav_admin.ejs') %>.
+            <% switch (user.roles) {
+                case 'Admin' : %>
+                <%- include('../admin_content/sidenav_admin.ejs') %>.
+                        <% break;
+                
+                case 'Teacher' : %>
+                <%- include('../teacher_content/sidenav_admin.ejs') %>.
+                        <% break;
+                
+                case 'Creator' : %>
+                <%- include('../creator_content/sidenav_admin.ejs') %>.
+                        <% break;
+                
+                } %>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">

@@ -81,50 +81,6 @@ router.get('/timetable_class',mid, function(req,res){
 });
 
 
-/*
-router.get('/timetable_class/view/:id',mid, function(req,res){
-  Teacher.findById(req.session.userId).exec(function (error, user){
-    if (error){
-      return next(error);
-    }else
-    {
-      Timetable.find({year:currentYear, classroom:req.params.id}).populate('classroom').populate('subject').populate('user').exec(function(err, timetable) 
-      {
-        if (err) throw err;
-        console.log(currentYear);
-        console.log(timetable);
-        res.render('admin_content/view_timetable_table',{timetable:timetable,  user:user});
-      });
-    }
-  });
-}); */
-
-router.get('/timetable_class/view/:id',mid, function(req,res){
-  Teacher.findById(req.session.userId).exec(function (error, user){
-    if (error){
-      return next(error);
-    }else
-    {
-      Timetable.aggregate([
-        { $match: { year: currentYear, classroom:ObjectId(req.params.id) } },
-        {
-          $lookup:
-          {
-              from: "subject",
-              localField: "subject",
-              foreignField: "userId",
-              as: "address"
-          }
-      },
-      
-
-
-
-      ])
-    }
-  });
-}); 
-
 router.get('/timetable_teacher/view/:id',mid, function(req,res){
   Teacher.findById(req.session.userId).exec(function (error, user) {
     if (error) {
@@ -143,6 +99,65 @@ router.get('/timetable_teacher/view/:id',mid, function(req,res){
   
 });
 
+router.get('/timetable_settings' ,mid, function (req,res){
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if (error){
+      return next(error);
+    }else
+    {
+      Timetable.find({}).exec(function(err, timetable){
+        if (err) throw err;
+        console.log(timetable);
+        res.render('admin_content/timetable_settings',{timetable:timetable, user:user});
+      });
+    }
+  });
+})
+
+router.get('/timetable_year',mid, function (req,res){
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if (error){
+      return next(error);
+    }else
+    {
+      Timetable.find({year:2020}).exec(function(err, timetable){
+        if (err) throw err;
+        console.log(timetable);
+        res.render('admin_content/view_timetable_subject',{timetable:timetable, user:user});
+      });
+    }
+  });
+})
+
+router.get('/timetable_edit/:id',mid, function (req,res){
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if (error){
+      return next(error);
+    }else
+    {
+      Timetable.find({_id:req.params.id}).exec(function(err, timetable){
+        if (err) throw err;
+        console.log(timetable);
+        res.render('admin_content/timetable_settings',{timetable:timetable, user:user});
+      });
+    }
+  });
+})
+
+router.get('/timetable_remove/:id',mid, function (req,res){
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if (error){
+      return next(error);
+    }else
+    {
+      Timetable.deleteOne({_id:req.params.id}).exec(function(err, timetable){
+        if (err) throw err;
+        console.log(timetable);
+        res.render('admin_content/view_timetable_teacher',{teacher:teacher, user:user});
+      });
+    }
+  });
+})
 
 
 
@@ -204,7 +219,8 @@ router.post('/timetable_morning', function (req, res, next){
     Timetable.find(clashing1, function (err, clash1){
       if (clash1.length)
       {
-        console.log("Document Already Exist in");
+        req.flash('error', 'Timetable Clashing please add with other slot');
+        console.log("Document Already Exist in 1");
         return res.redirect('/timetable');
 
       }else
@@ -218,8 +234,8 @@ router.post('/timetable_morning', function (req, res, next){
         Timetable.find(clashing2, function (err, clash2){
           if (clash2.length)
           {
-
-             console.log("Document Already Exist in");
+            req.flash('error', 'Timetable Clashing please add with other slot');
+             console.log("Document Already Exist in 2");
              return res.redirect('/timetable');
 
           }else
@@ -233,7 +249,8 @@ router.post('/timetable_morning', function (req, res, next){
             Timetable.find(clashing3, function (err, clash3){
               if (clash3.length)
               {
-                console.log("Document Already Exist in");
+                req.flash('error', 'Timetable Clashing please add with other slot');
+                console.log("Document Already Exist in 3");
                 return res.redirect('/timetable');
               }else
               {
@@ -254,6 +271,7 @@ router.post('/timetable_morning', function (req, res, next){
                   } 
                   else 
                   {
+                    req.flash('success', 'Successfully');
                     console.log(user);
                     return res.redirect('/timetable');
                   }
@@ -290,6 +308,7 @@ router.post('/timetable_evening', function (req, res, next){
     Timetable.find(clashing1, function (err, clash1){
       if (clash1.length)
       {
+        req.flash('error', 'Timetable Clashing please add with other slot');
         console.log("Document Already Exist in");
         return res.redirect('/timetable');
 
@@ -304,7 +323,7 @@ router.post('/timetable_evening', function (req, res, next){
         Timetable.find(clashing2, function (err, clash2){
           if (clash2.length)
           {
-
+            req.flash('error', 'Timetable Clashing please add with other slot');
              console.log("Document Already Exist in");
              return res.redirect('/timetable');
 
@@ -319,6 +338,7 @@ router.post('/timetable_evening', function (req, res, next){
             Timetable.find(clashing3, function (err, clash3){
               if (clash3.length)
               {
+                req.flash('error', 'Timetable Clashing please add with other slot');
                 console.log("Document Already Exist in");
                 return res.redirect('/timetable');
               }else
@@ -340,6 +360,7 @@ router.post('/timetable_evening', function (req, res, next){
                   } 
                   else 
                   {
+                    req.flash('success', 'Timetable Successfully Added');
                     console.log(user);
                     return res.redirect('/timetable');
                   }
@@ -366,6 +387,25 @@ router.post('/timetable_evening', function (req, res, next){
 //Update logic
 
 /*
+
+/*
+router.get('/timetable_class/view/:id',mid, function(req,res){
+  Teacher.findById(req.session.userId).exec(function (error, user){
+    if (error){
+      return next(error);
+    }else
+    {
+      Timetable.find({year:currentYear, classroom:req.params.id}).populate('classroom').populate('subject').populate('user').exec(function(err, timetable) 
+      {
+        if (err) throw err;
+        console.log(currentYear);
+        console.log(timetable);
+        res.render('admin_content/view_timetable_table',{timetable:timetable,  user:user});
+      });
+    }
+  });
+}); 
+``
 router.get('/timetable_teacher/view/:id',mid, function(req,res){
   Teacher.findById(req.session.userId).exec(function (error, user){
     if (error){

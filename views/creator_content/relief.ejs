@@ -12,7 +12,12 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Replacement Management</li>
                         </ol>
-                         
+                        <% if (messages.error) { %>
+                            <div class="alert alert-danger alert-dismissible">
+                              <button type="button" class="close" data-dismiss="alert">&times;</button>
+                              <strong><%- messages.error %></strong> 
+                            </div>
+                            <% } %>
                         <div class="card mb-4">
                             <div class="card-header"><i class="fas fa-table mr-1"></i>Today Teacher's Absentee</div>
                             <div class="card-body">
@@ -60,16 +65,13 @@
                                                 <td><%= replacement.classroom.classroom_name %></td> 
                                                 <td><%= replacement.timeslot %></td>   
                                                 <td><%= replacement.session %></td>     
-                                                <td><%= replacement.subject%></td>                                         
+                                                <td><%= replacement.subject%></td>
+                                                <!--- <td><a class="button" href="/timetable_remove/<%= replacement._id%>"</a>Remove&nbsp;</td>      -->                                   
                                             </tr>
                                             <% }) %>
                                         </tbody>
                                     </table>
-                                    <script>
-                                        $(document).ready(function() {
-    $('table.display').DataTable();
-} );
-                                    </script>
+                                    
                                 </div>
                             </div>
                         </div>

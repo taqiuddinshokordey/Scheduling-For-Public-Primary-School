@@ -40,8 +40,9 @@ var Timetable_reliefSchema = new mongoose.Schema ({
         ref: 'User'    
     },
 
-    flag:{
-        type:Number,
+
+    dateEntry:{
+        type:String
     },
 
 

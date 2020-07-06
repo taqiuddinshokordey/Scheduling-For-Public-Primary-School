@@ -11,6 +11,12 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">User Management</li>
                         </ol>
+                        <% if (messages.success) { %>
+                            <div class="alert alert-success alert-dismissible">
+                              <button type="button" class="close" data-dismiss="alert">&times;</button>
+                              <strong><%- messages.success %></strong> 
+                            </div>
+                            <% } %>
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
@@ -52,7 +58,7 @@
                                                 <td><%= user.name %></td>
                                                 <td><%= user.roles %></td>
                                                 <td><%= user.username %></td>
-                                                <td><a class="button" href="/absentee/editReason/<%= user._id %>"</a>Edit&nbsp;<a class="button" href="/admin_user/delete/<%= user._id %>"</a>Delete</a></td>
+                                                <td><a class="button" href="/admin_user/edit/<%= user._id %>"</a>Edit&nbsp;<a class="button" href="/admin_user/delete/<%= user._id %>"</a>Delete</a></td>
                                             </tr>
                                             <% }) %>
                                         </tbody>
