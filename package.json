@@ -43,7 +43,7 @@
     "serve-favicon": "^2.5.0",
     "shortid": "^2.2.15",
     "socket.io": "^2.3.0",
-    "underscore": "^1.10.2",
+    "underscore": "^1.12.1",
     "xoauth2": "^1.2.0"
   },
   "devDependencies": {
